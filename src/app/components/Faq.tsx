@@ -28,7 +28,7 @@ const Faq: React.FC<FaqProps> = ({ faqs, imageSrc = "/HomeAssets/Img11.jpg", cla
   return (
     <div className={`main_faq_container flex flex-col xl:flex-row xl:gap-12 2xl:gap-16 xl:items-stretch xl:justify-start text-left ${className ?? ""}`.trim()}>
       {/* Left Column - Image: visible only on xl and 2xl */}
-      <div className="faq_image_container hidden xl:block xl:flex-1 xl:min-w-0 xl:max-w-[50%]">
+      <div className="faq-reveal faq_image_container hidden xl:block xl:flex-1 xl:min-w-0 xl:max-w-[50%]">
         <div className="image_container relative overflow-hidden w-full h-[30vh] xl:h-full xl:min-h-[400px] 2xl:min-h-[500px] rounded-3xl">
           <Image
             src={imageSrc}
@@ -41,7 +41,7 @@ const Faq: React.FC<FaqProps> = ({ faqs, imageSrc = "/HomeAssets/Img11.jpg", cla
 
       {/* Right Column - FAQ Content */}
       <div className="faq_content xl:flex-1 xl:min-w-0 xl:flex xl:flex-col xl:justify-center">
-        <div className="tag_section">
+        <div className="faq-reveal tag_section">
           <SectionTags
             name="FAQs"
             imageSrc="/Main_Assets/Tag_Icon_blue.svg"
@@ -56,7 +56,7 @@ const Faq: React.FC<FaqProps> = ({ faqs, imageSrc = "/HomeAssets/Img11.jpg", cla
             return (
               <div
                 key={faq.id}
-                className="list_card border-b border-neutral-200 last:border-b-0"
+                className="faq-reveal list_card border-b border-neutral-200 last:border-b-0"
               >
                 <button
                   type="button"

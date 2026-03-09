@@ -7,9 +7,10 @@ interface servicesCardProps {
     imageSrc: string;
     title:string;
     subtext:string;
+    href?: string;
 }
 
-const ServicesCard:React.FC<servicesCardProps> = ({ id, imageSrc, title, subtext }) => {
+const ServicesCard:React.FC<servicesCardProps> = ({ id, imageSrc, title, subtext, href = "/Services" }) => {
   return (
     <div className='services_card_container h-[100%] border border-neutral-300 rounded-3xl'>
       <div className="image_container relative overflow-hidden w-full h-[30vh] md:h-[20vh] xl:h-[30vh] 2xl:h-[30vh] z-0 rounded-3xl flex items-center justify-center">
@@ -29,7 +30,7 @@ const ServicesCard:React.FC<servicesCardProps> = ({ id, imageSrc, title, subtext
       </div>
 
       <div className="button_container mt-[6%]">
-        <Button text="Learn more" variants="primary" href="/Services" className="min-w-[180px] w-auto shrink-0" />
+        <Button text="Learn more" variants="primary" href={href} className="min-w-[180px] w-auto shrink-0" />
       </div>
     </div>
     </div>

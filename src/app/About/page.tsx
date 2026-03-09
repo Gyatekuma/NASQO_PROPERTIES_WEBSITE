@@ -1,6 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 import Button from "../components/button";
 import SectionTags from "../components/SectionTags";
 import Metrics from "../components/Metrics";
@@ -16,9 +21,99 @@ const ABOUT_DESCRIPTION_FULL =
 const ABOUT_DESCRIPTION_SHORT =
   "At Homely, we are committed to helping individuals, families, and investors discover properties that truly match their dreams and long-term goals. With a strong focus on transparency, professionalism, and client satisfaction, we simplify the entire real estate journey—from property search and acquisition to documentation and ownership support—ensuring every transaction is smooth and stress-free.";
 
+const ABOUT_DESCRIPTION_SENTENCES = ABOUT_DESCRIPTION_FULL.split(/(?<=\.)\s+/).filter(Boolean);
+
 function page() {
   const coreValues: coreValueProps[] = coreValuesDataAboutPage;
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const aboutSectionRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const reveals = gsap.utils.toArray<HTMLElement>(".about-page-reveal");
+      reveals.forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 32,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          },
+          delay: i * 0.06,
+        });
+      });
+    },
+    { scope: aboutSectionRef, dependencies: [] }
+  );
+
+  const metricsRef = useRef<HTMLDivElement>(null);
+  useGSAP(
+    () => {
+      const metrics = gsap.utils.toArray<HTMLElement>(".about-page-metric-reveal");
+      metrics.forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 32,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          },
+          delay: i * 0.15,
+        });
+      });
+    },
+    { scope: metricsRef, dependencies: [] }
+  );
+
+  const visionSectionRef = useRef<HTMLDivElement>(null);
+  useGSAP(
+    () => {
+      const reveals = gsap.utils.toArray<HTMLElement>(".vision-reveal");
+      reveals.forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 48,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+          delay: i * 0.08,
+        });
+      });
+    },
+    { scope: visionSectionRef, dependencies: [] }
+  );
+
+  const missionSectionRef = useRef<HTMLDivElement>(null);
+  useGSAP(
+    () => {
+      const reveals = gsap.utils.toArray<HTMLElement>(".mission-reveal");
+      reveals.forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 48,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+          delay: i * 0.08,
+        });
+      });
+    },
+    { scope: missionSectionRef, dependencies: [] }
+  );
 
   return (
     <div className="about_page_container">
@@ -44,9 +139,9 @@ function page() {
         </div>
 
         {/* About Section */}
-        <div className="about_section_container">
+        <div ref={aboutSectionRef} className="about_section_container">
           <div className="about_section_main_content mx-[5%] 2xl:mx-[10%] 2xl:py-[5%]">
-            <div className="section_tag 2xl:w-[40%]">
+            <div className="about-page-reveal section_tag 2xl:w-[40%]">
               <SectionTags
                 name="about us"
                 imageSrc="/Main_Assets/Tag_Icon_blue.svg"
@@ -57,7 +152,7 @@ function page() {
             <div className="about_section_text">
               {/* Mobile & md: shortened with Show more */}
               <div className="lg:hidden">
-                <p className="about_description font-bricolage font-semibold text-neutral-500">
+                <p className="about-page-reveal about_description font-bricolage font-semibold text-neutral-500">
                   {isDescriptionExpanded
                     ? ABOUT_DESCRIPTION_FULL
                     : ABOUT_DESCRIPTION_SHORT}
@@ -72,17 +167,29 @@ function page() {
                   {isDescriptionExpanded ? "Show less" : "Show more"}
                 </button>
               </div>
-              {/* lg+: full description always visible */}
-              <p className="about_description hidden font-bricolage font-semibold text-neutral-500 lg:block xl:text-xl xl:mt-[-8%] 2xl:text-3xl 2xl:tracking-tight 2xl:mt-8">
-                {ABOUT_DESCRIPTION_FULL}
+              {/* lg+: full description - each sentence reveals inline, flows as one paragraph */}
+              <p className="about_description hidden font-bricolage font-semibold text-neutral-500 lg:block xl:text-xl xl:mt-[-8%] 2xl:text-2xl 2xl:tracking-tight 2xl:mt-8 leading-relaxed">
+                {ABOUT_DESCRIPTION_SENTENCES.map((sentence, i) => (
+                  <span key={i} className="about-page-reveal">
+                    {sentence}{i < ABOUT_DESCRIPTION_SENTENCES.length - 1 ? " " : ""}
+                  </span>
+                ))}
               </p>
             </div>
 
-            <div className="metrics_container flex flex-col gap-5 my-[10%] w-[48%] md:grid md:grid-cols-2 md:w-full lg:flex-row lg:gap-4 xl:gap-6 2xl:gap-8 xl:grid-cols-4 xl:my-[5%] 2xl:my-[5%]">
-              <Metrics title="120+" subtext="Projects Completed" />
-              <Metrics title="250+" subtext="Happy Clients" />
-              <Metrics title="$10M+" subtext="Project Value" />
-              <Metrics title="90%" subtext="Properties Sold" />
+            <div ref={metricsRef} className="metrics_container flex flex-col gap-5 my-[10%] w-[48%] md:grid md:grid-cols-2 md:w-full lg:flex-row lg:gap-4 xl:gap-6 2xl:gap-8 xl:grid-cols-4 xl:my-[5%] 2xl:my-[5%]">
+              <div className="about-page-metric-reveal">
+                <Metrics title="120+" subtext="Projects Completed" />
+              </div>
+              <div className="about-page-metric-reveal">
+                <Metrics title="250+" subtext="Happy Clients" />
+              </div>
+              <div className="about-page-metric-reveal">
+                <Metrics title="$10M+" subtext="Project Value" />
+              </div>
+              <div className="about-page-metric-reveal">
+                <Metrics title="90%" subtext="Properties Sold" />
+              </div>
             </div>
           </div>
         </div>
@@ -91,9 +198,9 @@ function page() {
 
         <div className="mission_and_vision_container mx-[5%] border-t border-t-neutral-200 2xl:mx-[10%]">
           {/* -------------------VISION SECTION------------------- */}
-          <div className="flex flex-col xl:flex-row w-full min-h-screen 2xl:gap-14 2xl:items-center">
+          <div ref={visionSectionRef} className="flex flex-col xl:flex-row w-full min-h-screen 2xl:gap-14 2xl:items-center">
             <div className="xl:w-1/2">
-              <div className="image_container relative overflow-hidden h-[50vh] 2xl:h-[80vh] rounded-3xl">
+              <div className="vision-reveal image_container relative overflow-hidden h-[50vh] 2xl:h-[80vh] rounded-3xl">
                 <Image
                   src="/HomeAssets/Img10.jpg"
                   alt="mission"
@@ -103,7 +210,7 @@ function page() {
               </div>
             </div>
             <div className="xl:w-1/2 flex flex-col  gap-y-[23] 2xl:gap-14 2xl:mt-[-3%]">
-              <div className="section_tags 2xl:w-[70%]">
+              <div className="vision-reveal section_tags 2xl:w-[70%]">
                 <SectionTags
                   name="mission and vision"
                   imageSrc="/Main_Assets/Tag_Icon_blue.svg"
@@ -112,13 +219,13 @@ function page() {
                 />
               </div>
 
-              <div className="vision_statement font-bricolage font-bold  text-lg leading-5 mt-[-6%] md:text-2xl md:leading-7 2xl:leading-10 2xl:text-4xl 2xl:w-[85%] 2xl:mt-[-8%] 2xl:tracking-tighter">
+              <div className="vision-reveal vision_statement font-bricolage font-bold  text-lg leading-5 mt-[-6%] md:text-2xl md:leading-7 2xl:leading-10 2xl:text-4xl 2xl:w-[85%] 2xl:mt-[-8%] 2xl:tracking-tighter">
                 A trusted real estate brand leading the market, simplifying
                 property ownership for everyone, while building strong and
                 thriving communities
               </div>
 
-              <div className="description_container font-mona text-neutral-500 text-xs mt p-[5%] md:text-sm md:p-[3%] 2xl:text-base bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] rounded-3xl 2xl:p-[3%]">
+              <div className="vision-reveal description_container font-mona text-neutral-500 text-xs mt p-[5%] md:text-sm md:p-[3%] 2xl:text-base bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] rounded-3xl 2xl:p-[3%]">
                 We aim to create a reliable property ecosystem where individuals
                 and businesses can confidently acquire secure, well-verified
                 properties through transparent processes, expert guidance, and
@@ -133,9 +240,9 @@ function page() {
           </div>
 
           {/* -------------------MISSION SECTION------------------- */}
-          <div className="flex flex-col  xl:flex-row-reverse w-full min-h-screen 2xl:gap-14 2xl:items-center">
+          <div ref={missionSectionRef} className="flex flex-col  xl:flex-row-reverse w-full min-h-screen 2xl:gap-14 2xl:items-center">
             <div className="xl:w-1/2">
-              <div className="image_container relative overflow-hidden h-[50vh] mt-[25%] md:mt-[4%] 2xl:h-[80vh] rounded-3xl">
+              <div className="mission-reveal image_container relative overflow-hidden h-[50vh] mt-[25%] md:mt-[4%] 2xl:h-[80vh] rounded-3xl">
                 <Image
                   src="/HomeAssets/Img9.jpg"
                   alt="mission"
@@ -145,7 +252,7 @@ function page() {
               </div>
             </div>
             <div className="xl:w-1/2 flex flex-col gap-y-[23] 2xl:gap-14 2xl:mt-[-3%]">
-              <div className="section_tags 2xl:w-[70%]">
+              <div className="mission-reveal section_tags 2xl:w-[70%]">
                 <SectionTags
                   name="mission and vision"
                   imageSrc="/Main_Assets/Tag_Icon_blue.svg"
@@ -154,13 +261,13 @@ function page() {
                 />
               </div>
 
-              <div className="vision_statement font-bricolage font-bold text-lg leading-5 xl:leading-9 mt-[-6%] md:text-2xl md:leading-7 2xl:leading-10 2xl:text-4xl 2xl:w-[85%] 2xl:mt-[-8%] 2xl:tracking-tighter">
+              <div className="mission-reveal vision_statement font-bricolage font-bold text-lg leading-5 xl:leading-9 mt-[-6%] md:text-2xl md:leading-7 2xl:leading-10 2xl:text-4xl 2xl:w-[85%] 2xl:mt-[-8%] 2xl:tracking-tighter">
                 Reliable property solutions delivered with professionalism,
                 connecting clients with the right opportunities, and maintaining
                 integrity in every transaction.
               </div>
 
-              <div className="description_container font-mona text-neutral-500 text-xs p-[5%] md:text-sm md:p-[3%] 2xl:text-base bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] rounded-3xl 2xl:p-[3%]">
+              <div className="mission-reveal description_container font-mona text-neutral-500 text-xs p-[5%] md:text-sm md:p-[3%] 2xl:text-base bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] rounded-3xl 2xl:p-[3%]">
                 We aim to create a reliable property ecosystem where individuals
                 and businesses can confidently acquire secure, well-verified
                 properties through transparent processes, expert guidance, and

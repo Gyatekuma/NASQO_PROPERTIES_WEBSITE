@@ -11,7 +11,7 @@ interface CallToActionProps {
 }
 
 const CallToAction: React.FC<CallToActionProps> = ({
-  imageSrc = "/HomeAssets/Img16.jpg",
+  imageSrc = "/HomeAssets/Img12.jpg",
   text = "Begin your path to success—contact us today.",
   buttonText = "Learn More",
   href = "/Contact",
@@ -34,7 +34,7 @@ const CallToAction: React.FC<CallToActionProps> = ({
           />
           {/* Dark overlay for readability */}
           <div
-            className="absolute inset-0 bg-black/50 z-1"
+            className="absolute inset-0 bg-black/70 z-1"
             aria-hidden
           />
         </div>

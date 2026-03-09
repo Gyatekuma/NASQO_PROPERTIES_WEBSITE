@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import { useLenis } from "./providers/LenisProvider";
 
@@ -16,7 +16,7 @@ const ParallaxPropertyImage: React.FC<ParallaxPropertyImageProps> = ({
   alt,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [offsetY, setOffsetY] = useState(0);
+  const transformRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
 
   useEffect(() => {
@@ -24,13 +24,15 @@ const ParallaxPropertyImage: React.FC<ParallaxPropertyImageProps> = ({
 
     const handleScroll = () => {
       const container = containerRef.current;
-      if (!container) return;
+      const transformEl = transformRef.current;
+      if (!container || !transformEl) return;
 
       const rect = container.getBoundingClientRect();
       const containerCenter = rect.top + rect.height / 2;
       const viewportCenter = window.innerHeight / 2;
       const distance = viewportCenter - containerCenter;
-      setOffsetY(distance * PARALLAX_SPEED);
+      const offsetY = distance * PARALLAX_SPEED;
+      transformEl.style.transform = `translate3d(0, ${offsetY}px, 0)`;
     };
 
     lenis.on("scroll", handleScroll);
@@ -47,8 +49,8 @@ const ParallaxPropertyImage: React.FC<ParallaxPropertyImageProps> = ({
       className="image_container relative overflow-hidden w-full h-[40vh] xl:h-[88vh] 2xl:h-[86vh] rounded-3xl"
     >
       <div
-        className="absolute top-[-10%] left-0 right-0 bottom-[-10%]"
-        style={{ transform: `translateY(${offsetY}px)` }}
+        ref={transformRef}
+        className="absolute top-[-10%] left-0 right-0 bottom-[-10%] will-change-transform"
       >
         <Image
           src={imageSrc}

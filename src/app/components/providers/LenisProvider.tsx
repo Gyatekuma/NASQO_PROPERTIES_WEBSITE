@@ -23,11 +23,12 @@ const getLenisOptions = (): LenisOptions => {
 
   return {
     autoRaf: true,
-    duration: prefersReducedMotion ? 0 : 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    lerp: prefersReducedMotion ? 1 : 0.08,
     smoothWheel: !prefersReducedMotion,
-    touchMultiplier: 2,
-    syncTouch: false,
+    wheelMultiplier: 1.1,
+    touchMultiplier: 1.5,
+    syncTouch: true,
+    syncTouchLerp: 0.1,
     anchors: true,
     infinite: false,
   };

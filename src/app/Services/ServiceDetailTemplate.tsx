@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import Button from "../components/button";
 import Image from "next/image";
 import SectionTags from "../components/SectionTags";
 import Faq from "../components/Faq";
-import { faqData, servicesPageData } from "../Data/AppData";
+import Testimonial from "../components/Testimonial";
+import { faqData, servicesPageData, testimonialData } from "../Data/AppData";
 import type { ServicesPageItem } from "../Types/types";
 
 const DEFAULT_HERO_IMAGES = [
@@ -17,6 +18,8 @@ const DEFAULT_HERO_IMAGES = [
   "/PropertiesAssets/Img6.jpg",
 ];
 
+const HERO_AUTO_SLIDE_INTERVAL_MS = 5500;
+
 const DISCOVER_DESCRIPTION =
   "NASQO Properties offers a full suite of professional services to support your real estate and construction needs. From land acquisition to interior design, we bring expertise, transparency, and quality to every project.";
 
@@ -24,14 +27,12 @@ interface ServiceDetailTemplateProps {
   slug: string;
 }
 
-export default function ServiceDetailTemplate({
-  slug,
-}: ServiceDetailTemplateProps) {
+export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplateProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const service = useMemo(
     () => servicesPageData.find((s) => s.slug === slug),
-    [slug],
+    [slug]
   );
 
   if (!service) {
@@ -42,55 +43,64 @@ export default function ServiceDetailTemplate({
     );
   }
 
-  const heroImages = service.heroImages?.length
-    ? service.heroImages
-    : service.imageSrc
-      ? [service.imageSrc]
-      : DEFAULT_HERO_IMAGES;
+  const heroImages =
+    service.heroImages?.length
+      ? service.heroImages
+      : service.imageSrc
+        ? [service.imageSrc]
+        : DEFAULT_HERO_IMAGES;
   const displayTitle = service.heroTitle ?? "Service";
   const otherServices = servicesPageData.filter((s) => s.slug !== service.slug);
 
-  // Automatically rotate through hero images every few seconds,
-  // while still allowing users to override via the thumbnail buttons.
+  // Auto-slide hero images
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   useEffect(() => {
-    if (!heroImages.length) return;
-
-    const intervalId = setInterval(() => {
+    if (heroImages.length <= 1) return;
+    intervalRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % heroImages.length);
-    }, 6000);
-
-    return () => clearInterval(intervalId);
+    }, HERO_AUTO_SLIDE_INTERVAL_MS);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
   }, [heroImages.length]);
+
+  const goToSlide = (index: number) => {
+    setActiveIndex(index);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(() => {
+        setActiveIndex((prev) => (prev + 1) % heroImages.length);
+      }, HERO_AUTO_SLIDE_INTERVAL_MS);
+    }
+  };
 
   return (
     <div>
-      {/* Hero Section */}
-      {/* Layer multiple hero images and fade them in/out via opacity for a smooth crossfade animation. */}
-      <div className="relative w-screen h-screen overflow-hidden">
-        {/* Each image covers the hero; only the one matching activeIndex is fully opaque. */}
+      {/* Hero Section - auto-sliding with crossfade + scale transition */}
+      <div className="relative w-full max-w-[100vw] h-screen min-h-[500px] overflow-hidden">
+        {/* Stacked hero images with crossfade + subtle zoom */}
         {heroImages.map((src, index) => (
           <div
-            key={index}
-            className="absolute inset-0 bg-cover bg-center transition-opacity duration-700 ease-in-out"
+            key={`${src}-${index}`}
+            className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage: `url(${src})`,
               opacity: activeIndex === index ? 1 : 0,
-              zIndex: 0,
+              transform: activeIndex === index ? "scale(1.05)" : "scale(1)",
+              zIndex: activeIndex === index ? 1 : 0,
+              transition: "opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
             aria-hidden={activeIndex !== index}
           />
         ))}
-        <div
-          className="absolute inset-0 z-0 pointer-events-none bg-black/35"
-          aria-hidden
-        />
-        <div
-          className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/90"
-          aria-hidden
-        />
+        <div className="absolute inset-0 z-[2] pointer-events-none bg-black/20" aria-hidden />
+        <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/70" aria-hidden />
 
-        <div className="relative z-10 flex flex-col h-[85vh] min-h-[500px]">
-          <div className="flex flex-1 flex-col justify-center text-white ">
+        <div className="relative z-10 flex flex-col h-full min-h-[500px]">
+          <div className="flex flex-1 flex-col justify-center text-white">
             <div className="hero-texts ml-[5%] md:ml-[5%] 2xl:ml-[10%] font-bricolage">
               <h1 className="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl xl:mt-[15%] 2xl:mt-[15%] font-semibold tracking-tight">
                 {displayTitle}
@@ -105,13 +115,12 @@ export default function ServiceDetailTemplate({
             </div>
           </div>
 
-          {/* Thumbnail controls: let users manually pick an image, with a subtle ring and scale animation on the active one. */}
-          <div className="relative z-10 flex justify-end gap-3 px-[5%] pb-8 md:pb-10 xl:pb-0 2xl:px-[10%] 2xl:pb-0">
+          <div className="relative z-10 flex justify-end gap-3 px-[5%] pb-8 md:pb-10 xl:pb-12 2xl:px-[10%] 2xl:pb-16">
             {heroImages.map((src, index) => (
               <button
                 key={index}
                 type="button"
-                onClick={() => setActiveIndex(index)}
+                onClick={() => goToSlide(index)}
                 className={`relative w-20 h-20 md:w-24 md:h-24 xl:w-20 xl:h-20 2xl:w-22 2xl:h-22 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.35)] overflow-hidden shrink-0 transition-all duration-300 ${
                   activeIndex === index
                     ? "ring-1 ring-white ring-offset-2 ring-offset-transparent scale-105"
@@ -143,8 +152,8 @@ export default function ServiceDetailTemplate({
             />
           </div>
 
-          <div className="main_desc_container px-4 py-6 sm:px-6 sm:py-8 lg:px-[5%] lg:py-[5%] 2xl:px-[3%] 2xl:py-0 2xl:text-neutral-500 lg:my-[5%] lg:border-2 lg:border-neutral-300 lg:rounded-4xl lg:-50">
-            <div className="description_content font-mona text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl 2xl:font-semibold 2xl:leading-8 2xl:tracking-tight my-6 sm:my-8 lg:my-[6%] xl:my-[4%] leading-relaxed">
+          <div className="main_desc_container px-4 py-6 sm:px-6 sm:py-8 lg:px-[5%] lg:py-[5%] 2xl:px-[3%] 2xl:py-0 2xl:text-neutral-500 lg:my-[5%] lg:border lg:border-neutral-200 lg:rounded-3xl lg:-50">
+            <div className="description_content font-mona text-sm sm:text-base lg:text-lg xl:text-xl my-6 sm:my-8 lg:my-[6%] xl:my-[4%] leading-relaxed">
               {service.description}
             </div>
 
@@ -171,10 +180,9 @@ export default function ServiceDetailTemplate({
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 mt-6 sm:mt-8 xl:mt-10 w-full min-w-0">
-            {otherServices.map((s) => {
+            {otherServices.slice(0, 5).map((s) => {
               const name = s.heroTitle ?? "Service";
-              const img =
-                s.heroImages?.[0] ?? s.imageSrc ?? "/PropertiesAssets/Img1.jpg";
+              const img = s.heroImages?.[0] ?? s.imageSrc ?? "/PropertiesAssets/Img1.jpg";
               return (
                 <div
                   key={s.id}
@@ -213,11 +221,16 @@ export default function ServiceDetailTemplate({
         </div>
       </section>
 
+      {/* Testimonial Section */}
+      <div className="testimonial_section_container flex items-center text-white bg-[#191723] mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24 2xl:mt-12 2xl:min-h-[85vh] md:py-[5%]">
+        <Testimonial testimonials={testimonialData} />
+      </div>
+
       {/* FAQ Section */}
       <div className="faq_section_container mx-4 sm:mx-[5%] 2xl:mx-[10%] py-8 sm:py-[8%] lg:py-[10%] xl:py-[8%] pb-12 sm:pb-16 xl:pb-24">
         <Faq
           faqs={faqData}
-          imageSrc={heroImages[0] ?? "/PropertiesAssets/Img1.jpg"}
+          imageSrc={heroImages[2] ?? "/PropertiesAssets/Img1.jpg"}
         />
       </div>
     </div>

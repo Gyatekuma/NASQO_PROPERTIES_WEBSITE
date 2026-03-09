@@ -25,6 +25,7 @@ html {
   overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
+  -webkit-overflow-scrolling: touch; /* Momentum scrolling on iOS */
 }
 
 html::-webkit-scrollbar {
@@ -38,11 +39,110 @@ body {
   overflow-x: hidden;
 }
 
+/* Promote fixed navbar to own layer to reduce scroll jank from backdrop-blur */
+.main_navbar_container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
 .font-bricolage {
   font-family: var(--font-bricolage), sans-serif;
 }
 
 .font-mona {
   font-family: var(--font-mona), sans-serif;
+}
+
+/* Testimonial section animations */
+@keyframes testimonial-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes testimonial-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes testimonial-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes testimonial-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.testimonial-content-enter {
+  animation: testimonial-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.testimonial-content-enter-from-next {
+  animation: testimonial-slide-in-right 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.testimonial-content-enter-from-prev {
+  animation: testimonial-slide-in-left 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.testimonial-image-enter {
+  animation: testimonial-fade-in 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+/* Mobile navbar menu animations */
+@keyframes mobile-nav-link-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.mobile-nav-link-enter {
+  opacity: 0;
+  animation: mobile-nav-link-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Desktop nav dropdown animation */
+@keyframes dropdown-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-enter {
+  animation: dropdown-fade-in 0.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 

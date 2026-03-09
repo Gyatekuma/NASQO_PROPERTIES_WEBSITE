@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import Button from "../components/button";
 import Image from "next/image";
 import SectionTags from "../components/SectionTags";
@@ -16,6 +16,8 @@ const DEFAULT_HERO_IMAGES = [
   "/PropertiesAssets/Img5.jpg",
   "/PropertiesAssets/Img6.jpg",
 ];
+
+const HERO_AUTO_SLIDE_INTERVAL_MS = 5500;
 
 const DISCOVER_DESCRIPTION =
   "Royal Kingdom Estate ensures efficient land acquisition processes, minimizing bureaucratic obstacles to foster trust and transparency with our clients, while providing expert guidance, secure documentation, and reliable support that guarantees long-term property value and client satisfaction.";
@@ -51,19 +53,56 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
   const displayPrice = property.priceRange ?? property.price;
   const otherProperties = propertiesPageData.filter((p) => p.slug !== property.slug);
 
+  // Auto-slide hero images
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => {
+    if (heroImages.length <= 1) return;
+    intervalRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % heroImages.length);
+    }, HERO_AUTO_SLIDE_INTERVAL_MS);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [heroImages.length]);
+
+  const goToSlide = (index: number) => {
+    setActiveIndex(index);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(() => {
+        setActiveIndex((prev) => (prev + 1) % heroImages.length);
+      }, HERO_AUTO_SLIDE_INTERVAL_MS);
+    }
+  };
+
   return (
     <div>
-      {/* Hero Section */}
-      <div className="relative w-screen h-screen bg-cover bg-center transition-all duration-500 ease-in-out">
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-500"
-          style={{ backgroundImage: `url(${heroImages[activeIndex]})` }}
-        />
-        <div className="absolute inset-0 z-0 pointer-events-none bg-black/2  0" aria-hidden />
-        <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/70" aria-hidden />
+      {/* Hero Section - auto-sliding with crossfade + scale transition */}
+      <div className="relative w-full max-w-[100vw] h-screen min-h-[500px] overflow-hidden">
+        {/* Stacked hero images with crossfade + subtle zoom */}
+        {heroImages.map((src, index) => (
+          <div
+            key={`${src}-${index}`}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${src})`,
+              opacity: activeIndex === index ? 1 : 0,
+              transform: activeIndex === index ? "scale(1.05)" : "scale(1)",
+              zIndex: activeIndex === index ? 1 : 0,
+              transition:
+                "opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+            aria-hidden={activeIndex !== index}
+          />
+        ))}
+        <div className="absolute inset-0 z-[2] pointer-events-none bg-black/20" aria-hidden />
+        <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/70" aria-hidden />
 
-        <div className="relative z-10 flex flex-col h-[85vh] min-h-[500px]">
-          <div className="flex flex-1 flex-col justify-center text-white ">
+        <div className="relative z-10 flex flex-col h-full min-h-[500px]">
+          <div className="flex flex-1 flex-col justify-center text-white">
             <div className="hero-texts ml-[5%] md:ml-[5%] 2xl:ml-[10%] font-bricolage">
               <h1 className="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl xl:mt-[15%] 2xl:mt-[15%] font-semibold tracking-tight">
                 {displayTitle}
@@ -78,12 +117,12 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
             </div>
           </div>
 
-          <div className="relative z-10 flex justify-end gap-3 px-[5%] pb-8 md:pb-10 xl:pb-0 2xl:px-[10%] 2xl:pb-0">
+          <div className="relative z-10 flex justify-end gap-3 px-[5%] pb-8 md:pb-10 xl:pb-12 2xl:px-[10%] 2xl:pb-16">
             {heroImages.map((src, index) => (
               <button
                 key={index}
                 type="button"
-                onClick={() => setActiveIndex(index)}
+                onClick={() => goToSlide(index)}
                 className={`relative w-20 h-20 md:w-24 md:h-24 xl:w-20 xl:h-20 2xl:w-22 2xl:h-22 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.35)] overflow-hidden shrink-0 transition-all duration-300 ${
                   activeIndex === index
                     ? "ring-1 ring-white ring-offset-2 ring-offset-transparent scale-105"
