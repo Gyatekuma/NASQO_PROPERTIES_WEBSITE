@@ -1,7 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
+import { useLenis } from "./providers/LenisProvider";
+
+const PARALLAX_SPEED = 0.15;
 
 export interface DescriptionHeroProps {
   /** Image source URL (e.g. /HomeAssets/Img31.jpg) */
@@ -24,21 +27,56 @@ function DescriptionHero({
   tagline,
 }: DescriptionHeroProps) {
   const titleLines = Array.isArray(title) ? title : [title];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const transformRef = useRef<HTMLDivElement>(null);
+  const lenis = useLenis();
+
+  useEffect(() => {
+    if (!lenis) return;
+
+    const handleScroll = () => {
+      const container = containerRef.current;
+      const transformEl = transformRef.current;
+      if (!container || !transformEl) return;
+
+      const rect = container.getBoundingClientRect();
+      const containerCenter = rect.top + rect.height / 2;
+      const viewportCenter = window.innerHeight / 2;
+      const distance = viewportCenter - containerCenter;
+      const offsetY = distance * PARALLAX_SPEED;
+      transformEl.style.transform = `translate3d(0, ${offsetY}px, 0)`;
+    };
+
+    lenis.on("scroll", handleScroll);
+    handleScroll();
+
+    return () => {
+      lenis.off("scroll", handleScroll);
+    };
+  }, [lenis]);
 
   return (
     <div className="about_description_hero">
       <div className="content">
-        <div className="image_container relative overflow-hidden h-[50vh] z-0 rounded-3xl mb-[10%] xl:h-[90vh] xl:mt-[-20%]">
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            fill
-            className="object-cover"
-          />
+        <div
+          ref={containerRef}
+          className="image_container relative overflow-hidden h-[45vh] z-0 rounded-3xl mb-[10%] xl:h-[75vh] xl:mt-[-16%]"
+        >
+          <div
+            ref={transformRef}
+            className="absolute top-[-10%] left-0 right-0 bottom-[-10%] will-change-transform"
+          >
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              fill
+              className="object-cover"
+            />
+          </div>
 
           {/* Overlay text — visible only on lg, xl, 2xl */}
           <div className="absolute inset-0 z-10 hidden lg:flex flex-col justify-between p-6 lg:p-8 xl:p-10 2xl:p-18">
-            <div className="flex flex-col gap-4 lg:gap-5 xl:gap-6 2xl:gap-55">
+            <div className="flex flex-col gap-4 lg:gap-5 xl:gap-6 2xl:gap-35">
               <h2 className="font-bricolage font-bold text-white text-left leading-tight">
                 {titleLines.map((line, i) => (
                   <span
@@ -49,7 +87,7 @@ function DescriptionHero({
                   </span>
                 ))}
               </h2>
-              <p className="font-mona text-white text-left max-w-4xl lg:text-sm xl:text-base 2xl:text-lg leading-relaxed opacity-95">
+              <p className="font-mona text-white text-left max-w-4xl lg:text-sm xl:text-base xl:ml-60 2xl:text-lg leading-relaxed opacity-95">
                 {subtitle}
               </p>
             </div>

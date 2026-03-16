@@ -16,7 +16,8 @@ interface PropertyCardsProps {
 }
 
 const sizeStyles: Record<CardSize, string> = {
-    small: "h-[40vh] md:h-[35vh] xl:h-[40vh] 2xl:h-[50vh]",
+    // Slightly taller again on desktop (another ≈5%)
+    small: "h-[40vh] md:h-[27vh] xl:h-[29vh] 2xl:h-[31vh]",
     large: "h-[20vh]",
 };
 
@@ -43,14 +44,14 @@ const PropertyCards: React.FC<PropertyCardsProps> = ({
 
             <div className='overlay_section absolute inset-0 bg-black/50 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
 
-            <div className="content_container absolute w-full h-full px-[10%] py-[13%] flex items-end flex-col justify-between">
-                <div className="arrow_container bg-white p-[3%] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="content_container absolute inset-0 w-full h-full px-[8%] py-[10%] flex flex-col justify-between  ">
+                <div className="arrow_container self-end bg-white p-[3%] xl:p-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <ArrowRight className='w-6 h-auto text-black' />
                 </div>
 
-                <div className="text_container flex flex-col items-left w-full left-[10%] gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="title font-bricolage text-2xl font-semibold text-white">{title}</p>
-                    <p className="subtext font-mona text-white tracking-tight leading-5">{subtext}</p>
+                <div className="text_container flex flex-col items-start max-w-[70%] gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <p className="title font-bricolage text-2xl font-semibold text-white leading-tight">{title}</p>
+                    <p className="subtext font-mona text-white tracking-tight leading-5 text-sm md:text-base">{subtext}</p>
                 </div>
             </div>
         </Link>

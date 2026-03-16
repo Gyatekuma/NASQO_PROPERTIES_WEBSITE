@@ -12,6 +12,10 @@ import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import type { LenisOptions } from "lenis";
 import "lenis/dist/lenis.css";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const LenisContext = createContext<InstanceType<typeof Lenis> | null>(null);
 
@@ -55,9 +59,12 @@ export function LenisProvider({
       ...optionsRef.current,
     });
 
+    lenisInstance.on("scroll", ScrollTrigger.update);
+
     setLenis(lenisInstance);
 
     return () => {
+      lenisInstance.off("scroll", ScrollTrigger.update);
       lenisInstance.destroy();
       setLenis(null);
     };

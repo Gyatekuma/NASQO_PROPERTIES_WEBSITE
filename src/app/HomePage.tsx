@@ -1,10 +1,9 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 import HeroComponent from "./components/HeroComponent";
 import Metrics from "./components/Metrics";
 import SectionTags from "./components/SectionTags";
@@ -27,6 +26,7 @@ import Testimonial from "./components/Testimonial";
 import Faq from "./components/Faq";
 import ServicesBanner from "./components/ServicesBanner";
 import ParallaxPropertyImage from "./components/ParallaxPropertyImage";
+import ScrollRevealSection from "./components/ScrollRevealSection";
 
 function HomePage() {
   const coreValues: coreValueProps[] = coreValuesData;
@@ -57,92 +57,78 @@ function HomePage() {
     setCurrentPropertyIndex((i) => (i === properties.length - 1 ? 0 : i + 1));
 
   const aboutSectionRef = useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const ctx = gsap.context(() => {
       const reveals = gsap.utils.toArray<HTMLElement>(".about-reveal");
       reveals.forEach((el, i) => {
         gsap.from(el, {
           opacity: 0,
           y: 48,
-          duration: 0.8,
+          duration: 0.5,
           ease: "power3.out",
           scrollTrigger: {
             trigger: el,
-            start: "top 88%",
+            start: "top 92%",
             toggleActions: "play none none reverse",
           },
-          delay: i * 0.08,
+          delay: i * 0.04,
         });
       });
-    },
-    { scope: aboutSectionRef, dependencies: [] }
-  );
+    }, aboutSectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const servicesSectionRef = useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const ctx = gsap.context(() => {
       const reveals = gsap.utils.toArray<HTMLElement>(".services-reveal");
       reveals.forEach((el, i) => {
         gsap.from(el, {
           opacity: 0,
           y: 48,
-          duration: 0.8,
+          duration: 0.5,
           ease: "power3.out",
           scrollTrigger: {
             trigger: el,
-            start: "top 88%",
+            start: "top 92%",
             toggleActions: "play none none reverse",
           },
-          delay: i * 0.08,
+          delay: i * 0.04,
         });
       });
-    },
-    { scope: servicesSectionRef, dependencies: [] }
-  );
+    }, servicesSectionRef);
 
-  const faqSectionRef = useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
-      const reveals = gsap.utils.toArray<HTMLElement>(".faq-reveal");
-      reveals.forEach((el, i) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 48,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none reverse",
-          },
-          delay: i * 0.08,
-        });
-      });
-    },
-    { scope: faqSectionRef, dependencies: [] }
-  );
+    return () => ctx.revert();
+  }, []);
 
   const propertiesSectionRef = useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const ctx = gsap.context(() => {
+      const section = propertiesSectionRef.current;
+      if (!section) return;
+
       const reveals = gsap.utils.toArray<HTMLElement>(".properties-reveal");
-      reveals.forEach((el, i) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 48,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none reverse",
-          },
-          delay: i * 0.08,
-        });
+
+      gsap.from(reveals, {
+        opacity: 0,
+        y: 48,
+        duration: 0.5,
+        ease: "power3.out",
+        stagger: 0.04,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
       });
-    },
-    { scope: propertiesSectionRef, dependencies: [] }
-  );
+    }, propertiesSectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div>
@@ -273,6 +259,7 @@ function HomePage() {
               imageSrc="/HomeAssets/Img5.jpg"
               href="/categories"
               cardSize="small"
+              className="lg:h-[26vh] xl:h-[26vh] 2xl:h-[28vh]"
               alt="categories"
             />
           </div>
@@ -283,6 +270,7 @@ function HomePage() {
               subtext="Experience elegance and comfort with our exclusive luxury villas, designed for sophisticated living."
               imageSrc="/HomeAssets/Img7.jpg"
               href="/categories"
+              className="lg:h-[24vh] xl:h-[24vh] 2xl:h-[26vh]"
               alt="categories"
             />
 
@@ -291,6 +279,7 @@ function HomePage() {
               subtext="Experience elegance and comfort with our exclusive luxury villas, designed for sophisticated living."
               imageSrc="/HomeAssets/Img8.jpg"
               href="/categories"
+              className="lg:h-[24vh] xl:h-[24vh] 2xl:h-[26vh]"
               alt="categories"
             />
 
@@ -299,6 +288,7 @@ function HomePage() {
               subtext="Experience elegance and comfort with our exclusive luxury villas, designed for sophisticated living."
               imageSrc="/HomeAssets/Img9.jpg"
               href="/categories"
+              className="lg:h-[24vh] xl:h-[24vh] 2xl:h-[26vh]"
               alt="categories"
             />
           </div>
@@ -324,10 +314,9 @@ function HomePage() {
       {/* Properties Section */}
       <div ref={propertiesSectionRef} className="properties-container">
         <div
-          className="main_content mx-[5%] 2xl:mx-[10%] xl:w-full  flex flex-col xl:flex-row xl:items-center
-         gap-20 md:gap-0 xl:gap-20"
+          className="main_content mx-[5%] 2xl:mx-[10%] xl:w-full flex flex-col xl:flex-row xl:items-stretch gap-20 md:gap-0 xl:gap-20"
         >
-          <div className="left_section xl:w-[180%] 2xl:w-full h-[50] xl:h-[95vh] 2xl:mt-[-1%]">
+          <div className="left_section xl:w-[180%] 2xl:w-full h-[50] xl:h-[80vh] 2xl:mt-[-1%]">
             {/* <div className="tag-section-container md:w-[80%]  my-[20%] mx-[5%]">
                 <SectionTags
                     name="Properties"
@@ -337,7 +326,7 @@ function HomePage() {
                     
                     />
                 </div> */}
-            <div className="properties-reveal left_section relative xl:mt-[9%] 2xl:mt-0">
+            <div className="properties-reveal left_section relative xl:mt-0 2xl:mt-[10%]">
               <ParallaxPropertyImage
                 imageSrc={currentProperty.imageSrc}
                 alt={currentProperty.title}
@@ -364,8 +353,8 @@ function HomePage() {
           </div>
 
           {/* right section */}
-          <div className="right_section mt-[70%] xl:mt-0">
-            <div className="content  xl:w-[80%] 2xl:w-[60%] flex flex-col xl:gap-3 2xl:gap-0    xl:h-[90%]  2xl:h-[100VH] 2xl:mb-[10%]">
+          <div className="right_section mt-[70%] xl:mt-0 xl:flex xl:items-stretch">
+            <div className="content xl:w-[80%] 2xl:w-[60%] flex flex-col justify-between xl:gap-3 2xl:gap-0 h-full">
               <div className="properties-reveal">
               <SectionTags
                 name="properties"
@@ -394,17 +383,17 @@ function HomePage() {
                       key={amenity.id}
                       className="properties-reveal amenity-item flex items-center gap-6 my-[2%] md:my-[0.9%]"
                     >
-                      <div className="icon_container bg-black rounded-full p-[2%] md:p-[1.2%]">
-                        <Icon className="text-white w-5 h-auto" />
+                      <div className="icon_container bg-black rounded-full p-[2%] md:p-[1.2%] xl:p-[1%]">
+                        <Icon className="text-white w-5 xl:w-4 h-auto" />
                       </div>
-                      <p className="font-mona text-lg md:text-xl lg:text-2xl xl:text-xl font-medium tracking-tighter">
+                      <p className="font-mona text-lg md:text-xl lg:text-2xl xl:text-lg font-medium tracking-tighter">
                         {amenity.name}
                       </p>
                     </div>
                   );
                 })}
               </div>
-              <div className="properties-reveal button-price-section mt-[10%] md:mt-[4%] lg:mt-[7%] xl:mt-[2%] 2xl:mt-[13%] flex flex-col-reverse xl:flex-row xl:items-center xl:justify-between gap-4">
+              <div className="properties-reveal button-price-section mt-[10%] md:mt-[4%] lg:mt-[7%] xl:mt-8 flex flex-col-reverse xl:flex-row xl:items-center xl:justify-between gap-4">
                 <div className="button xl:w-full">
                   <Button
                     text="Get in touch"
@@ -472,9 +461,16 @@ function HomePage() {
 
 
       {/* Faq Section */}
-      <div ref={faqSectionRef} className="faq_section_container mx-[5%] xl:mx-[8%] 2xl:mx-[10%] py-[10%] xl:py-[8%]">
+      <ScrollRevealSection
+        selector=".faq-reveal"
+        groupReveal
+        triggerStart="top 92%"
+        duration={0.5}
+        staggerDelay={0.04}
+        className="faq_section_container mx-[5%] xl:mx-[8%] 2xl:mx-[10%] py-[10%] xl:py-[8%]"
+      >
         <Faq faqs={faqData} />
-      </div>
+      </ScrollRevealSection>
     </div>
   );
 }

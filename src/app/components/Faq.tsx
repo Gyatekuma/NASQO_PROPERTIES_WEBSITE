@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import SectionTags from "./SectionTags";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useLenis } from "./providers/LenisProvider";
 
 export interface faqItemProps {
   id: string;
@@ -18,24 +19,61 @@ interface FaqProps {
   className?: string;
 }
 
+const PARALLAX_SPEED = 0.15;
+
 const Faq: React.FC<FaqProps> = ({ faqs, imageSrc = "/HomeAssets/Img11.jpg", className }) => {
   const [openId, setOpenId] = useState<string | null>(faqs[0]?.id ?? null);
+  const imageContainerRef = useRef<HTMLDivElement | null>(null);
+  const imageTransformRef = useRef<HTMLDivElement | null>(null);
+  const lenis = useLenis();
 
   const toggle = (id: string) => {
     setOpenId((prev) => (prev === id ? null : id));
   };
 
+  useEffect(() => {
+    if (!lenis) return;
+
+    const handleScroll = () => {
+      const container = imageContainerRef.current;
+      const transformEl = imageTransformRef.current;
+      if (!container || !transformEl) return;
+
+      const rect = container.getBoundingClientRect();
+      const containerCenter = rect.top + rect.height / 2;
+      const viewportCenter = window.innerHeight / 2;
+      const distance = viewportCenter - containerCenter;
+      const offsetY = distance * PARALLAX_SPEED;
+      transformEl.style.transform = `translate3d(0, ${offsetY}px, 0)`;
+    };
+
+    lenis.on("scroll", handleScroll);
+    handleScroll();
+
+    return () => {
+      lenis.off("scroll", handleScroll);
+    };
+  }, [lenis]);
+
   return (
     <div className={`main_faq_container flex flex-col xl:flex-row xl:gap-12 2xl:gap-16 xl:items-stretch xl:justify-start text-left ${className ?? ""}`.trim()}>
       {/* Left Column - Image: visible only on xl and 2xl */}
       <div className="faq-reveal faq_image_container hidden xl:block xl:flex-1 xl:min-w-0 xl:max-w-[50%]">
-        <div className="image_container relative overflow-hidden w-full h-[30vh] xl:h-full xl:min-h-[400px] 2xl:min-h-[500px] rounded-3xl">
-          <Image
-            src={imageSrc}
-            alt="FAQ"
-            fill
-            className="w-full h-full object-cover"
-          />
+        <div
+          ref={imageContainerRef}
+          className="image_container relative overflow-hidden w-full h-[30vh] xl:h-full xl:min-h-[400px] 2xl:min-h-[500px] rounded-3xl"
+        >
+          <div
+            ref={imageTransformRef}
+            className="absolute top-[-10%] left-0 right-0 bottom-[-10%] will-change-transform"
+          >
+            <Image
+              src={imageSrc}
+              alt="FAQ"
+              fill
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </div>
 

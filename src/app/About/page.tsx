@@ -14,6 +14,7 @@ import { coreValuesDataAboutPage, faqData } from "../Data/AppData";
 import { coreValueProps } from "../Types/types";
 import Faq from "../components/Faq";
 import DescriptionHero from "../components/DescriptionHero";
+import ScrollRevealSection from "../components/ScrollRevealSection";
 
 const ABOUT_DESCRIPTION_FULL =
   "At Homely, we are committed to helping individuals, families, and investors discover properties that truly match their dreams and long-term goals. With a strong focus on transparency, professionalism, and client satisfaction, we simplify the entire real estate journey—from property search and acquisition to documentation and ownership support—ensuring every transaction is smooth and stress-free. Our team combines deep market expertise, trusted partnerships, and personalized service to deliver carefully verified properties in prime and fast-growing locations, giving our clients confidence in every decision they make. We also believe that finding the right property should be an empowering experience, which is why we provide clear guidance, honest recommendations, and ongoing support even after the purchase is completed. Whether you are purchasing your first home, investing in land, or expanding your property portfolio, we are dedicated to providing reliable guidance, secure opportunities, and lasting value. At the heart of everything we do is a simple promise: to build lasting relationships through trust, deliver quality properties that meet modern standards, and help our clients secure a future they can proudly and confidently call their own.";
@@ -115,6 +116,55 @@ function page() {
     { scope: missionSectionRef, dependencies: [] }
   );
 
+  const coreValuesSectionRef = useRef<HTMLDivElement>(null);
+  useGSAP(
+    () => {
+      const section = coreValuesSectionRef.current;
+      if (!section) return;
+
+      const tag = section.querySelector<HTMLElement>(".core-values-tag");
+      const cards = gsap.utils.toArray<HTMLElement>(".core-values-card");
+
+      if (tag) {
+        gsap.fromTo(
+          tag,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      if (cards.length) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 48 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.18,
+            scrollTrigger: {
+              trigger: section,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+    },
+    { scope: coreValuesSectionRef, dependencies: [] }
+  );
+
   return (
     <div className="about_page_container">
       <div className="about_page_content">
@@ -200,7 +250,7 @@ function page() {
           {/* -------------------VISION SECTION------------------- */}
           <div ref={visionSectionRef} className="flex flex-col xl:flex-row w-full min-h-screen 2xl:gap-14 2xl:items-center">
             <div className="xl:w-1/2">
-              <div className="vision-reveal image_container relative overflow-hidden h-[50vh] 2xl:h-[80vh] rounded-3xl">
+              <div className="vision-reveal image_container relative overflow-hidden h-[50vh] xl:h-[70vh] rounded-3xl">
                 <Image
                   src="/HomeAssets/Img10.jpg"
                   alt="mission"
@@ -219,13 +269,13 @@ function page() {
                 />
               </div>
 
-              <div className="vision-reveal vision_statement font-bricolage font-bold  text-lg leading-5 mt-[-6%] md:text-2xl md:leading-7 2xl:leading-10 2xl:text-4xl 2xl:w-[85%] 2xl:mt-[-8%] 2xl:tracking-tighter">
+              <div className="vision-reveal vision_statement font-bricolage font-bold  text-lg leading-5 mt-[-6%] md:text-2xl md:leading-7 2xl:leading-10 xl:text-3xl 2xl:w-[85%] 2xl:mt-[-8%] 2xl:tracking-tighter">
                 A trusted real estate brand leading the market, simplifying
                 property ownership for everyone, while building strong and
                 thriving communities
               </div>
 
-              <div className="vision-reveal description_container font-mona text-neutral-500 text-xs mt p-[5%] md:text-sm md:p-[3%] 2xl:text-base bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] rounded-3xl 2xl:p-[3%]">
+              <div className="vision-reveal description_container font-mona text-neutral-500 text-xs mt p-[5%] md:text-sm md:p-[3%] xl:text-sm bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] rounded-3xl 2xl:p-[3%]">
                 We aim to create a reliable property ecosystem where individuals
                 and businesses can confidently acquire secure, well-verified
                 properties through transparent processes, expert guidance, and
@@ -242,7 +292,7 @@ function page() {
           {/* -------------------MISSION SECTION------------------- */}
           <div ref={missionSectionRef} className="flex flex-col  xl:flex-row-reverse w-full min-h-screen 2xl:gap-14 2xl:items-center">
             <div className="xl:w-1/2">
-              <div className="mission-reveal image_container relative overflow-hidden h-[50vh] mt-[25%] md:mt-[4%] 2xl:h-[80vh] rounded-3xl">
+              <div className="mission-reveal image_container relative overflow-hidden h-[50vh] mt-[25%] md:mt-[4%] xl:h-[70vh] rounded-3xl">
                 <Image
                   src="/HomeAssets/Img9.jpg"
                   alt="mission"
@@ -261,13 +311,13 @@ function page() {
                 />
               </div>
 
-              <div className="mission-reveal vision_statement font-bricolage font-bold text-lg leading-5 xl:leading-9 mt-[-6%] md:text-2xl md:leading-7 2xl:leading-10 2xl:text-4xl 2xl:w-[85%] 2xl:mt-[-8%] 2xl:tracking-tighter">
+              <div className="mission-reveal vision_statement font-bricolage font-bold text-lg leading-5 xl:leading-9 mt-[-6%] md:text-2xl md:leading-7 2xl:leading-10 xl:text-3xl 2xl:w-[85%] 2xl:mt-[-8%] 2xl:tracking-tighter">
                 Reliable property solutions delivered with professionalism,
                 connecting clients with the right opportunities, and maintaining
                 integrity in every transaction.
               </div>
 
-              <div className="mission-reveal description_container font-mona text-neutral-500 text-xs p-[5%] md:text-sm md:p-[3%] 2xl:text-base bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] rounded-3xl 2xl:p-[3%]">
+              <div className="mission-reveal description_container font-mona text-neutral-500 text-xs p-[5%] md:text-sm md:p-[3%] xl:text-sm bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] rounded-3xl 2xl:p-[3%]">
                 We aim to create a reliable property ecosystem where individuals
                 and businesses can confidently acquire secure, well-verified
                 properties through transparent processes, expert guidance, and
@@ -282,9 +332,9 @@ function page() {
           </div>
 
           {/* -------------------CORE VALUES SECTION------------------- */}
-          <div className="core_value_container">
+          <div ref={coreValuesSectionRef} className="core_value_container">
             <div className="core_value_main_content xl:h-screen mx-[5%] my-[30%] md:my-[20%] xl:mx-0 2xl:mx-0 2xl:mt-[5%]">
-              <div className="tag_section 2xl:w-[28%]">
+              <div className="core-values-tag tag_section 2xl:w-[28%]">
                 <SectionTags
                   name="core values"
                   imageSrc="/Main_Assets/Tag_Icon_blue.svg"
@@ -299,7 +349,7 @@ function page() {
                   return (
                     <div
                       key={coreValue.id}
-                      className="core_value_card_item border-2 border-neutral-200 rounded-3xl py-[6%] px-[6%] flex flex-col items-center gap-6 xl:flex-row xl:items-center xl:h-[20vh] 2xl:h-auto 2xl:px-[8%] 2xl:py-[8%] group cursor-pointer transition-all duration-300 ease-out hover:border-[#4361EE] hover:shadow-lg"
+                      className="core-values-card core_value_card_item border-2 border-neutral-200 rounded-3xl py-[6%] px-[6%] flex flex-col items-center gap-6 xl:flex-row xl:items-center xl:h-[20vh] 2xl:h-auto 2xl:px-[8%] 2xl:py-[8%] group cursor-pointer transition-all duration-300 ease-out hover:border-[#4361EE] hover:shadow-lg"
                     >
                       <div className="icon">
                         <Icon className="w-6 h-auto text-[#4361EE]" />
@@ -332,9 +382,9 @@ function page() {
           />
 
 
-          <div className="mb-16 2xl:my-[15%] w-full">
+          <ScrollRevealSection selector=".faq-reveal" className="mb-16 2xl:my-[15%] w-full">
             <Faq faqs={faqData} className="w-full" />
-          </div>
+          </ScrollRevealSection>
         </div>
       </div>
     </div>

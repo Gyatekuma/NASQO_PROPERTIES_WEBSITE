@@ -6,6 +6,7 @@ import Image from "next/image";
 import SectionTags from "../components/SectionTags";
 import Faq from "../components/Faq";
 import Testimonial from "../components/Testimonial";
+import ScrollRevealSection from "../components/ScrollRevealSection";
 import { faqData, servicesPageData, testimonialData } from "../Data/AppData";
 import type { ServicesPageItem } from "../Types/types";
 
@@ -227,12 +228,15 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
       </div>
 
       {/* FAQ Section */}
-      <div className="faq_section_container mx-4 sm:mx-[5%] 2xl:mx-[10%] py-8 sm:py-[8%] lg:py-[10%] xl:py-[8%] pb-12 sm:pb-16 xl:pb-24">
+      <ScrollRevealSection
+        selector=".faq-reveal"
+        className="faq_section_container mx-4 sm:mx-[5%] 2xl:mx-[10%] py-8 sm:py-[8%] lg:py-[10%] xl:py-[8%] pb-12 sm:pb-16 xl:pb-24"
+      >
         <Faq
           faqs={faqData}
           imageSrc={heroImages[2] ?? "/PropertiesAssets/Img1.jpg"}
         />
-      </div>
+      </ScrollRevealSection>
     </div>
   );
 }

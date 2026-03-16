@@ -5,6 +5,7 @@ import Button from "../components/button";
 import Image from "next/image";
 import SectionTags from "../components/SectionTags";
 import Faq from "../components/Faq";
+import ScrollRevealSection from "../components/ScrollRevealSection";
 import { faqData, propertiesPageData } from "../Data/AppData";
 import type { PropertiesPageItem } from "../Types/types";
 
@@ -157,20 +158,20 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
             </div>
           </div>
 
-          <div className="main_desc_container lg:px-[5%] 2xl:px-[3%] 2xl:text-neutral-500 lg:my-[5%] lg:border lg:border-neutral-200 lg:rounded-3xl lg:bg-neutral-50">
-            <div className="description_content font-mona text-base my-[10%] xl:my-[4%] xl:text-xl">
+          <div className="main_desc_container lg:px-[5%] 2xl:px-[3%] 2xl:text-neutral-500 lg:my-[5%] lg:border lg:border-neutral-200 lg:rounded-3xl lg:">
+            <div className="description_content font-bricolage text-base my-[10%] xl:my-[4%] xl:text-xl">
               {property.description}
             </div>
 
             {property.additionalInfo && (
               <div className="mt-10 xl:mt-12 pt-8 xl:pt-10 border-t border-neutral-200">
-                <p className="font-mona text-base xl:text-lg text-neutral-600 leading-relaxed bg-neutral-100/80 rounded-2xl p-5 xl:p-6 border border-neutral-200/80">
+                <p className="font-mona text-base xl:text-lg text-white leading-relaxed bg-[#4361EE] rounded-2xl p-5 xl:p-6 border border-neutral-200/80">
                   {property.additionalInfo}
                 </p>
               </div>
             )}
 
-            <div className="lowerside flex flex-col gap-4 lg:flex-row lg:w-full 2xl:gap-12 xl:mt-[10%] xl:mb-[54]">
+            <div className="lowerside flex flex-col gap-4 lg:flex-row lg:w-full 2xl:gap-12 xl:mt-[10%] xl:mb-[54] 2xl:mt-[5%]">
               <div className="amenities_container bg-[#191723] p-[7%] xl:p-[4%] lg:w-[50%] rounded-3xl flex flex-col text-center">
                 <div className="header text-white font-bricolage font-semibold text-2xl pb-[4%] 2xl:text-4xl">
                   Community Amenities
@@ -180,8 +181,8 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                     const Icon = amenity.icon;
                     return (
                       <div key={amenity.id} className="flex items-center gap-2">
-                        <div className="amenity_item bg-[#4361EE] w-9 h-9 shrink-0 rounded-full flex items-center justify-center">
-                          <Icon className="text-white w-6 h-auto" />
+                        <div className="amenity_item bg-[#4361EE] w-9 xl:w-8 h-9 xl:h-8 shrink-0 rounded-full flex items-center justify-center">
+                          <Icon className="text-white w-6 h-auto xl:w-4 xl:h-auto" />
                         </div>
                         <div className="name font-mona text-white text-base">
                           {amenity.name}
@@ -223,71 +224,211 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
 
             {/* Prices & Payment - right after amenities and map */}
             {(property.priceTiers?.length || property.paymentMode || property.paymentDeposits?.length) ? (
-              <div className="mt-10 xl:mt-12 2xl:mt-0 2xl:my-[5%] pt-10  xl:pt-12 border-t border-neutral-200">
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-10 2xl:gap-12">
-                  {property.priceTiers && property.priceTiers.length > 0 && (
-                    <div className="flex flex-col">
-                      <div className="flex items-center gap-2 mb-6">
-                        <span className="flex h-8 w-1 rounded-full bg-[#4361EE]" aria-hidden />
-                        <h3 className="font-bricolage font-semibold text-[#191723] text-xl xl:text-2xl tracking-tight">
-                          Prices
-                        </h3>
+              <div className="mt-10 xl:mt-12 2xl:mt-0 2xl:my-[5%] pt-10 xl:pt-12 border-t border-neutral-200">
+                {property.slug === "rocky-mountains-estate" ? (
+                  // Original Rocky Mountains Estate layout
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-10 2xl:gap-12">
+                    {property.priceTiers && property.priceTiers.length > 0 && (
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-6">
+                          <span className="flex h-8 w-1 rounded-full bg-[#4361EE]" aria-hidden />
+                          <h3 className="font-bricolage font-semibold text-[#191723] text-xl xl:text-2xl tracking-tight">
+                            Prices
+                          </h3>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
+                          {property.priceTiers.map((tier, i) => (
+                            <div
+                              key={i}
+                              className="group relative bg-white border border-neutral-200 rounded-2xl p-5 xl:p-6 2xl:p-10 shadow-sm hover:shadow-md hover:border-[#4361EE]/30 transition-all duration-300"
+                            >
+                              <p className="font-mona text-[#191723] text-sm xl:text-base capitalize mb-2 line-clamp-2">
+                                {tier.label}
+                              </p>
+                              <p className="font-bricolage font-bold text-[#4361EE] text-xl xl:text-2xl">
+                                {tier.price}
+                              </p>
+                              <p className="font-mona text-neutral-400 text-xs mt-1">Total price</p>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
-                        {property.priceTiers.map((tier, i) => (
-                          <div
-                            key={i}
-                            className="group relative bg-white border border-neutral-200 rounded-2xl p-5 xl:p-6 2xl:p-10 shadow-sm hover:shadow-md hover:border-[#4361EE]/30 transition-all duration-300"
-                          >
-                            <p className="font-mona text-[#191723] text-sm xl:text-base capitalize mb-2 line-clamp-2">
-                              {tier.label}
-                            </p>
-                            <p className="font-bricolage font-bold text-[#4361EE] text-xl xl:text-2xl">
-                              {tier.price}
-                            </p>
-                            <p className="font-mona text-neutral-400 text-xs mt-1">Total price</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                    )}
 
-                  {(property.paymentMode || (property.paymentDeposits && property.paymentDeposits.length > 0)) && (
-                    <div className="flex flex-col">
-                      <div className="flex items-center gap-2 mb-6">
-                        <span className="flex h-8 w-1 rounded-full bg-[#4361EE]" aria-hidden />
-                        <h3 className="font-bricolage font-semibold text-[#191723] text-xl xl:text-2xl tracking-tight">
-                          Mode of payment
-                        </h3>
-                      </div>
-                      <div className="bg-[#4361EE]/5 border border-[#4361EE]/20 rounded-2xl p-6 xl:p-8">
-                        {property.paymentMode && (
-                          <p className="font-mona text-[#191723] text-base xl:text-lg leading-relaxed mb-6">
-                            {property.paymentMode}
-                          </p>
-                        )}
-                        {property.paymentDeposits && property.paymentDeposits.length > 0 && (
-                          <div>
-                            <p className="font-bricolage font-semibold text-[#191723] text-sm uppercase tracking-wider mb-3">
-                              Deposit (30%)
+                    {(property.paymentMode || (property.paymentDeposits && property.paymentDeposits.length > 0)) && (
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-6">
+                          <span className="flex h-8 w-1 rounded-full bg-[#4361EE]" aria-hidden />
+                          <h3 className="font-bricolage font-semibold text-[#191723] text-xl xl:text-2xl tracking-tight">
+                            Mode of payment
+                          </h3>
+                        </div>
+                        <div className="bg-[#4361EE]/5 border border-[#4361EE]/20 rounded-2xl p-6 xl:p-8">
+                          {property.paymentMode && (
+                            <p className="font-mona text-[#191723] text-base xl:text-lg leading-relaxed mb-6">
+                              {property.paymentMode}
                             </p>
-                            <ul className="space-y-0 overflow-hidden rounded-xl border border-[#4361EE]/10 bg-white/60">
-                              {property.paymentDeposits.map((dep, i, arr) => (
-                                <li
-                                  key={i}
-                                  className={`flex flex-wrap justify-between items-center gap-3 px-4 py-3 font-mona text-sm xl:text-base text-[#191723] ${i < arr.length - 1 ? "border-b border-neutral-200/80" : ""}`}
-                                >
-                                  <span>{dep.label}</span>
-                                  <span className="font-bold text-[#4361EE] shrink-0">{dep.amount}</span>
-                                </li>
-                              ))}
-                            </ul>
+                          )}
+                          {property.paymentDeposits && property.paymentDeposits.length > 0 && (
+                            <div>
+                              <p className="font-bricolage font-semibold text-[#191723] text-sm uppercase tracking-wider mb-3">
+                                Deposit (30%)
+                              </p>
+                              <ul className="space-y-0 overflow-hidden rounded-xl border border-[#4361EE]/10 bg-white/60">
+                                {property.paymentDeposits.map((dep, i, arr) => (
+                                  <li
+                                    key={i}
+                                    className={`flex flex-wrap justify-between items-center gap-3 px-4 py-3 font-mona text-sm xl:text-base text-[#191723] ${
+                                      i < arr.length - 1 ? "border-b border-neutral-200/80" : ""
+                                    }`}
+                                  >
+                                    <span>{dep.label}</span>
+                                    <span className="font-bold text-[#4361EE] shrink-0">{dep.amount}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  // New organized layout for other properties (e.g. Nhyira City Prime Lands)
+                  <div className="space-y-10 2xl:space-y-12">
+                    {/* Prices grid */}
+                    {property.priceTiers && property.priceTiers.length > 0 && (
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-6">
+                          <span className="flex h-8 w-1 rounded-full bg-[#4361EE]" aria-hidden />
+                          <h3 className="font-bricolage font-semibold text-[#191723] text-xl xl:text-2xl tracking-tight">
+                            Prices by phase
+                          </h3>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                          {property.priceTiers.map((tier, i) => (
+                            <div
+                              key={i}
+                              className="group relative bg-white border border-neutral-200 rounded-2xl p-5 xl:p-6 shadow-sm hover:shadow-md hover:border-[#4361EE]/40 transition-all duration-300"
+                            >
+                              <p className="font-mona text-[#191723] text-sm xl:text-base uppercase tracking-wide mb-1">
+                                {tier.label}
+                              </p>
+                              <p className="font-bricolage font-bold text-[#4361EE] text-xl xl:text-2xl">
+                                {tier.price}
+                              </p>
+                              <p className="font-mona text-neutral-400 text-xs mt-1">Total land price</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Deposit details + payment terms */}
+                    {(property.paymentMode || (property.paymentDeposits && property.paymentDeposits.length > 0)) && (
+                      <div className="space-y-10">
+                        {property.paymentDeposits && property.paymentDeposits.length > 0 && (
+                          <div className="flex flex-col">
+                            <div className="flex items-center gap-2 mb-4">
+                              <span className="flex h-8 w-1 rounded-full bg-[#4361EE]" aria-hidden />
+                              <h3 className="font-bricolage font-semibold text-[#191723] text-xl xl:text-2xl tracking-tight">
+                                Deposit & instalment plans
+                              </h3>
+                            </div>
+
+                            {property.paymentDeposits.length === 4 ? (
+                              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 xl:gap-6 items-stretch">
+                                <ul className="space-y-2">
+                                  {property.paymentDeposits.slice(0, 2).map((dep, i) => {
+                                    const [rawTitle, ...restParts] = dep.label.split(":");
+                                    const title = rawTitle?.trim();
+                                    const restText = restParts.join(":").trim();
+                                    return (
+                                      <li
+                                        key={i}
+                                        className="bg-white border border-neutral-200 rounded-2xl px-4 py-3 shadow-sm min-h-[96px] flex items-center"
+                                      >
+                                        <p className="font-mona text-[#191723] text-sm xl:text-base leading-relaxed">
+                                          {title && (
+                                            <span className="font-bricolage font-semibold mr-1 capitalize">
+                                              {title}:
+                                            </span>
+                                          )}
+                                          {restText}
+                                        </p>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                                <ul className="space-y-2">
+                                  {property.paymentDeposits.slice(2, 4).map((dep, i) => {
+                                    const [rawTitle, ...restParts] = dep.label.split(":");
+                                    const title = rawTitle?.trim();
+                                    const restText = restParts.join(":").trim();
+                                    return (
+                                      <li
+                                        key={i + 2}
+                                        className="bg-white border border-neutral-200 rounded-2xl px-4 py-3 shadow-sm min-h-[96px] flex items-center"
+                                      >
+                                        <p className="font-mona text-[#191723] text-sm xl:text-base leading-relaxed">
+                                          {title && (
+                                            <span className="font-bricolage font-semibold mr-1 capitalize">
+                                              {title}:
+                                            </span>
+                                          )}
+                                          {restText}
+                                        </p>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              </div>
+                            ) : (
+                              <ul className="space-y-2">
+                                {property.paymentDeposits.map((dep, i) => {
+                                  const [rawTitle, ...restParts] = dep.label.split(":");
+                                  const title = rawTitle?.trim();
+                                  const restText = restParts.join(":").trim();
+                                  return (
+                                    <li
+                                      key={i}
+                                      className="bg-white border border-neutral-200 rounded-2xl px-4 py-3 shadow-sm min-h-[96px] flex items-center"
+                                    >
+                                      <p className="font-mona text-[#191723] text-sm xl:text-base leading-relaxed">
+                                        {title && (
+                                          <span className="font-bricolage font-semibold mr-1 capitalize">
+                                            {title}:
+                                          </span>
+                                        )}
+                                        {restText}
+                                      </p>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            )}
+                          </div>
+                        )}
+
+                        {property.paymentMode && (
+                          <div className="flex flex-col">
+                            <div className="flex items-center gap-2 mb-4">
+                              <span className="flex h-8 w-1 rounded-full bg-[#4361EE]" aria-hidden />
+                              <h3 className="font-bricolage font-semibold text-[#191723] text-xl xl:text-2xl tracking-tight">
+                                Payment terms
+                              </h3>
+                            </div>
+                            <div className="bg-[#4361EE]/5 border border-[#4361EE]/15 rounded-2xl p-5 xl:p-6">
+                              <p className="font-mona text-[#191723] text-sm xl:text-base leading-relaxed">
+                                {property.paymentMode}
+                              </p>
+                            </div>
                           </div>
                         )}
                       </div>
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
+                )}
               </div>
             ) : null}
           </div>
@@ -305,8 +446,8 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
               subtext="We began with a vision to help you discover premium properties that perfectly match your lifestyle and aspirations."
             />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 mt-8 xl:mt-10 w-full min-w-0">
-            {otherProperties.slice(0, 2).map((p) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 mt-8 xl:mt-10 w-full min-w-0">
+            {otherProperties.slice(0, 3).map((p) => {
               const name = p.heroTitle ?? p.title ?? "Property";
               const img = p.heroImages?.[0] ?? p.imageSrc ?? "/PropertiesAssets/Img1.jpg";
               return (
@@ -351,12 +492,19 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
       </section>
 
       {/* FAQ Section */}
-      <div className="faq_section_container mx-[5%] 2xl:mx-[10%] py-[10%] xl:py-[8%] pb-16 xl:pb-24">
+      <ScrollRevealSection
+        selector=".faq-reveal"
+        groupReveal
+        triggerStart="top 92%"
+        duration={0.5}
+        staggerDelay={0.04}
+        className="faq_section_container mx-[5%] 2xl:mx-[10%] py-[10%] xl:py-[8%] pb-16 xl:pb-24"
+      >
         <Faq
           faqs={faqData}
           imageSrc={heroImages[0] ?? "/PropertiesAssets/Img1.jpg"}
         />
-      </div>
+      </ScrollRevealSection>
     </div>
   );
 }

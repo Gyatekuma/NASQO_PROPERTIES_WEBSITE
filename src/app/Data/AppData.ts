@@ -164,8 +164,8 @@ export const propertiesData = [
 export const propertiesPageData: PropertiesPageItem[] = [
   {
     id: "1",
-    slug: "rocky-mountains",
-    heroTitle: "Rocky Mountains",
+    slug: "abena-yedua-apartments",
+    heroTitle: "Abena Yedua Apartments",
     heroImages: [
       "/PropertiesAssets/Img11.png",
       "/PropertiesAssets/Img22.png",
@@ -178,7 +178,7 @@ export const propertiesPageData: PropertiesPageItem[] = [
     SectionTag: "Properties",
     priceRange: "$10,000 - $100,000",
     description:
-      "Rocky Mountains is where life offers you the opportunity to blend nature seamlessly with the conveniences of modern living. It is a carefully planned 500-acre eco-friendly community located in the lush, serene enclave of Aburi, in the Eastern Region. This development offers fully serviced plots, designed to provide a sustainable and organic lifestyle, freeing you from the burdens of infrastructure development. Grace City Prime Land is more than just a residential area; it's a model community birthed from the high demand of our discerning clientele. Responding to countless requests, RKE has stepped in to create a space where essential infrastructure- including electricity, water, asphalt roads, sidewalks, a green park, efficient drainage, a secure gate post, parameter fence wall and ambient street lights – is already in place. This means you can focus on building your dream home and embracing a holistic way of life from day one, without the stress of coordinating these essential amenities yourself. Grace City Prime Land offers a unique opportunity to own fully serviced plots with convenient and affordable payment terms. The community is within reasonable proximity to major landmarks and amenities, and just a 40-minute drive from the airport, this is your chance to move into a community that takes away the burden of infrastructure worries. Embrace the ease of holistic and organic living at Grace City Prime Land, where your dream lifestyle becomes a reality.",
+      "Abena Yedua Housing offers a unique opportunity to experience a lifestyle where comfort, community, and modern living come together seamlessly. Designed as a thoughtfully planned residential development, this project provides a serene and well-organized environment where individuals and families can build their dream homes and enjoy a peaceful way of life. More than just a housing development, Abena Yedua Housing is envisioned as a model community created to meet the growing demand for quality living spaces. Every aspect of the development has been carefully planned to ensure residents enjoy convenience, safety, and a harmonious living environment. The community is designed with essential infrastructure already considered, ensuring a smooth and stress-free home building experience. With well-planned road networks, reliable utilities, organized layouts, and green spaces, residents can focus on creating their ideal homes without the usual burdens associated with starting from scratch. Abena Yedua Housing is not just about owning property — it is about becoming part of a vibrant and well-structured community. The development offers an opportunity for homeowners to enjoy a balanced lifestyle that combines modern residential comfort with a welcoming neighborhood atmosphere. With convenient ownership opportunities and flexible acquisition options, Abena Yedua Housing makes it easier for individuals and families to secure their place in a thriving residential community. It is a place where dreams of homeownership are transformed into reality, offering a foundation for a comfortable and fulfilling lifestyle.",
     amenities: [
       {
         id: "1",
@@ -228,7 +228,7 @@ export const propertiesPageData: PropertiesPageItem[] = [
       },
     ],
 
-    href: "/Properties/rocky-mountains",
+    href: "/Properties/abena-yedua-apartments",
     price: "$1,650,500",
     locationDetails: {
       sectionTitle: "Location Details",
@@ -250,12 +250,12 @@ export const propertiesPageData: PropertiesPageItem[] = [
       "Rocky Mountains is where life offers you the opportunity to blend nature seamlessly with the conveniences of modern living. It is a carefully planned 500-acre eco-friendly community located in the lush, serene enclave of Aburi, in the Eastern Region. This development offers fully serviced plots, designed to provide a sustainable and organic lifestyle, freeing you from the burdens of infrastructure development. Grace City Prime Land is more than just a residential area; it's a model community birthed from the high demand of our discerning clientele. Responding to countless requests, RKE has stepped in to create a space where essential infrastructure- including electricity, water, asphalt roads, sidewalks, a green park, efficient drainage, a secure gate post, parameter fence wall and ambient street lights – is already in place. This means you can focus on building your dream home and embracing a holistic way of life from day one, without the stress of coordinating these essential amenities yourself. Grace City Prime Land offers a unique opportunity to own fully serviced plots with convenient and affordable payment terms. The community is within reasonable proximity to major landmarks and amenities, and just a 40-minute drive from the airport, this is your chance to move into a community that takes away the burden of infrastructure worries. Embrace the ease of holistic and organic living at Grace City Prime Land, where your dream lifestyle becomes a reality.",
     imageSrc: "/HomeAssets/Img11.jpg",
     heroImages: [
-      "/HomeAssets/Img10.jpg",
-      "/HomeAssets/Img11.jpg",
-      "/PropertiesAssets/Img1.jpg",
-      "/PropertiesAssets/Img2.jpg",
-      "/PropertiesAssets/Img3.jpg",
-      "/PropertiesAssets/Img4.jpg",
+      "/PropertiesAssets/Img11.png",
+      "/PropertiesAssets/Img22.png",
+      "/PropertiesAssets/Img33.png",
+      "/PropertiesAssets/Img44.png",
+      "/PropertiesAssets/Img55.png",
+      "/PropertiesAssets/Img66.png",
     ],
     amenities: [
       { id: "1", name: "Gated community", icon: FenceIcon },
@@ -299,13 +299,53 @@ export const propertiesPageData: PropertiesPageItem[] = [
   },
   {
     id: "3",
-    slug: "rico-lands",
-    heroTitle: "Rico Lands",
+    slug: "nhyira-city-prime-lands",
+    heroTitle: "Nhyira City Prime Lands",
+    heroImages: [
+      "/PropertiesAssets/ImgN1.png",
+      "/PropertiesAssets/ImgN2.png",
+      "/PropertiesAssets/ImgN3.png",
+      "/PropertiesAssets/ImgN4.png",
+      "/PropertiesAssets/ImgN5.png",
+      "/PropertiesAssets/ImgN6.png",
+      "/PropertiesAssets/ImgN7.png",
+      "/PropertiesAssets/ImgN8.png",
+    ],
     ctoHref: "/Contact",
     SectionTag: "Properties",
     priceRange: "$45,000 - $85,000",
     description:
-      "Rocky Mountains is where life offers you the opportunity to blend nature seamlessly with the conveniences of modern living. It is a carefully planned 500-acre eco-friendly community located in the lush, serene enclave of Aburi, in the Eastern Region. This development offers fully serviced plots, designed to provide a sustainable and organic lifestyle, freeing you from the burdens of infrastructure development. Grace City Prime Land is more than just a residential area; it's a model community birthed from the high demand of our discerning clientele. Responding to countless requests, RKE has stepped in to create a space where essential infrastructure- including electricity, water, asphalt roads, sidewalks, a green park, efficient drainage, a secure gate post, parameter fence wall and ambient street lights – is already in place. This means you can focus on building your dream home and embracing a holistic way of life from day one, without the stress of coordinating these essential amenities yourself. Grace City Prime Land offers a unique opportunity to own fully serviced plots with convenient and affordable payment terms. The community is within reasonable proximity to major landmarks and amenities, and just a 40-minute drive from the airport, this is your chance to move into a community that takes away the burden of infrastructure worries. Embrace the ease of holistic and organic living at Grace City Prime Land, where your dream lifestyle becomes a reality.",
+      "Nhyira City Prime Lands is where life offers you the opportunity to blend nature seamlessly with the conveniences of modern living. It is a carefully planned 500-acre eco-friendly community located in the lush, serene enclave of Aburi, in the Eastern Region. This development offers fully serviced plots, designed to provide a sustainable and organic lifestyle, freeing you from the burdens of infrastructure development. Grace City Prime Land is more than just a residential area; it's a model community birthed from the high demand of our discerning clientele. Responding to countless requests, RKE has stepped in to create a space where essential infrastructure- including electricity, water, asphalt roads, sidewalks, a green park, efficient drainage, a secure gate post, parameter fence wall and ambient street lights – is already in place. This means you can focus on building your dream home and embracing a holistic way of life from day one, without the stress of coordinating these essential amenities yourself. Grace City Prime Land offers a unique opportunity to own fully serviced plots with convenient and affordable payment terms. The community is within reasonable proximity to major landmarks and amenities, and just a 40-minute drive from the airport, this is your chance to move into a community that takes away the burden of infrastructure worries. Embrace the ease of holistic and organic living at Grace City Prime Land, where your dream lifestyle becomes a reality.",
+    priceTiers: [
+      { label: "Phase 1", price: "GHS 20,000" },
+      { label: "Phase 2", price: "GHS 15,000" },
+      { label: "Phase 3", price: "GHS 12,000" },
+    ],
+    paymentMode:
+      "Outright payment attracts a 10% discount. 3-month instalment attracts a 7% discount. 6-month instalment attracts a 4% discount. 12-month instalment attracts no discount.",
+    paymentDeposits: [
+      {
+        label:
+          "Phase 1: Deposit GHS 2,000, then GHS 1,500 monthly for 12 months",
+        amount: "GHS 2,000",
+      },
+      {
+        label:
+          "Phase 2: Deposit GHS 1,500, then GHS 1,125 monthly for 12 months",
+        amount: "GHS 1,500",
+      },
+      {
+        label: "Phase 3: Deposit GHS 1,000, then GHS 917 monthly for 12 months",
+        amount: "GHS 1,000",
+      },
+      {
+        label:
+          "Phase 4 (Agricultural zone): see details below for yearly rent per acre and included apartments",
+        amount: "From GHS 1,000/acre per year",
+      },
+    ],
+    additionalInfo:
+      "Phase 4 (Agricultural zone): GHS 1,500 yearly rent per acre for 1–4 acres (includes 1 single-room apartment on-site); GHS 1,300 yearly rent per acre for 5–9 acres (includes 1 single-room apartment); GHS 1,200 yearly rent per acre for 10–19 acres (includes 2 single-room apartments); GHS 1,000 yearly rent per acre for 20–50 acres (includes 3 single-room apartments). Special package: Free site visitation, free documentation (site plan and indenture), and free corner pillars.",
     amenities: [
       {
         id: "1",
@@ -353,7 +393,7 @@ export const propertiesPageData: PropertiesPageItem[] = [
         icon: WavesIcon,
       },
     ],
-    href: "/Properties/rico-lands",
+    href: "/Properties/nhyira-city-prime-lands",
     price: "$78,000",
     locationDetails: {
       sectionTitle: "Location Details",
@@ -361,6 +401,82 @@ export const propertiesPageData: PropertiesPageItem[] = [
       mapEmbedUrl:
         "https://www.google.com/maps?q=Aburi,Eastern+Region,Ghana&z=15&output=embed",
       mapTitle: "Map - Aburi, Eastern Region",
+      brochureButtonText: "Download Brochure",
+      brochureHref: "#",
+    },
+  },
+  {
+    id: "4",
+    slug: "skycity-dwellings",
+    heroTitle: "Skycity Dwellings",
+    heroImages: [
+      "/PropertiesAssets/Img1.jpg",
+      "/PropertiesAssets/Img2.jpg",
+      "/PropertiesAssets/Img3.jpg",
+      "/PropertiesAssets/Img4.jpg",
+      "/PropertiesAssets/Img5.jpg",
+      "/PropertiesAssets/Img6.jpg",
+    ],
+    ctoHref: "/Contact",
+    SectionTag: "Properties",
+    priceRange: "$30,000 - $180,000",
+    description:
+      "Skycity Dwellings is a thoughtfully planned residential community designed for people who want modern comfort, security, and convenience in one place. Inspired by the success and structure of Abena Yedua Housing, Skycity Dwellings offers an organized environment where every detail—from infrastructure to shared spaces—has been carefully considered. Residents enjoy a calm, well-laid-out neighborhood with reliable utilities, accessible roads, and an atmosphere that feels both private and connected. The development is ideal for individuals and families looking to build or own homes in a location that supports long-term living, growth, and stability. With flexible ownership options and a forward-thinking layout, Skycity Dwellings makes it easier to transition from planning a home to actually living in it. It is more than a collection of houses; it is a community built for everyday life, where quality spaces, thoughtful design, and a welcoming environment come together to create a place residents are proud to call home.",
+    amenities: [
+      {
+        id: "1",
+        name: "Security Gate Post",
+        icon: CctvIcon,
+      },
+      {
+        id: "2",
+        name: "Perimeter fence wall",
+        icon: FenceIcon,
+      },
+      {
+        id: "3",
+        name: "Fast and Reliable internet",
+        icon: WifiIcon,
+      },
+      {
+        id: "4",
+        name: "Asphalt Roads",
+        icon: BusFrontIcon,
+      },
+      {
+        id: "5",
+        name: "Good electricity",
+        icon: CableIcon,
+      },
+      {
+        id: "6",
+        name: "Good water supply",
+        icon: ShowerHeadIcon,
+      },
+      {
+        id: "7",
+        name: "Ultramodern washrooms",
+        icon: CctvIcon,
+      },
+      {
+        id: "8",
+        name: "Sidewalks",
+        icon: FootprintsIcon,
+      },
+      {
+        id: "9",
+        name: "Swimming Pool",
+        icon: WavesIcon,
+      },
+    ],
+    href: "/Properties/skycity-dwellings",
+    price: "$2,150,000",
+    locationDetails: {
+      sectionTitle: "Location Details",
+      locationName: "Skycity Enclave, Accra",
+      mapEmbedUrl:
+        "https://www.google.com/maps?q=Accra,Ghana&z=15&output=embed",
+      mapTitle: "Map - Skycity Enclave, Accra",
       brochureButtonText: "Download Brochure",
       brochureHref: "#",
     },

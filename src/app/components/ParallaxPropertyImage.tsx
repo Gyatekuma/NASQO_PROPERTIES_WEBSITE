@@ -46,7 +46,7 @@ const ParallaxPropertyImage: React.FC<ParallaxPropertyImageProps> = ({
   return (
     <div
       ref={containerRef}
-      className="image_container relative overflow-hidden w-full h-[40vh] xl:h-[88vh] 2xl:h-[86vh] rounded-3xl"
+      className="image_container relative overflow-hidden w-full h-[45vh] xl:h-[78vh] 2xl:h-[74vh] rounded-3xl"
     >
       <div
         ref={transformRef}
