@@ -60,7 +60,7 @@ function DescriptionHero({
       <div className="content">
         <div
           ref={containerRef}
-          className="image_container relative overflow-hidden h-[45vh] z-0 rounded-3xl mb-[10%] xl:h-[75vh] xl:mt-[-16%]"
+          className="image_container relative overflow-hidden h-[45vh] z-0 rounded-3xl mb-[10%] xl:h-[75vh] xl:mt-[10%] 2xl:mt-[10%]"
         >
           <div
             ref={transformRef}
@@ -76,7 +76,7 @@ function DescriptionHero({
 
           {/* Overlay text — visible only on lg, xl, 2xl */}
           <div className="absolute inset-0 z-10 hidden lg:flex flex-col justify-between p-6 lg:p-8 xl:p-10 2xl:p-18">
-            <div className="flex flex-col gap-4 lg:gap-5 xl:gap-6 2xl:gap-35">
+            <div className="flex flex-col gap-4 lg:gap-5 xl:gap-28 2xl:gap-35">
               <h2 className="font-bricolage font-bold text-white text-left leading-tight">
                 {titleLines.map((line, i) => (
                   <span
@@ -87,7 +87,7 @@ function DescriptionHero({
                   </span>
                 ))}
               </h2>
-              <p className="font-mona text-white text-left max-w-4xl lg:text-sm xl:text-base xl:ml-60 2xl:text-lg leading-relaxed opacity-95">
+              <p className="font-mona text-white text-left max-w-4xl lg:text-sm xl:text-sm xl:ml-52 xl:w-[55%] 2xl:text-lg 2xl:ml-60 2xl:w-auto leading-relaxed opacity-95">
                 {subtitle}
               </p>
             </div>

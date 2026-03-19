@@ -5,27 +5,20 @@ import {
   Phone,
   MapPin,
   Mail,
+  Inbox,
   Instagram,
   Linkedin,
   Palette,
   CircleDot,
 } from "lucide-react";
+import { servicesPageData, propertiesPageData, contactConfig } from "../Data/AppData";
 
 const quickLinks = [
   { href: "/", label: "Home" },
   { href: "/About", label: "About" },
-  { href: "/Lands", label: "Lands" },
-  { href: "/Properties", label: "Home and Apartments" },
+  { href: "/Services", label: "Services" },
+  { href: "/Properties", label: "Properties" },
   { href: "/Contact", label: "Contact Us" },
-];
-
-const services = [
-  "Land Acquisition",
-  "General Construction",
-  "Facilities Management",
-  "Project Management",
-  "Architecture and Engineering",
-  "Interior Design",
 ];
 
 const socialLinks = [
@@ -36,17 +29,20 @@ const socialLinks = [
 ];
 
 const Footer: React.FC = () => {
+  const footerLinkClass =
+    "text-white/90 hover:text-white text-sm md:text-base transition-all duration-200 hover:translate-x-1 inline-block";
+
   return (
     <footer
       className="footer w-full bg-[#191723] text-white font-mona"
       role="contentinfo"
     >
       <div className="footer_content mx-[5%] md:mx-[8%] xl:mx-[10%] py-12 md:py-16 xl:py-20">
-        {/* Top Section - 4 Columns */}
-        <div className="footer_columns grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 xl:gap-16">
+        {/* Top Section - 5 Columns */}
+        <div className="footer_columns grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 xl:gap-12">
           {/* Column 1 - Brand */}
           <div className="footer_brand flex flex-col gap-4">
-            <Link href="/" className="inline-block w-fit">
+            <Link href="/" className="inline-block w-fit transition-transform duration-200 hover:scale-[1.02]">
               <Image
                 src="/Main_Assets/Main_Logo.svg"
                 alt="NASQO Properties"
@@ -55,9 +51,12 @@ const Footer: React.FC = () => {
                 className="w-24 sm:w-28 md:w-36 lg:w-40 xl:w-44 2xl:w-48 h-auto object-contain"
               />
             </Link>
-            <p className="font-bricolage font-semibold text-white uppercase tracking-wide text-sm md:text-base">
+            <Link
+              href="/"
+              className="font-bricolage font-semibold text-white uppercase tracking-wide text-sm md:text-base hover:text-white/90 hover:underline underline-offset-4 transition-all duration-200 w-fit"
+            >
               NASQO PROPERTIES
-            </p>
+            </Link>
           </div>
 
           {/* Column 2 - Quick Links */}
@@ -70,7 +69,7 @@ const Footer: React.FC = () => {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/90 hover:text-white text-sm md:text-base transition-colors"
+                    className={footerLinkClass}
                   >
                     {link.label}
                   </Link>
@@ -85,18 +84,39 @@ const Footer: React.FC = () => {
               Our Services
             </h3>
             <ul className="flex flex-col gap-2">
-              {services.map((service) => (
-                <li
-                  key={service}
-                  className="text-white/90 text-sm md:text-base"
-                >
-                  {service}
+              {servicesPageData.map((service) => (
+                <li key={service.id}>
+                  <Link
+                    href={`/Services/${service.slug}`}
+                    className={footerLinkClass}
+                  >
+                    {service.heroTitle ?? "Service"}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 4 - Contact Us */}
+          {/* Column 4 - Properties */}
+          <div className="footer_properties">
+            <h3 className="font-bricolage font-semibold text-base md:text-lg mb-4">
+              Properties
+            </h3>
+            <ul className="flex flex-col gap-2">
+              {propertiesPageData.slice(0, 4).map((property) => (
+                <li key={property.id}>
+                  <Link
+                    href={`/Properties/${property.slug}`}
+                    className={footerLinkClass}
+                  >
+                    {property.heroTitle ?? property.title ?? "Property"}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 5 - Contact Us */}
           <div className="footer_contact">
             <h3 className="font-bricolage font-semibold text-base md:text-lg mb-4">
               Contact Us
@@ -104,8 +124,8 @@ const Footer: React.FC = () => {
             <ul className="flex flex-col gap-3">
               <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
                 <Phone className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
-                <a href="tel:+233596703856" className="hover:text-white transition-colors">
-                  +233 596703856
+                <a href={`tel:${contactConfig.phone.replace(/\s/g, "")}`} className="hover:text-white transition-all duration-200 hover:translate-x-1 inline-block">
+                  {contactConfig.phone}
                 </a>
               </li>
               <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
@@ -116,15 +136,13 @@ const Footer: React.FC = () => {
                 <Mail className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
                 <a
                   href="mailto:homely@gmail.com"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-all duration-200 hover:translate-x-1 inline-block"
                 >
                   homely@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
-                <span className="w-4 h-4 mt-0.5 shrink-0 flex items-center justify-center text-xs">
-                  P.O.
-                </span>
+                <Inbox className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
                 <span>PO Box 1324</span>
               </li>
             </ul>
@@ -148,7 +166,7 @@ const Footer: React.FC = () => {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#4361EE] flex items-center justify-center text-white hover:opacity-90 transition-opacity"
+                  className="w-9 h-9 rounded-full bg-[#4361EE] flex items-center justify-center text-white hover:opacity-90 hover:scale-105 transition-all duration-200"
                   aria-label={label}
                 >
                   <Icon className="w-4 h-4" aria-hidden />

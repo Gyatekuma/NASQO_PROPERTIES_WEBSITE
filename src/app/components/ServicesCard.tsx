@@ -22,10 +22,10 @@ const ServicesCard:React.FC<servicesCardProps> = ({ id, imageSrc, title, subtext
         />
 
         <div className="overlay inset-0 absolute bg-black/50 z-10"/>
-        <div className="title absolute bottom-[10%] capitalize font-bricolage font-semibold text-white text-3xl z-20">{title}</div>
+        <div className="title absolute bottom-[10%] capitalize font-bricolage font-semibold text-white text-3xl xl:text-lg 2xl:text-xl z-20">{title}</div>
       </div>
-    <div className="subtext_button_container p-[6%]">
-      <div className="subtext font-mona text-base leading-5 line-clamp-3">
+    <div className="subtext_button_container p-[6%] xl:p-[5%]">
+      <div className="subtext font-mona text-base xl:text-xs 2xl:text-sm leading-5 line-clamp-3">
         {subtext}
       </div>
 

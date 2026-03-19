@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
 import { LenisProvider } from "./components/providers/LenisProvider";
 import CallToActionWrapper from "./components/CallToActionWrapper";
+import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 
 const bricolage = Bricolage_Grotesque({
   subsets:["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
           {children}
           <CallToActionWrapper />
           <Footer />
+          <WhatsAppFloatingButton />
         </LenisProvider>
       </body>
     </html>

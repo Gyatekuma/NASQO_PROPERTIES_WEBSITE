@@ -1,27 +1,103 @@
-import React from 'react'
+'use client'
+
+import React, { useState, useEffect, useRef } from 'react'
 import Button from './button'
 
-function HeroComponent() {
-  return (
-    <div className='Main_Hero_Container relative w-screen h-screen bg-cover'
-    style={{backgroundImage: `url(/HomeAssets/Img14.jpg)`}}
-    >
-      <div className="overlay_section inset-0 absolute bg-black/50 z-0" />
+const HOME_HERO_IMAGES = [
+  '/PropertiesAssets/ImgSC1.png',
+  '/PropertiesAssets/ImgN5.png',
+  '/PropertiesAssets/Img22.png',
+  '/PropertiesAssets/ImgN7.png',
+  '/PropertiesAssets/ImgAY6.png',
+  '/PropertiesAssets/ImgAY8.png',
+]
 
-      <div className="relative z-10 flex flex-col items-left h-full text-white justify-center">
-        <div className="hero-texts ml-[5%] md:ml-[5%]  2xl:ml-[10%] mt-0 xl:mt-[6%] 2xl:mt-[5%] font-bricolage">
-          <p className='font-medium text-lg md:text-xl'>Palm Springs, CA</p>
+const HERO_AUTO_SLIDE_INTERVAL_MS = 5500
+
+function HeroComponent() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  useEffect(() => {
+    if (HOME_HERO_IMAGES.length <= 1) return
+    intervalRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % HOME_HERO_IMAGES.length)
+    }, HERO_AUTO_SLIDE_INTERVAL_MS)
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
+  }, [])
+
+  const goToSlide = (index: number) => {
+    setActiveIndex(index)
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = setInterval(() => {
+        setActiveIndex((prev) => (prev + 1) % HOME_HERO_IMAGES.length)
+      }, HERO_AUTO_SLIDE_INTERVAL_MS)
+    }
+  }
+
+  return (
+    <div className="Main_Hero_Container relative w-screen h-screen overflow-hidden">
+      {/* Stacked hero images with crossfade + subtle zoom */}
+      {HOME_HERO_IMAGES.map((src, index) => (
+        <div
+          key={`${src}-${index}`}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${src})`,
+            opacity: activeIndex === index ? 1 : 0,
+            transform: activeIndex === index ? 'scale(1.05)' : 'scale(1)',
+            zIndex: activeIndex === index ? 1 : 0,
+            transition:
+              'opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+          aria-hidden={activeIndex !== index}
+        />
+      ))}
+
+      <div className="overlay_section inset-0 absolute bg-black/50 z-2" aria-hidden />
+
+      <div className="relative z-10 flex flex-col h-full text-white justify-center items-center text-center px-[5%] md:px-[8%] xl:px-0 xl:items-start xl:text-left">
+        <div className="hero-texts xl:ml-[5%] 2xl:ml-[10%] mt-0 xl:mt-[6%] 2xl:mt-[5%] font-bricolage">
+          <p className="font-medium text-lg md:text-xl">Palm Springs, CA</p>
           <div className="main_hero_caption text-6xl md:text-8xl xl:text-8xl tracking-tighter font-semibold mt-[10%] xl:mt-[3%]">
-            <p className=''>Futuristic</p>
+            <p className="">Futuristic</p>
             <p>Haven</p>
           </div>
         </div>
-        <div className="hero-buttons ml-[5%] 2xl:ml-[10%]  md:mx-[5%] mt-[10%] xl:mt-[1%] xl:w-[30%] 2xl:w-[30%] 2xl:mt-[1%] flex lg:flex-row flex-col gap-4 text-center">
-          <Button text="Get in touch" variants="secondary" href="/properties"  />
-          <Button text="View details" variants="outline" href="/properties"  />
+        <div className="hero-buttons mt-[10%] xl:mt-[1%] xl:w-[30%] 2xl:w-[30%] 2xl:mt-[1%] flex md:flex-row flex-col gap-4 text-center justify-center xl:justify-start xl:ml-[5%] 2xl:ml-[10%]">
+          <Button text="Get in touch" variants="secondary" href="/properties" />
+          <Button text="View details" variants="outline" href="/properties" />
         </div>
       </div>
-     
+
+      {/* Dot indicators */}
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center gap-2"
+        role="tablist"
+        aria-label="Hero image slides"
+      >
+        {HOME_HERO_IMAGES.map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={() => goToSlide(index)}
+            role="tab"
+            aria-selected={activeIndex === index}
+            aria-label={`View image ${index + 1} of ${HOME_HERO_IMAGES.length}`}
+            className={`rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${
+              activeIndex === index
+                ? 'w-3 h-3 bg-white'
+                : 'w-2.5 h-2.5 bg-white/60 hover:bg-white/80'
+            }`}
+          />
+        ))}
+      </div>
     </div>
   )
 }

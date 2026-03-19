@@ -104,7 +104,7 @@ const Faq: React.FC<FaqProps> = ({ faqs, imageSrc = "/HomeAssets/Img11.jpg", cla
                   aria-controls={`faq-answer-${faq.id}`}
                   id={`faq-question-${faq.id}`}
                 >
-                  <div className="list_text flex gap-2 xl:gap-3 font-mona font-semibold md:text-xl 2xl:text-lg text-neutral-800 tracking-tight flex-1 min-w-0">
+                  <div className="list_text flex gap-2 xl:gap-3 font-mona font-semibold text-base md:text-lg xl:text-base 2xl:text-base text-neutral-800 tracking-tight flex-1 min-w-0">
                     <span className="text-neutral-500 shrink-0">
                       {faq.number}.
                     </span>
@@ -129,7 +129,7 @@ const Faq: React.FC<FaqProps> = ({ faqs, imageSrc = "/HomeAssets/Img11.jpg", cla
                   }}
                 >
                   <div className="overflow-hidden">
-                    <p className="font-mona text-neutral-500 text-base md:text-lg 2xl:text-lg leading-6 pb-4 xl:pb-5 pr-8">
+                    <p className="font-mona text-neutral-500 text-sm md:text-base xl:text-sm 2xl:text-sm leading-6 pb-4 xl:pb-5 pr-8">
                       {faq.answer}
                     </p>
                   </div>

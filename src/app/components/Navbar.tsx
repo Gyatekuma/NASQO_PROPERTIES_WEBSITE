@@ -22,6 +22,8 @@ function Navbar() {
     const desktopNavRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
       const handleClickOutside = (e: MouseEvent) => {
+        // Only apply click-outside behavior on desktop / tablet widths
+        if (typeof window !== 'undefined' && window.innerWidth < 768) return;
         if (desktopNavRef.current?.contains(e.target as Node)) return;
         setServicesExpanded(false);
         setPropertiesExpanded(false);
@@ -192,7 +194,7 @@ function Navbar() {
                     <div
                       className="mobile-nav-link-enter items flex items-center justify-between text-2xl py-[5%] px-[3%] border-b text-neutral-500 cursor-pointer"
                       style={{ animationDelay: isOpen ? `${120 + index * 80}ms` : '0ms' }}
-                      onClick={() => setServicesExpanded(!servicesExpanded)}
+                      onClick={() => { setServicesExpanded(!servicesExpanded); setPropertiesExpanded(false); }}
                     >
                       <span>{link.name}</span>
                       <ChevronDown className={`w-6 h-6 transition-transform duration-200 ${servicesExpanded ? 'rotate-180' : ''}`} />
@@ -201,7 +203,7 @@ function Navbar() {
                     <div
                       className="mobile-nav-link-enter items flex items-center justify-between text-2xl py-[5%] px-[3%] border-b text-neutral-500 cursor-pointer"
                       style={{ animationDelay: isOpen ? `${120 + index * 80}ms` : '0ms' }}
-                      onClick={() => setPropertiesExpanded(!propertiesExpanded)}
+                      onClick={() => { setPropertiesExpanded(!propertiesExpanded); setServicesExpanded(false); }}
                     >
                       <span>{link.name}</span>
                       <ChevronDown className={`w-6 h-6 transition-transform duration-200 ${propertiesExpanded ? 'rotate-180' : ''}`} />

@@ -102,11 +102,11 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
 
         <div className="relative z-10 flex flex-col h-full min-h-[500px]">
           <div className="flex flex-1 flex-col justify-center text-white">
-            <div className="hero-texts ml-[5%] md:ml-[5%] 2xl:ml-[10%] font-bricolage">
+            <div className="hero-texts flex flex-col items-center text-center px-[5%] md:px-[8%] xl:px-0 xl:items-start xl:text-left xl:ml-[5%] 2xl:ml-[10%] font-bricolage">
               <h1 className="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl xl:mt-[15%] 2xl:mt-[15%] font-semibold tracking-tight">
                 {displayTitle}
               </h1>
-              <div className="mt-6 md:mt-8 2xl:mt-10 xl:w-[40%] 2xl:w-[35%]">
+              <div className="mt-6 md:mt-8 2xl:mt-10 w-full flex justify-center xl:block xl:w-[40%] 2xl:w-[35%]">
                 <Button
                   text="Get in touch"
                   variants="secondary"
@@ -116,36 +116,53 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
             </div>
           </div>
 
-          <div className="relative z-10 flex justify-end gap-3 px-[5%] pb-8 md:pb-10 xl:pb-12 2xl:px-[10%] 2xl:pb-16">
-            {heroImages.map((src, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => goToSlide(index)}
-                className={`relative w-20 h-20 md:w-24 md:h-24 xl:w-20 xl:h-20 2xl:w-22 2xl:h-22 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.35)] overflow-hidden shrink-0 transition-all duration-300 ${
-                  activeIndex === index
-                    ? "ring-1 ring-white ring-offset-2 ring-offset-transparent scale-105"
-                    : "opacity-100"
-                }`}
-                aria-label={`View image ${index + 1}`}
-              >
-                <Image
-                  src={src}
-                  alt={`${displayTitle} view ${index + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 96px, (max-width: 1280px) 112px, 128px"
+          <div className="relative z-10 px-[5%] pb-8 md:pb-10 xl:px-[5%] xl:pb-12 2xl:px-[10%] 2xl:pb-16">
+            <div className="flex xl:hidden items-center justify-center gap-2">
+              {heroImages.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => goToSlide(index)}
+                  aria-label={`View image ${index + 1}`}
+                  className={`rounded-full transition-all duration-300 ${
+                    activeIndex === index
+                      ? "w-6 h-2.5 bg-white"
+                      : "w-2.5 h-2.5 bg-white/60 hover:bg-white/80"
+                  }`}
                 />
-              </button>
-            ))}
+              ))}
+            </div>
+            <div className="hidden xl:flex justify-end gap-3">
+              {heroImages.map((src, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => goToSlide(index)}
+                  className={`relative w-20 h-20 2xl:w-22 2xl:h-22 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.35)] overflow-hidden shrink-0 transition-all duration-300 ${
+                    activeIndex === index
+                      ? "ring-1 ring-white ring-offset-2 ring-offset-transparent scale-105"
+                      : "opacity-100"
+                  }`}
+                  aria-label={`View image ${index + 1}`}
+                >
+                  <Image
+                    src={src}
+                    alt={`${displayTitle} view ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1280px) 96px, 128px"
+                  />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Service Description Section */}
-      <div className="description-container w-full overflow-x-hidden">
-        <div className="content mx-4 sm:mx-[5%] lg:mx-[6%] 2xl:mx-[10%] max-w-full">
-          <div className="section_TAG w-full sm:w-[90%] 2xl:w-[40%]">
+      <div className="description-container w-full overflow-x-hidden mt-[10%] md:mt-[10%] xl:mt-[8%] 2xl:mt-[6%]">
+        <div className="content mx-[5%] lg:mx-[6%] 2xl:mx-[10%] max-w-full">
+          <div className="section_TAG w-full lg:w-[90%] 2xl:w-[40%]">
             <SectionTags
               name={service.SectionTag ?? "Services"}
               imageSrc="/Main_Assets/Tag_Icon_blue.svg"
@@ -153,8 +170,8 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
             />
           </div>
 
-          <div className="main_desc_container px-4 py-6 sm:px-6 sm:py-8 lg:px-[5%] lg:py-[5%] 2xl:px-[3%] 2xl:py-0 2xl:text-neutral-500 lg:my-[5%] lg:border lg:border-neutral-200 lg:rounded-3xl lg:-50">
-            <div className="description_content font-mona text-sm sm:text-base lg:text-lg xl:text-xl my-6 sm:my-8 lg:my-[6%] xl:my-[4%] leading-relaxed">
+          <div className="main_desc_container lg:px-[5%] lg:py-[5%] 2xl:px-[3%] 2xl:py-0 2xl:text-neutral-500 lg:my-[5%] lg:border lg:border-neutral-200 lg:rounded-3xl">
+            <div className="description_content font-mona text-base lg:text-lg xl:text-xl my-[10%] lg:my-[6%] xl:my-[4%] leading-relaxed">
               {service.description}
             </div>
 
@@ -170,7 +187,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
       </div>
 
       {/* Discover more Services */}
-      <section className="mx-auto mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24 2xl:mt-8 pb-10 sm:pb-12 md:pb-16 xl:pb-24 w-[95%] sm:w-[90%] max-w-full 2xl:w-[80%] min-w-0 overflow-x-hidden box-border">
+      <section className="mx-auto mt-16 lg:mt-20 xl:mt-24 2xl:mt-8 pb-16 xl:pb-24 w-[90%] max-w-full 2xl:w-[80%] min-w-0 overflow-x-hidden box-border">
         <div className="w-full min-w-0">
           <div className="section_tag_container w-full 2xl:w-[50%]">
             <SectionTags
@@ -180,7 +197,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
               subtext="From land acquisition to interior design, we offer a complete suite of professional services to support your real estate and construction needs."
             />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 mt-6 sm:mt-8 xl:mt-10 w-full min-w-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 mt-8 xl:mt-10 w-full min-w-0">
             {otherServices.slice(0, 5).map((s) => {
               const name = s.heroTitle ?? "Service";
               const img = s.heroImages?.[0] ?? s.imageSrc ?? "/PropertiesAssets/Img1.jpg";
@@ -198,12 +215,12 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="overlay inset-0 absolute bg-black/50 z-10" />
-                    <div className="title absolute bottom-[10%] left-[5%] right-[5%] capitalize font-bricolage font-semibold text-white text-xl sm:text-2xl lg:text-3xl z-20">
+                    <div className="title absolute bottom-[10%] left-[5%] right-[5%] text-center capitalize font-bricolage font-semibold text-white text-lg sm:text-xl lg:text-2xl z-20">
                       {name}
                     </div>
                   </div>
                   <div className="subtext_button_container p-4 sm:p-[5%] lg:p-[6%]">
-                    <div className="subtext font-mona text-sm sm:text-base leading-5 line-clamp-3">
+                    <div className="subtext font-mona text-xs sm:text-sm lg:text-sm leading-5 line-clamp-3">
                       {DISCOVER_DESCRIPTION}
                     </div>
                     <div className="button_container mt-4 sm:mt-[6%]">
@@ -211,7 +228,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
                         text="View details"
                         variants="primary"
                         href={`/Services/${s.slug}`}
-                        className="min-w-[140px] sm:min-w-[180px] w-auto shrink-0"
+                        className="min-w-[140px] sm:min-w-[180px] w-auto shrink-0 text-sm"
                       />
                     </div>
                   </div>

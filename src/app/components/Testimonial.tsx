@@ -107,7 +107,7 @@ const Testimonial: React.FC<TestimonialComponentProps> = ({ testimonials }) => {
 
           <div
             key={`text-${currentIndex}`}
-            className={`main_testimonial_description flex flex-col gap-6 xl:flex-row xl:gap-8 xl:mt-[-5%] 2xl:mt-[-5%] ${contentAnimationClass}`}
+            className={`main_testimonial_description flex flex-col gap-6 xl:flex-row xl:gap-8 mt-6 xl:mt-8 2xl:mt-10 ${contentAnimationClass}`}
           >
             <div className="desc_tag relative xl:flex-shrink-0">
               <Image
@@ -138,7 +138,7 @@ const Testimonial: React.FC<TestimonialComponentProps> = ({ testimonials }) => {
             key={`right-${currentIndex}`}
             className={`idenity_section flex gap-6 items-center xl:flex-col xl:items-stretch xl:w-full ${contentAnimationClass}`}
           >
-            <div className="image_section relative overflow-hidden w-full h-[15vh] md:h-[20vh] xl:h-[55vh] 2xl:h-[50vh] z-0 rounded-3xl">
+            <div className="image_section relative overflow-hidden w-full h-[15vh] md:h-[20vh] xl:h-[45vh] 2xl:h-[42vh] z-0 rounded-3xl">
               <div className="relative w-full h-full">
                 <Image
                   src={imageSrc}

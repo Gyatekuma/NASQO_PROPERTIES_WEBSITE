@@ -22,6 +22,14 @@ import { BadgeCent } from "lucide-react";
 import type { PropertiesPageItem } from "../Types/types";
 import type { ServicesPageItem } from "../Types/types";
 
+export const contactConfig = {
+  whatsappNumber: "233596703795",
+  phone: "+233 596703795",
+  email: "homely@gmail.com",
+  whatsappIntroMessage:
+    "Hi! I came across NASQO Properties and I'm interested in learning more about your properties and services. Could you please help me with more information?",
+};
+
 export const coreValuesData = [
   {
     id: "1",
@@ -53,111 +61,88 @@ export const coreValuesData = [
 export const propertiesData = [
   {
     id: "1",
-    title: "Modern luxe villa",
-    location: "Palm Springs, CA",
+    title: "Abena Yedua Apartments",
+    location: "East Legon, Accra",
     description:
-      "Experience luxury living at modern luxe villa, located at 20 s aurora ave, miami. priced at $1,650,500, this 560 ft² smart home offers 4 bedrooms, 3 bathrooms, and spacious living areas. enjoy energy efficiency, natural light, security systems, outdoor spaces, and 2 bar areas—perfect for 8+ guests. Built in 2025",
-    imageSrc: "/HomeAssets/Img10.jpg",
+      "Abena Yedua Housing offers a unique blend of comfort, community, and modern living. This thoughtfully planned residential development provides a serene, well-organized environment for individuals and families. With reliable utilities, organized layouts, and green spaces, residents can focus on building their dream homes stress-free. Flexible ownership options make it easy to secure your place in this thriving community.",
+    imageSrc: "/PropertiesAssets/ImgAY8.png",
     amenities: [
-      {
-        id: "1",
-        name: "Security Gate Post",
-        icon: CctvIcon,
-      },
-      {
-        id: "2",
-        name: "Perimeter fence wall",
-        icon: FenceIcon,
-      },
-      {
-        id: "3",
-        name: "Fast and Reliable internet",
-        icon: WifiIcon,
-      },
-      {
-        id: "4",
-        name: "Asphalt Roads",
-        icon: BusFrontIcon,
-      },
-      {
-        id: "5",
-        name: "Good electricity",
-        icon: CableIcon,
-      },
-
-      {
-        id: "6",
-        name: "Good water supply",
-        icon: ShowerHeadIcon,
-      },
-      {
-        id: "7",
-        name: "Ultramodern washrooms",
-        icon: CctvIcon,
-      },
-      {
-        id: "8",
-        name: "Sidewalks",
-        icon: FootprintsIcon,
-      },
-      {
-        id: "9",
-        name: "Swimming Pool",
-        icon: WavesIcon,
-      },
+      { id: "1", name: "Security Gate Post", icon: CctvIcon },
+      { id: "2", name: "Perimeter fence wall", icon: FenceIcon },
+      { id: "3", name: "Fast and Reliable internet", icon: WifiIcon },
+      { id: "4", name: "Asphalt Roads", icon: BusFrontIcon },
+      { id: "5", name: "Good electricity", icon: CableIcon },
+      { id: "6", name: "Good water supply", icon: ShowerHeadIcon },
+      { id: "7", name: "Ultramodern washrooms", icon: CctvIcon },
+      { id: "8", name: "Sidewalks", icon: FootprintsIcon },
+      { id: "9", name: "Swimming Pool", icon: WavesIcon },
     ],
-
-    href: "/Properties/grace-city-prime-lands",
-    price: "$1,650,500",
+    href: "/Properties/abena-yedua-apartments",
+    price: "$10,000 - $100,000",
   },
   {
-    id: "1",
-    title: "Rocky Mountains",
-    location: "Palm Springs, CA",
+    id: "2",
+    title: "Rocky Mountains Estate",
+    location: "Aburi, Eastern Region",
     description:
-      "Experience luxury living at modern luxe villa, located at 20 s aurora ave, miami. priced at $1,650,500, this 560 ft² smart home offers 4 bedrooms, 3 bathrooms, and spacious living areas. enjoy energy efficiency, natural light, security systems, outdoor spaces, and 2 bar areas—perfect for 8+ guests. Built in 2025",
-    imageSrc: "/HomeAssets/Img11.jpg",
+      "Rocky Mountains is a carefully planned 500-acre eco-friendly community nestled in the serene enclave of Aburi, Eastern Region. It offers fully serviced plots with essential infrastructure—electricity, water, asphalt roads, sidewalks, and secure gate posts—already in place. Convenient payment terms with just 30% deposit and proximity to major landmarks make this the ideal foundation for your dream lifestyle.",
+    imageSrc: "/PropertiesAssets/Img22.png",
     amenities: [
-      {
-        id: "1",
-        name: "Security Gate Post",
-        icon: CctvIcon,
-      },
-      {
-        id: "2",
-        name: "Perimeter fence wall",
-        icon: FenceIcon,
-      },
-      {
-        id: "3",
-        name: "Fast and Reliable internet",
-        icon: WifiIcon,
-      },
-      {
-        id: "4",
-        name: "Asphalt Roads",
-        icon: BusFrontIcon,
-      },
-      {
-        id: "5",
-        name: "Good electricity",
-        icon: CableIcon,
-      },
-
-      {
-        id: "6",
-        name: "Good water supply",
-        icon: ShowerHeadIcon,
-      },
-      {
-        id: "7",
-        name: "Ultramodern washrooms",
-        icon: CctvIcon,
-      },
+      { id: "1", name: "Gated community", icon: FenceIcon },
+      { id: "2", name: "24/7 security", icon: CctvIcon },
+      { id: "3", name: "Community swimming pool", icon: WavesIcon },
+      { id: "4", name: "Restaurant and bar", icon: UtensilsCrossed },
+      { id: "5", name: "Gym", icon: Dumbbell },
+      { id: "6", name: "Supermarket", icon: Store },
+      { id: "7", name: "Unisex saloon", icon: Scissors },
+      { id: "8", name: "Laundry services office", icon: ShowerHeadIcon },
+      { id: "9", name: "Children playground", icon: Baby },
+      { id: "10", name: "On-site facility management office", icon: Building2 },
     ],
-
-    href: "/Properties/rocky-mountains",
-    price: "$1,650,500",
+    href: "/Properties/rocky-mountains-estate",
+    price: "$50,000 - $85,000",
+  },
+  {
+    id: "3",
+    title: "Nhyira City Prime Lands",
+    location: "Aburi, Eastern Region",
+    description:
+      "Nhyira City Prime Lands blends nature seamlessly with modern living in a carefully planned 500-acre eco-friendly community in Aburi. Fully serviced plots come with essential infrastructure including electricity, water, asphalt roads, sidewalks, and secure perimeter fencing already in place. Multiple purchasing phases with convenient and affordable payment terms ensure accessibility for all buyers.",
+    imageSrc: "/PropertiesAssets/ImgN1.png",
+    amenities: [
+      { id: "1", name: "Security Gate Post", icon: CctvIcon },
+      { id: "2", name: "Perimeter fence wall", icon: FenceIcon },
+      { id: "3", name: "Fast and Reliable internet", icon: WifiIcon },
+      { id: "4", name: "Asphalt Roads", icon: BusFrontIcon },
+      { id: "5", name: "Good electricity", icon: CableIcon },
+      { id: "6", name: "Good water supply", icon: ShowerHeadIcon },
+      { id: "7", name: "Ultramodern washrooms", icon: CctvIcon },
+      { id: "8", name: "Sidewalks", icon: FootprintsIcon },
+      { id: "9", name: "Swimming Pool", icon: WavesIcon },
+    ],
+    href: "/Properties/nhyira-city-prime-lands",
+    price: "$78,000",
+  },
+  {
+    id: "4",
+    title: "Skycity Dwellings",
+    location: "Kasoa, Accra",
+    description:
+      "Skycity Dwellings is a modern expression of comfortable urban living along Bawjiase Road in Kasoa. Featuring contemporary architecture with spacious layouts, large windows, and private balconies, it offers one-bedroom and two-bedroom apartments for individuals, professionals, and families. Organized infrastructure, 24/7 security, and easy access to essential services make Skycity a lifestyle destination you can truly call home.",
+    imageSrc: "/PropertiesAssets/ImgSC1.png",
+    amenities: [
+      { id: "1", name: "24/7 security", icon: CctvIcon },
+      { id: "2", name: "Community swimming pool", icon: WavesIcon },
+      { id: "3", name: "Restaurant and bar", icon: UtensilsCrossed },
+      { id: "4", name: "Gym", icon: Dumbbell },
+      { id: "5", name: "Supermarket", icon: Store },
+      { id: "6", name: "Unisex saloon", icon: Scissors },
+      { id: "7", name: "Laundry services office", icon: ShowerHeadIcon },
+      { id: "8", name: "Children playground", icon: Baby },
+      { id: "9", name: "On-site facility management office", icon: Building2 },
+    ],
+    href: "/Properties/skycity-dwellings",
+    price: "$30,000 - $180,000",
   },
 ];
 
@@ -167,12 +152,14 @@ export const propertiesPageData: PropertiesPageItem[] = [
     slug: "abena-yedua-apartments",
     heroTitle: "Abena Yedua Apartments",
     heroImages: [
-      "/PropertiesAssets/Img11.png",
-      "/PropertiesAssets/Img22.png",
-      "/PropertiesAssets/Img33.jpeg",
-      "/PropertiesAssets/Img44.jpeg",
-      "/PropertiesAssets/Img55.jpeg",
-      "/PropertiesAssets/Img66.jpeg",
+      "/PropertiesAssets/ImgAY8.png",
+      "/PropertiesAssets/ImgAY10.png",
+      "/PropertiesAssets/ImgAY7.png",
+      "/PropertiesAssets/ImgAY6.png",
+      "/PropertiesAssets/ImgAY1.png",
+      "/PropertiesAssets/ImgAY2.png",
+      "/PropertiesAssets/ImgAY9.png",
+      
     ],
     ctoHref: "/Contact",
     SectionTag: "Properties",
@@ -410,63 +397,61 @@ export const propertiesPageData: PropertiesPageItem[] = [
     slug: "skycity-dwellings",
     heroTitle: "Skycity Dwellings",
     heroImages: [
-      "/PropertiesAssets/Img1.jpg",
-      "/PropertiesAssets/Img2.jpg",
-      "/PropertiesAssets/Img3.jpg",
-      "/PropertiesAssets/Img4.jpg",
-      "/PropertiesAssets/Img5.jpg",
-      "/PropertiesAssets/Img6.jpg",
+      "/PropertiesAssets/ImgSC1.png",
+      "/PropertiesAssets/ImgSC2.png",
+      "/PropertiesAssets/ImgSC3.png",
+   
     ],
     ctoHref: "/Contact",
     SectionTag: "Properties",
     priceRange: "$30,000 - $180,000",
     description:
-      "Skycity Dwellings is a thoughtfully planned residential community designed for people who want modern comfort, security, and convenience in one place. Inspired by the success and structure of Abena Yedua Housing, Skycity Dwellings offers an organized environment where every detail—from infrastructure to shared spaces—has been carefully considered. Residents enjoy a calm, well-laid-out neighborhood with reliable utilities, accessible roads, and an atmosphere that feels both private and connected. The development is ideal for individuals and families looking to build or own homes in a location that supports long-term living, growth, and stability. With flexible ownership options and a forward-thinking layout, Skycity Dwellings makes it easier to transition from planning a home to actually living in it. It is more than a collection of houses; it is a community built for everyday life, where quality spaces, thoughtful design, and a welcoming environment come together to create a place residents are proud to call home.",
+      "Skycity Dwellings rises as a modern expression of comfortable urban living, thoughtfully designed to meet the needs of today’s lifestyle. Set along the vibrant Bawjiase Road in Kasoa, this development blends contemporary architecture with a calm residential atmosphere, offering residents a perfect balance between city accessibility and peaceful living. The buildings stand with clean, elegant lines and a refined finish, creating a striking yet welcoming presence. From the secure, well-designed entrance to the neatly planned surroundings, every element reflects intentional design and attention to detail. Spacious layouts, large windows, and private balconies invite natural light and fresh air into each home, creating bright and relaxing living spaces. Skycity Dwellings offers both one-bedroom and two-bedroom apartments, carefully crafted to suit individuals, young professionals, and families alike. Each unit is designed for functionality and comfort, making everyday living simple and enjoyable. Whether you are starting out, downsizing, or looking for a secure rental in a growing area, Skycity provides a flexible and practical housing solution. Beyond the apartments, the development fosters a sense of community. With organized infrastructure, accessible roads, and a secure environment, residents can enjoy peace of mind alongside convenience. The location in downtown Kasoa ensures easy access to essential services, transport links, and commercial hubs, making daily life seamless. Inspired by the structured planning of Abena Yedua Housing, Skycity Dwellings is more than just a place to live—it is a lifestyle destination. It represents a forward-thinking approach to housing, where modern design, security, and community come together to create a place you can truly call home.",
     amenities: [
       {
         id: "1",
-        name: "Security Gate Post",
+        name: "24/7 security",
         icon: CctvIcon,
       },
       {
         id: "2",
-        name: "Perimeter fence wall",
-        icon: FenceIcon,
+        name: "Community swimming pool",
+        icon: WavesIcon,
       },
       {
         id: "3",
-        name: "Fast and Reliable internet",
-        icon: WifiIcon,
+        name: "Restaurant and bar",
+        icon: UtensilsCrossed,
       },
       {
         id: "4",
-        name: "Asphalt Roads",
-        icon: BusFrontIcon,
+        name: "Gym",
+        icon: Dumbbell,
       },
       {
         id: "5",
-        name: "Good electricity",
-        icon: CableIcon,
+        name: "Supermarket",
+        icon: Store,
       },
       {
         id: "6",
-        name: "Good water supply",
-        icon: ShowerHeadIcon,
+        name: "Unisex saloon",
+        icon: Scissors,
       },
       {
         id: "7",
-        name: "Ultramodern washrooms",
-        icon: CctvIcon,
+        name: "Laundry services office",
+        icon: ShowerHeadIcon,
       },
       {
         id: "8",
-        name: "Sidewalks",
-        icon: FootprintsIcon,
+        name: "Children playground",
+        icon: Baby,
       },
       {
         id: "9",
-        name: "Swimming Pool",
-        icon: WavesIcon,
+        name: "On-site facility management office",
+        icon: Building2,
       },
     ],
     href: "/Properties/skycity-dwellings",
@@ -492,12 +477,12 @@ export const servicesPageData: ServicesPageItem[] = [
     SectionTag: "Services",
     ctoHref: "/Contact",
     heroImages: [
-      "/PropertiesAssets/Img1.jpg",
-      "/PropertiesAssets/Img2.jpg",
-      "/PropertiesAssets/Img3.jpg",
-      "/PropertiesAssets/Img4.jpg",
-      "/PropertiesAssets/Img5.jpg",
-      "/PropertiesAssets/Img6.jpg",
+      "/PropertiesAssets/ImgN3.png",
+      "/PropertiesAssets/ImgN4.png",
+      "/PropertiesAssets/ImgN5.png",
+      "/PropertiesAssets/ImgN6.png",
+      "/PropertiesAssets/ImgN7.png",
+      "/PropertiesAssets/ImgN8.png",
     ],
     description:
       "At Nasqo Properties, land acquisition is not just a service — it is the cornerstone of what we do. We understand that owning land is more than a purchase; it is a foundation for building wealth, security, and a lifestyle that can last for generations. That is why we carefully source, verify, and secure every parcel we offer, ensuring all our lands are properly documented and fully litigation-free, giving you complete peace of mind and confidence in every transaction. Through our professional land acquisition process, we identify high-potential locations with strong growth prospects, strategic accessibility, and long-term value. Whether you are drawn to prime urban areas that offer convenience and fast development, or you prefer the calm, open beauty of the countryside, Nasqo Properties provides options that align perfectly with your vision and goals. Every plot we present is selected with appreciation potential in mind, making it an excellent opportunity for investors seeking sustainable, long-term returns. At the same time, for individuals and families ready to build a dream home, our lands offer the security and stability needed to plan the future with confidence. Beyond simply selling land, Nasqo Properties partners with you throughout the acquisition journey — from identification and verification to documentation and transfer — ensuring a smooth, transparent, and stress-free experience. With flexible options across diverse settings, our properties offer more than just space; they offer opportunity — the opportunity to grow your assets, secure your legacy, and create a future rooted in comfort, prosperity, and lasting value.",
