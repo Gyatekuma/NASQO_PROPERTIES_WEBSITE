@@ -12,12 +12,12 @@ import { faqData, propertiesPageData, testimonialData } from "../Data/AppData";
 import type { PropertiesPageItem } from "../Types/types";
 
 const DEFAULT_HERO_IMAGES = [
-  "/PropertiesAssets/Img1.jpg",
-  "/PropertiesAssets/Img2.jpg",
-  "/PropertiesAssets/Img3.jpg",
-  "/PropertiesAssets/Img4.jpg",
-  "/PropertiesAssets/Img5.jpg",
-  "/PropertiesAssets/Img6.jpg",
+  "/PropertiesAssets/Img11.webp",
+  "/PropertiesAssets/Img22.webp",
+  "/PropertiesAssets/Img33.webp",
+  "/PropertiesAssets/Img44.webp",
+  "/PropertiesAssets/Img55.webp",
+  "/PropertiesAssets/Img66.webp",
 ];
 
 const HERO_AUTO_SLIDE_INTERVAL_MS = 5500;
@@ -534,7 +534,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 mt-8 xl:mt-10 w-full min-w-0">
             {otherProperties.slice(0, 3).map((p) => {
               const name = p.heroTitle ?? p.title ?? "Property";
-              const img = p.heroImages?.[0] ?? p.imageSrc ?? "/PropertiesAssets/Img1.jpg";
+              const img = p.heroImages?.[0] ?? p.imageSrc ?? "/PropertiesAssets/Img11.webp";
               return (
                 <div
                   key={p.id}
@@ -589,7 +589,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
       >
         <Faq
           faqs={faqData}
-          imageSrc={heroImages[0] ?? "/PropertiesAssets/Img1.jpg"}
+          imageSrc={heroImages[0] ?? "/PropertiesAssets/Img11.webp"}
         />
       </ScrollRevealSection>
     </div>

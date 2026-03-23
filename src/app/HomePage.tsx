@@ -33,7 +33,7 @@ function HomePage() {
   const properties: propertiesProps[] = propertiesData;
   const servicesCards = servicesPageData.map((service) => ({
     id: service.id,
-    imageSrc: service.heroImages?.[0] ?? "/HomeAssets/Img18.jpg",
+    imageSrc: service.heroImages?.[0] ?? "/HomeAssets/Img111.webp",
     title: service.heroTitle ?? "Service",
     subtext: service.description,
     slug: service.slug,
@@ -200,7 +200,7 @@ function HomePage() {
             <div className="section_container border border-neutral-200 py-[3%] px-[3%] xl:py-[2%] xl:px-[2%] rounded-4xl xl:rounded-3xl xl:w-[85%] mt-[10%] md:mt-[10%] xl:mt-0 mb-[5%] xl:mb-4 2xl:mb-4">
               <div className="about-reveal banner_container relative overflow-hidden rounded-3xl xl:rounded-2xl w-full xl:w-full h-[30vh] md:h-[20vh] xl:h-[26vh] 2xl:h-[28vh]">
                 <Image
-                  src="/PropertiesAssets/ImgSC3.png"
+                  src="/PropertiesAssets/ImgSC3.webp"
                   alt="banner"
                   fill
                   priority
@@ -277,7 +277,7 @@ function HomePage() {
                 key={property.id}
                 title={property.heroTitle ?? property.title ?? "Property"}
                 subtext={property.description.slice(0, 140).trim() + (property.description.length > 140 ? "…" : "")}
-                imageSrc={property.heroImages?.[0] ?? property.imageSrc ?? "/HomeAssets/Img5.jpg"}
+                imageSrc={property.heroImages?.[0] ?? property.imageSrc ?? "/HomeAssets/Img111.webp"}
                 href={`/Properties/${property.slug}`}
                 cardSize="small"
                 className="lg:h-[26vh] xl:h-[26vh] 2xl:h-[28vh]"
@@ -292,7 +292,7 @@ function HomePage() {
                 key={property.id}
                 title={property.heroTitle ?? property.title ?? "Property"}
                 subtext={property.description.slice(0, 140).trim() + (property.description.length > 140 ? "…" : "")}
-                imageSrc={property.heroImages?.[1] ?? property.imageSrc ?? "/HomeAssets/Img7.jpg"}
+                imageSrc={property.heroImages?.[1] ?? property.imageSrc ?? "/HomeAssets/Img222.webp"}
                 href={`/Properties/${property.slug}`}
                 className="lg:h-[24vh] xl:h-[24vh] 2xl:h-[26vh]"
                 alt={property.heroTitle ?? property.title ?? "Property"}

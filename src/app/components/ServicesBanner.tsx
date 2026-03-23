@@ -45,7 +45,7 @@ const ServicesBanner: React.FC = () => {
         className="absolute top-[-10%] left-0 right-0 bottom-[-10%] will-change-transform"
       >
         <Image
-          src="/PropertiesAssets/ImgAY9.png"
+          src="/PropertiesAssets/ImgAY9.webp"
           alt="services banner"
           fill
           className="object-cover"

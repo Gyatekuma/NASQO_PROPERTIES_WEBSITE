@@ -65,7 +65,7 @@ export const propertiesData = [
     location: "East Legon, Accra",
     description:
       "Abena Yedua Housing offers a unique blend of comfort, community, and modern living. This thoughtfully planned residential development provides a serene, well-organized environment for individuals and families. With reliable utilities, organized layouts, and green spaces, residents can focus on building their dream homes stress-free. Flexible ownership options make it easy to secure your place in this thriving community.",
-    imageSrc: "/PropertiesAssets/ImgAY8.png",
+    imageSrc: "/PropertiesAssets/ImgAY8.webp",
     amenities: [
       { id: "1", name: "Security Gate Post", icon: CctvIcon },
       { id: "2", name: "Perimeter fence wall", icon: FenceIcon },
@@ -86,7 +86,7 @@ export const propertiesData = [
     location: "Aburi, Eastern Region",
     description:
       "Rocky Mountains is a carefully planned 500-acre eco-friendly community nestled in the serene enclave of Aburi, Eastern Region. It offers fully serviced plots with essential infrastructure—electricity, water, asphalt roads, sidewalks, and secure gate posts—already in place. Convenient payment terms with just 30% deposit and proximity to major landmarks make this the ideal foundation for your dream lifestyle.",
-    imageSrc: "/PropertiesAssets/Img22.png",
+    imageSrc: "/PropertiesAssets/Img22.webp",
     amenities: [
       { id: "1", name: "Gated community", icon: FenceIcon },
       { id: "2", name: "24/7 security", icon: CctvIcon },
@@ -108,7 +108,7 @@ export const propertiesData = [
     location: "Aburi, Eastern Region",
     description:
       "Nhyira City Prime Lands blends nature seamlessly with modern living in a carefully planned 500-acre eco-friendly community in Aburi. Fully serviced plots come with essential infrastructure including electricity, water, asphalt roads, sidewalks, and secure perimeter fencing already in place. Multiple purchasing phases with convenient and affordable payment terms ensure accessibility for all buyers.",
-    imageSrc: "/PropertiesAssets/ImgN1.png",
+    imageSrc: "/PropertiesAssets/ImgN1.webp",
     amenities: [
       { id: "1", name: "Security Gate Post", icon: CctvIcon },
       { id: "2", name: "Perimeter fence wall", icon: FenceIcon },
@@ -129,7 +129,7 @@ export const propertiesData = [
     location: "Kasoa, Accra",
     description:
       "Skycity Dwellings is a modern expression of comfortable urban living along Bawjiase Road in Kasoa. Featuring contemporary architecture with spacious layouts, large windows, and private balconies, it offers one-bedroom and two-bedroom apartments for individuals, professionals, and families. Organized infrastructure, 24/7 security, and easy access to essential services make Skycity a lifestyle destination you can truly call home.",
-    imageSrc: "/PropertiesAssets/ImgSC1.png",
+    imageSrc: "/PropertiesAssets/ImgSC1.webp",
     amenities: [
       { id: "1", name: "24/7 security", icon: CctvIcon },
       { id: "2", name: "Community swimming pool", icon: WavesIcon },
@@ -235,7 +235,7 @@ export const propertiesPageData: PropertiesPageItem[] = [
     location: "Palm Springs, CA",
     description:
       "Rocky Mountains is where life offers you the opportunity to blend nature seamlessly with the conveniences of modern living. It is a carefully planned 500-acre eco-friendly community located in the lush, serene enclave of Aburi, in the Eastern Region. This development offers fully serviced plots, designed to provide a sustainable and organic lifestyle, freeing you from the burdens of infrastructure development. Grace City Prime Land is more than just a residential area; it's a model community birthed from the high demand of our discerning clientele. Responding to countless requests, RKE has stepped in to create a space where essential infrastructure- including electricity, water, asphalt roads, sidewalks, a green park, efficient drainage, a secure gate post, parameter fence wall and ambient street lights – is already in place. This means you can focus on building your dream home and embracing a holistic way of life from day one, without the stress of coordinating these essential amenities yourself. Grace City Prime Land offers a unique opportunity to own fully serviced plots with convenient and affordable payment terms. The community is within reasonable proximity to major landmarks and amenities, and just a 40-minute drive from the airport, this is your chance to move into a community that takes away the burden of infrastructure worries. Embrace the ease of holistic and organic living at Grace City Prime Land, where your dream lifestyle becomes a reality.",
-    imageSrc: "/HomeAssets/Img11.jpg",
+    imageSrc: "/HomeAssets/Img111.webp",
     heroImages: [
       "/PropertiesAssets/Img11.webp",
       "/PropertiesAssets/Img22.webp",
@@ -399,7 +399,7 @@ export const propertiesPageData: PropertiesPageItem[] = [
     heroImages: [
       "/PropertiesAssets/ImgSC1.webp",
       "/PropertiesAssets/ImgSC2.webp",
-      "/PropertiesAssets/ImgSC3.png",
+      "/PropertiesAssets/ImgSC3.webp",
     
     ],
     ctoHref: "/Contact",
