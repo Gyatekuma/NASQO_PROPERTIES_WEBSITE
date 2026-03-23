@@ -1,11 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+import React, { useState, useRef, useEffect } from "react";
 import Button from "../components/button";
 import SectionTags from "../components/SectionTags";
 import Metrics from "../components/Metrics";
@@ -26,146 +21,96 @@ const ABOUT_DESCRIPTION_SHORT =
 
 const ABOUT_DESCRIPTION_SENTENCES = ABOUT_DESCRIPTION_FULL.split(/(?<=\.)\s+/).filter(Boolean);
 
+function setupReveal(
+  scope: Element | null,
+  selector: string,
+  opts: { y?: number; duration?: number; stagger?: number; rootMargin?: string }
+) {
+  if (!scope) return () => {};
+  const reveals = scope.querySelectorAll<HTMLElement>(selector);
+  if (!reveals.length) return () => {};
+  const { y = 32, duration = 0.7, stagger = 0.06, rootMargin = "-10% 0px" } = opts;
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry, i) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        setTimeout(() => {
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        }, i * (stagger * 1000));
+      });
+    },
+    { rootMargin, threshold: 0 }
+  );
+  reveals.forEach((el) => {
+    el.style.opacity = "0";
+    el.style.transform = `translateY(${opts.y ?? 32}px)`;
+    el.style.transition = `opacity ${duration}s ease-out, transform ${duration}s ease-out`;
+    obs.observe(el);
+  });
+  return () => obs.disconnect();
+}
+
+function setupSectionReveal(
+  scope: Element | null,
+  selectors: { tag?: string; cards?: string },
+  opts: { y?: number; duration?: number; stagger?: number }
+) {
+  if (!scope) return () => {};
+  const { y = 48, duration = 0.8, stagger = 0.18 } = opts;
+  const rootMargin = "-12% 0px";
+  const obs = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry?.isIntersecting) return;
+      const tag = selectors.tag ? scope.querySelector<HTMLElement>(selectors.tag) : null;
+      const cards = selectors.cards ? scope.querySelectorAll<HTMLElement>(selectors.cards) : [];
+      if (tag) {
+        tag.style.opacity = "1";
+        tag.style.transform = "translateY(0)";
+      }
+      cards.forEach((el, i) => {
+        setTimeout(() => {
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        }, (i + 1) * (stagger * 1000));
+      });
+    },
+    { rootMargin, threshold: 0 }
+  );
+  const tag = selectors.tag ? scope.querySelector<HTMLElement>(selectors.tag) : null;
+  const cards = selectors.cards ? scope.querySelectorAll<HTMLElement>(selectors.cards) : [];
+  if (tag) {
+    tag.style.opacity = "0";
+    tag.style.transform = `translateY(40px)`;
+    tag.style.transition = `opacity 0.7s ease-out, transform 0.7s ease-out`;
+  }
+  cards.forEach((el) => {
+    el.style.opacity = "0";
+    el.style.transform = `translateY(${y}px)`;
+    el.style.transition = `opacity ${duration}s ease-out, transform ${duration}s ease-out`;
+  });
+  obs.observe(scope);
+  return () => obs.disconnect();
+}
+
 function page() {
   const coreValues: coreValueProps[] = coreValuesDataAboutPage;
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const aboutSectionRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      const reveals = gsap.utils.toArray<HTMLElement>(".about-page-reveal");
-      reveals.forEach((el, i) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 32,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 90%",
-            toggleActions: "play none none reverse",
-          },
-          delay: i * 0.06,
-        });
-      });
-    },
-    { scope: aboutSectionRef, dependencies: [] }
-  );
-
   const metricsRef = useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
-      const metrics = gsap.utils.toArray<HTMLElement>(".about-page-metric-reveal");
-      metrics.forEach((el, i) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 32,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 90%",
-            toggleActions: "play none none reverse",
-          },
-          delay: i * 0.15,
-        });
-      });
-    },
-    { scope: metricsRef, dependencies: [] }
-  );
-
   const visionSectionRef = useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
-      const reveals = gsap.utils.toArray<HTMLElement>(".vision-reveal");
-      reveals.forEach((el, i) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 48,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none reverse",
-          },
-          delay: i * 0.08,
-        });
-      });
-    },
-    { scope: visionSectionRef, dependencies: [] }
-  );
-
   const missionSectionRef = useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
-      const reveals = gsap.utils.toArray<HTMLElement>(".mission-reveal");
-      reveals.forEach((el, i) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 48,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none reverse",
-          },
-          delay: i * 0.08,
-        });
-      });
-    },
-    { scope: missionSectionRef, dependencies: [] }
-  );
-
   const coreValuesSectionRef = useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
-      const section = coreValuesSectionRef.current;
-      if (!section) return;
 
-      const tag = section.querySelector<HTMLElement>(".core-values-tag");
-      const cards = gsap.utils.toArray<HTMLElement>(".core-values-card");
-
-      if (tag) {
-        gsap.fromTo(
-          tag,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 88%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-
-      if (cards.length) {
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 48 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            stagger: 0.18,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 88%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-    },
-    { scope: coreValuesSectionRef, dependencies: [] }
-  );
+  useEffect(() => {
+    const c1 = setupReveal(aboutSectionRef.current, ".about-page-reveal", { y: 32, stagger: 0.06 });
+    const c2 = setupReveal(metricsRef.current, ".about-page-metric-reveal", { y: 32, stagger: 0.15 });
+    const c3 = setupReveal(visionSectionRef.current, ".vision-reveal", { y: 48, duration: 0.8, stagger: 0.08 });
+    const c4 = setupReveal(missionSectionRef.current, ".mission-reveal", { y: 48, duration: 0.8, stagger: 0.08 });
+    const c5 = setupSectionReveal(coreValuesSectionRef.current, { tag: ".core-values-tag", cards: ".core-values-card" }, { stagger: 0.18 });
+    return () => { c1(); c2(); c3(); c4(); c5(); };
+  }, []);
 
   return (
     <div className="about_page_container">
@@ -173,7 +118,7 @@ function page() {
         {/* Hero Section */}
         <div
           className="Main_Hero_Container relative w-screen h-screen bg-cover bg-center"
-          style={{ backgroundImage: `url(PropertiesAssets/ImgSC3.webp)` }}
+          style={{ backgroundImage: "url(/PropertiesAssets/ImgSC3.webp)" }}
         >
           <div className="overlay_section inset-0 absolute bg-black/50 z-0" />
 
