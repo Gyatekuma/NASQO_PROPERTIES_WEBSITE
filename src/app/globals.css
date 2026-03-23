@@ -28,7 +28,7 @@ html {
   -webkit-overflow-scrolling: touch; /* Momentum scrolling on iOS */
 }
 
-/* Lenis + GSAP ScrollTrigger integration */
+/* Lenis smooth scroll */
 html.lenis,
 html.lenis body {
   height: auto;

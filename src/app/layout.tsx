@@ -9,16 +9,18 @@ import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 import RoutePrefetcher from "./components/RoutePrefetcher";
 
 const bricolage = Bricolage_Grotesque({
-  subsets:["latin"],
-  weight:["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
   variable: "--font-bricolage",
-  display: "swap"
+  display: "swap",
+  preload: true,
 })
 const monaSans = Mona_Sans({
-  subsets:["latin"],
-  weight:["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
   variable: "--font-mona",
-  display: "swap"
+  display: "swap",
+  preload: true,
 })
 
 export const metadata: Metadata = {

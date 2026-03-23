@@ -20,7 +20,7 @@ export default function RoutePrefetcher() {
       );
     };
 
-    const id = setTimeout(prefetchAll, 800);
+    const id = setTimeout(prefetchAll, 2000);
     return () => clearTimeout(id);
   }, [router]);
 

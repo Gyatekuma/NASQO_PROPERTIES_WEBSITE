@@ -1,9 +1,5 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 import HeroComponent from "./components/HeroComponent";
 import Metrics from "./components/Metrics";
 import SectionTags from "./components/SectionTags";
@@ -22,11 +18,13 @@ import {
   MoveRight,
 } from "lucide-react";
 import Image from "next/image";
-import Testimonial from "./components/Testimonial";
-import Faq from "./components/Faq";
-import ServicesBanner from "./components/ServicesBanner";
+import dynamic from "next/dynamic";
 import ParallaxPropertyImage from "./components/ParallaxPropertyImage";
 import ScrollRevealSection from "./components/ScrollRevealSection";
+
+const Testimonial = dynamic(() => import("./components/Testimonial"), { ssr: true });
+const Faq = dynamic(() => import("./components/Faq"), { ssr: true });
+const ServicesBanner = dynamic(() => import("./components/ServicesBanner"), { ssr: true });
 
 function HomePage() {
   const coreValues: coreValueProps[] = coreValuesData;
@@ -57,96 +55,43 @@ function HomePage() {
     setCurrentPropertyIndex((i) => (i === properties.length - 1 ? 0 : i + 1));
 
   const aboutSectionRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const ctx = gsap.context(() => {
-      const section = aboutSectionRef.current;
-      if (!section) return;
-
-      const reveals = gsap.utils.toArray<HTMLElement>(".about-reveal", section);
-      if (!reveals.length) return;
-
-      gsap.set(reveals, { opacity: 0, y: 48 });
-      gsap.to(reveals, {
-        opacity: 1,
-        y: 0,
-        duration: 0.45,
-        ease: "power3.out",
-        stagger: 0.03,
-        scrollTrigger: {
-          trigger: section,
-          start: "top 95%",
-          once: true,
-        },
-      });
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => ScrollTrigger.refresh());
-      });
-    }, aboutSectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   const servicesSectionRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const ctx = gsap.context(() => {
-      const section = servicesSectionRef.current;
-      if (!section) return;
-
-      const reveals = gsap.utils.toArray<HTMLElement>(".services-reveal", section);
-      if (!reveals.length) return;
-
-      gsap.set(reveals, { opacity: 0, y: 48 });
-      gsap.to(reveals, {
-        opacity: 1,
-        y: 0,
-        duration: 0.45,
-        ease: "power3.out",
-        stagger: 0.03,
-        scrollTrigger: {
-          trigger: section,
-          start: "top 95%",
-          once: true,
-        },
-      });
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => ScrollTrigger.refresh());
-      });
-    }, servicesSectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   const propertiesSectionRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const ctx = gsap.context(() => {
-      const section = propertiesSectionRef.current;
-      if (!section) return;
-
-      const reveals = gsap.utils.toArray<HTMLElement>(".properties-reveal", section);
-      if (!reveals.length) return;
-
-      gsap.set(reveals, { opacity: 0, y: 48 });
-      gsap.to(reveals, {
-        opacity: 1,
-        y: 0,
-        duration: 0.45,
-        ease: "power3.out",
-        stagger: 0.03,
-        scrollTrigger: {
-          trigger: section,
-          start: "top 95%",
-          once: true,
+    const setup = (ref: React.RefObject<HTMLElement | null>, sel: string) => {
+      const section = ref.current;
+      if (!section) return () => {};
+      const reveals = section.querySelectorAll<HTMLElement>(sel);
+      if (!reveals.length) return () => {};
+      const obs = new IntersectionObserver(
+        ([e]) => {
+          if (!e?.isIntersecting) return;
+          reveals.forEach((el, i) => {
+            setTimeout(() => {
+              el.style.opacity = "1";
+              el.style.transform = "translateY(0)";
+            }, i * 30);
+          });
         },
+        { rootMargin: "-5% 0px", threshold: 0 }
+      );
+      reveals.forEach((el) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(48px)";
+        el.style.transition = "opacity 0.45s ease-out, transform 0.45s ease-out";
       });
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => ScrollTrigger.refresh());
-      });
-    }, propertiesSectionRef);
-
-    return () => ctx.revert();
+      obs.observe(section);
+      return () => obs.disconnect();
+    };
+    const c1 = setup(aboutSectionRef, ".about-reveal");
+    const c2 = setup(servicesSectionRef, ".services-reveal");
+    const c3 = setup(propertiesSectionRef, ".properties-reveal");
+    return () => {
+      c1();
+      c2();
+      c3();
+    };
   }, []);
 
   return (

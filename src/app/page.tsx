@@ -1,15 +1,9 @@
-"use client";
+import HomePage from "./HomePage";
 
-import React from 'react'
-import HeroComponent from './components/HeroComponent'
-import HomePage from './HomePage'
-
-function page() {
+export default function Page() {
   return (
     <div>
       <HomePage />
     </div>
-  )
+  );
 }
-
-export default page
