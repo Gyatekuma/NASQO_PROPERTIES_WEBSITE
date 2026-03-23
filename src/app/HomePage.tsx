@@ -204,6 +204,7 @@ function HomePage() {
                   alt="banner"
                   fill
                   priority
+                  sizes="(max-width: 1280px) 85vw, 42vw"
                   className="w-full h-full object-cover"
                 />
               </div>

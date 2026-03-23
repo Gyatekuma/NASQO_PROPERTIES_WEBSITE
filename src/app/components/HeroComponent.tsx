@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import Button from './button'
 
 const HOME_HERO_IMAGES = [
@@ -43,13 +44,12 @@ function HeroComponent() {
 
   return (
     <div className="Main_Hero_Container relative w-screen h-screen overflow-hidden">
-      {/* Stacked hero images with crossfade + subtle zoom */}
+      {/* Stacked hero images with crossfade + subtle zoom - Next/Image for optimization */}
       {HOME_HERO_IMAGES.map((src, index) => (
         <div
           key={`${src}-${index}`}
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 transition-all duration-1000 ease-out"
           style={{
-            backgroundImage: `url(${src})`,
             opacity: activeIndex === index ? 1 : 0,
             transform: activeIndex === index ? 'scale(1.05)' : 'scale(1)',
             zIndex: activeIndex === index ? 1 : 0,
@@ -57,7 +57,16 @@ function HeroComponent() {
               'opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)',
           }}
           aria-hidden={activeIndex !== index}
-        />
+        >
+          <Image
+            src={src}
+            alt={`Hero slide ${index + 1}`}
+            fill
+            priority={index < 2}
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
       ))}
 
       <div className="overlay_section inset-0 absolute bg-black/50 z-2" aria-hidden />

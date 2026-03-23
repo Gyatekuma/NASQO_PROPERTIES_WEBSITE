@@ -18,6 +18,7 @@ const ServicesCard:React.FC<servicesCardProps> = ({ id, imageSrc, title, subtext
         src={imageSrc}
         alt={title}
         fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
         className='w-full h-full object-cover z-10'
         />
 

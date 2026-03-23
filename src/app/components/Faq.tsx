@@ -71,6 +71,7 @@ const Faq: React.FC<FaqProps> = ({ faqs, imageSrc = "/HomeAssets/Img222.webp", c
               src={imageSrc}
               alt="FAQ"
               fill
+              sizes="(max-width: 1280px) 100vw, 50vw"
               className="w-full h-full object-cover"
             />
           </div>

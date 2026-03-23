@@ -48,6 +48,7 @@ const ServicesBanner: React.FC = () => {
           src="/PropertiesAssets/ImgAY9.webp"
           alt="services banner"
           fill
+          sizes="100vw"
           className="object-cover"
         />
       </div>

@@ -98,13 +98,12 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
     <div>
       {/* Hero Section - auto-sliding with crossfade + scale transition */}
       <div className="relative w-full max-w-[100vw] h-screen min-h-[500px] overflow-hidden">
-        {/* Stacked hero images with crossfade + subtle zoom */}
+        {/* Stacked hero images with crossfade + subtle zoom - Next/Image for optimization */}
         {heroImages.map((src, index) => (
           <div
             key={`${src}-${index}`}
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 transition-all duration-1000 ease-out"
             style={{
-              backgroundImage: `url(${src})`,
               opacity: activeIndex === index ? 1 : 0,
               transform: activeIndex === index ? "scale(1.05)" : "scale(1)",
               zIndex: activeIndex === index ? 1 : 0,
@@ -112,7 +111,16 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                 "opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
             aria-hidden={activeIndex !== index}
-          />
+          >
+            <Image
+              src={src}
+              alt={`${displayTitle} view ${index + 1}`}
+              fill
+              priority={index < 2}
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </div>
         ))}
         <div className="absolute inset-0 z-[2] pointer-events-none bg-black/20" aria-hidden />
         <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/70" aria-hidden />

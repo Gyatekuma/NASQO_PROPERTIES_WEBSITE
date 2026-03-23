@@ -56,6 +56,7 @@ const ParallaxPropertyImage: React.FC<ParallaxPropertyImageProps> = ({
           src={imageSrc}
           alt={alt}
           fill
+          sizes="(max-width: 1280px) 100vw, 42vw"
           className="object-cover z-0"
         />
       </div>

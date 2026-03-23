@@ -144,6 +144,7 @@ const Testimonial: React.FC<TestimonialComponentProps> = ({ testimonials }) => {
                   src={imageSrc}
                   alt={name}
                   fill
+                  sizes="(max-width: 1280px) 100vw, 35vw"
                   className="w-[30%] xl:w-full h-full object-cover object-top"
                 />
               </div>
