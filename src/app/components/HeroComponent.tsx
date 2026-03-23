@@ -4,12 +4,12 @@ import React, { useState, useEffect, useRef } from 'react'
 import Button from './button'
 
 const HOME_HERO_IMAGES = [
-  '/PropertiesAssets/ImgSC1.png',
-  '/PropertiesAssets/ImgN5.png',
-  '/PropertiesAssets/Img22.png',
-  '/PropertiesAssets/ImgN7.png',
-  '/PropertiesAssets/ImgAY6.png',
-  '/PropertiesAssets/ImgAY8.png',
+  '/PropertiesAssets/ImgSC1.webp',
+  '/PropertiesAssets/ImgN5.webp',
+  '/PropertiesAssets/Img22.webp',
+  '/PropertiesAssets/ImgN7.webp',
+  '/PropertiesAssets/ImgAY6.webp',
+  '/PropertiesAssets/ImgAY8.webp',
 ]
 
 const HERO_AUTO_SLIDE_INTERVAL_MS = 5500

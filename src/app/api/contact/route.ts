@@ -44,20 +44,27 @@ export async function POST(request: Request) {
     // Gmail App Passwords are often shown with spaces; remove them safely.
     const smtpPass = smtpPassRaw.replace(/\s+/g, "");
 
-    // Use Gmail well-known service defaults (more reliable than manual host/port).
+    // Use Gmail well-known service defaults.
+    // pool: false avoids reusing connections that may have been closed by the server.
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: smtpUser,
         pass: smtpPass,
       },
-      connectionTimeout: 20_000,
-      greetingTimeout: 20_000,
-      socketTimeout: 20_000,
+      pool: false,
+      connectionTimeout: 25_000,
+      greetingTimeout: 25_000,
+      socketTimeout: 25_000,
+      secure: true,
     });
 
-    // Fail fast with a descriptive error if SMTP auth/connection is wrong.
-    await transporter.verify();
+    // Verify connection (optional – skip if it fails; sendMail may still work).
+    try {
+      await transporter.verify();
+    } catch (verifyErr) {
+      console.warn("SMTP verify failed (will attempt send anyway):", verifyErr);
+    }
 
     const safeName = escapeHtml(String(name));
     const safeCompany = escapeHtml(String(company || "-"));

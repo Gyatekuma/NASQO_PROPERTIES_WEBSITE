@@ -26,7 +26,7 @@ const getLenisOptions = (): LenisOptions => {
       : false;
 
   return {
-    autoRaf: true,
+    autoRaf: false,
     lerp: prefersReducedMotion ? 1 : 0.08,
     smoothWheel: !prefersReducedMotion,
     wheelMultiplier: 1.1,
@@ -54,6 +54,8 @@ export function LenisProvider({
   }, [options]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const lenisInstance = new Lenis({
       ...getLenisOptions(),
       ...optionsRef.current,
@@ -61,9 +63,27 @@ export function LenisProvider({
 
     lenisInstance.on("scroll", ScrollTrigger.update);
 
+    const tickerUpdate = (time: number) => {
+      lenisInstance.raf(time * 1000);
+    };
+    gsap.ticker.add(tickerUpdate);
+    gsap.ticker.lagSmoothing(0);
+
     setLenis(lenisInstance);
 
+    const refresh = () => ScrollTrigger.refresh();
+    const handleLoad = refresh;
+    window.addEventListener("load", handleLoad);
+    window.addEventListener("resize", refresh);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(refresh);
+    });
+    setTimeout(refresh, 100);
+
     return () => {
+      window.removeEventListener("load", handleLoad);
+      window.removeEventListener("resize", refresh);
+      gsap.ticker.remove(tickerUpdate);
       lenisInstance.off("scroll", ScrollTrigger.update);
       lenisInstance.destroy();
       setLenis(null);

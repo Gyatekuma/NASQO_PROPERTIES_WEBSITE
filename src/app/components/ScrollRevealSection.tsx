@@ -80,6 +80,10 @@ const ScrollRevealSection: React.FC<ScrollRevealSectionProps> = ({
           });
         });
       }
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
     }, sectionRef);
 
     return () => ctx.revert();

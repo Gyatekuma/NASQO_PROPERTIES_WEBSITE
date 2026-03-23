@@ -173,7 +173,7 @@ function page() {
         {/* Hero Section */}
         <div
           className="Main_Hero_Container relative w-screen h-screen bg-cover bg-center"
-          style={{ backgroundImage: `url(/HomeAssets/Img9.jpg)` }}
+          style={{ backgroundImage: `url(PropertiesAssets/ImgSC3.webp)` }}
         >
           <div className="overlay_section inset-0 absolute bg-black/50 z-0" />
 
@@ -254,7 +254,7 @@ function page() {
             <div className="xl:w-1/2">
               <div className="vision-reveal image_container relative overflow-hidden h-[50vh] xl:h-[70vh] rounded-3xl">
                 <Image
-                  src="/HomeAssets/Img10.jpg"
+                  src="/HomeAssets/Img111.webp"
                   alt="mission"
                   fill
                   className="w-full h-full object-cover"
@@ -296,7 +296,7 @@ function page() {
             <div className="xl:w-1/2">
               <div className="mission-reveal image_container relative overflow-hidden h-[50vh] mt-[25%] md:mt-[4%] xl:mt-0 xl:h-[70vh] rounded-3xl">
                 <Image
-                  src="/HomeAssets/Img9.jpg"
+                  src="/HomeAssets/Img999.webp"
                   alt="mission"
                   fill
                   className="w-full h-full object-cover"
@@ -376,7 +376,7 @@ function page() {
           {/* about_description_hero section */}
 
           <DescriptionHero
-            imageSrc="/HomeAssets/Img31.jpg"
+            imageSrc="/HomeAssets/Img333.webp"
             imageAlt="about"
             title={["Your Home,", "Simplified"]}
             subtitle="Every search leads closer to a place where comfort meets convenience. From the first glance to the final say, finding the perfect property becomes effortless, turning dreams into a home that truly feels like yours. Spaces that inspire, neighborhoods that welcome, and opportunities that grow with every choice. Every detail, from light-filled rooms to thoughtfully designed layouts, comes together to create a life well-lived. A home isn't just walls and roofs—it's where stories unfold, memories are made, and futures are built."

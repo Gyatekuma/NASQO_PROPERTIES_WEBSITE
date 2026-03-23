@@ -79,6 +79,9 @@ function HomePage() {
           once: true,
         },
       });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
     }, aboutSectionRef);
 
     return () => ctx.revert();
@@ -106,6 +109,9 @@ function HomePage() {
           start: "top 95%",
           once: true,
         },
+      });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => ScrollTrigger.refresh());
       });
     }, servicesSectionRef);
 
@@ -135,6 +141,9 @@ function HomePage() {
           once: true,
         },
       });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
     }, propertiesSectionRef);
 
     return () => ctx.revert();
@@ -154,7 +163,7 @@ function HomePage() {
                 name="about us"
                 imageSrc="/Main_Assets/Tag_Icon_blue.svg"
                 header="Assisting individuals in locating the appropriate real estate."
-                subtext="Donec porttitor euismod dignissim. Nullam a lacinia ipsum, nec dignissim purus. Nulla convallis ipsum molestie nibh malesuada, ac malesuada leo volutpat."
+                subtext="Helping you find the perfect property that matches your lifestyle and goals.We make your real estate journey simple, stress-free, and rewarding."
               />
             </div>
             <div className="core_values xl:flex-1 xl:flex xl:flex-col xl:justify-evenly xl:gap-3">
@@ -482,7 +491,7 @@ function HomePage() {
         staggerDelay={0.04}
         className="faq_section_container mx-[5%] xl:mx-[8%] 2xl:mx-[10%] py-[10%] xl:py-[8%]"
       >
-        <Faq faqs={faqData} />
+        <Faq faqs={faqData} imageSrc="/HomeAssets/Img222.webp" />
       </ScrollRevealSection>
     </div>
   );
