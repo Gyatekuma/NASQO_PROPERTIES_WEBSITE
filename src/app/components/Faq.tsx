@@ -21,7 +21,7 @@ interface FaqProps {
 
 const PARALLAX_SPEED = 0.15;
 
-const Faq: React.FC<FaqProps> = ({ faqs, imageSrc = "/HomeAssets/Img11.jpg", className }) => {
+const Faq: React.FC<FaqProps> = ({ faqs, imageSrc = "/HomeAssets/Img222.webp", className }) => {
   const [openId, setOpenId] = useState<string | null>(faqs[0]?.id ?? null);
   const imageContainerRef = useRef<HTMLDivElement | null>(null);
   const imageTransformRef = useRef<HTMLDivElement | null>(null);
