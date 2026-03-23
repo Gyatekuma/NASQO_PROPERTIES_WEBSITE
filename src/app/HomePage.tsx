@@ -193,10 +193,7 @@ function HomePage() {
 
           {/* Right section */}
 
-            <div
-              className="right_section md:flex md:flex-col md:justify-between   xl:flex xl:items-end xl:mt-0  2xl:w-1/2 2xl:mt-0
-"
-          >
+            <div className="right_section md:flex md:flex-col md:justify-between xl:flex xl:items-end xl:mt-0 2xl:w-1/2 2xl:mt-0">
             <div className="section_container border border-neutral-200 py-[3%] px-[3%] xl:py-[2%] xl:px-[2%] rounded-4xl xl:rounded-3xl xl:w-[85%] mt-[10%] md:mt-[10%] xl:mt-0 mb-[5%] xl:mb-4 2xl:mb-4">
               <div className="about-reveal banner_container relative overflow-hidden rounded-3xl xl:rounded-2xl w-full xl:w-full h-[30vh] md:h-[20vh] xl:h-[26vh] 2xl:h-[28vh]">
                 <Image
