@@ -17,7 +17,7 @@ import {
   MoveLeft,
   MoveRight,
 } from "lucide-react";
-import Image from "next/image";
+import Image from "./components/OptimizedImage";
 import dynamic from "next/dynamic";
 import ParallaxPropertyImage from "./components/ParallaxPropertyImage";
 import ScrollRevealSection from "./components/ScrollRevealSection";

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "./OptimizedImage";
 import React, { useState, useRef, useEffect } from "react";
 import SectionTags from "./SectionTags";
 import { ChevronDown, ChevronUp } from "lucide-react";

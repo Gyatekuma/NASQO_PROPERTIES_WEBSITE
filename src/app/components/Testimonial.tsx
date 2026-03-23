@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import SectionTags from "./SectionTags";
-import Image from "next/image";
+import Image from "./OptimizedImage";
 import { MoveLeftIcon, MoveRightIcon } from "lucide-react";
 
 const AUTO_SLIDE_INTERVAL_MS = 6000;

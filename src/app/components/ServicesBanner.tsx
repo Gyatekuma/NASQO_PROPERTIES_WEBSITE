@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import Image from "next/image";
+import Image from "./OptimizedImage";
 import { useLenis } from "./providers/LenisProvider";
 
 const PARALLAX_SPEED = 0.15;

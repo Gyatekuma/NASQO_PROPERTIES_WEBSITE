@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import Button from "../components/button";
-import Image from "next/image";
+import Image from "../components/OptimizedImage";
 import SectionTags from "../components/SectionTags";
 import Faq from "../components/Faq";
 import Testimonial from "../components/Testimonial";

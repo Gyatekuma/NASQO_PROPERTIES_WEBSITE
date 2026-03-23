@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Button from "../components/button";
 import SectionTags from "../components/SectionTags";
 import Metrics from "../components/Metrics";
-import Image from "next/image";
+import Image from "../components/OptimizedImage";
 import { coreValuesDataAboutPage, faqData } from "../Data/AppData";
 import { coreValueProps } from "../Types/types";
 import Faq from "../components/Faq";

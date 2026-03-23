@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "./OptimizedImage";
 import Link from "next/link";
 
 interface CallToActionProps {

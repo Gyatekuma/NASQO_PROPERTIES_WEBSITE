@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from './OptimizedImage'
 import { usePathname } from 'next/navigation'
 import { Menu, MoveRight, ChevronDown } from 'lucide-react'
 import { servicesPageData, propertiesPageData } from '../Data/AppData'
