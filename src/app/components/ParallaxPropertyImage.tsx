@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useLenis } from "./providers/LenisProvider";
 
 const PARALLAX_SPEED = 0.15;
+const BLUR =
+  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAQEA";
 
 interface ParallaxPropertyImageProps {
   imageSrc: string;
@@ -57,6 +59,8 @@ const ParallaxPropertyImage: React.FC<ParallaxPropertyImageProps> = ({
           alt={alt}
           fill
           sizes="(max-width: 1280px) 100vw, 42vw"
+          placeholder="blur"
+          blurDataURL={BLUR}
           className="object-cover z-0"
         />
       </div>

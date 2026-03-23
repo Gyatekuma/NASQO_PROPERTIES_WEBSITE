@@ -21,6 +21,8 @@ const DEFAULT_HERO_IMAGES = [
 ];
 
 const HERO_AUTO_SLIDE_INTERVAL_MS = 5500;
+const BLUR =
+  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAQEA";
 
 const DISCOVER_DESCRIPTION =
   "Royal Kingdom Estate ensures efficient land acquisition processes, minimizing bureaucratic obstacles to foster trust and transparency with our clients, while providing expert guidance, secure documentation, and reliable support that guarantees long-term property value and client satisfaction.";
@@ -116,8 +118,10 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
               src={src}
               alt={`${displayTitle} view ${index + 1}`}
               fill
-              priority={index < 2}
+              priority={index === 0}
               sizes="100vw"
+              placeholder="blur"
+              blurDataURL={BLUR}
               className="object-cover object-center"
             />
           </div>
