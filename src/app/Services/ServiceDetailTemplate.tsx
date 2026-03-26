@@ -7,8 +7,9 @@ import SectionTags from "../components/SectionTags";
 import Faq from "../components/Faq";
 import Testimonial from "../components/Testimonial";
 import ScrollRevealSection from "../components/ScrollRevealSection";
+import LineRevealText from "../components/LineRevealText";
 import { faqData, servicesPageData, testimonialData } from "../Data/AppData";
-import type { ServicesPageItem } from "../Types/types";
+import { getServiceCardSummary } from "../lib/getServiceCardSummary";
 
 const DEFAULT_HERO_IMAGES = [
   "/PropertiesAssets/Img1.jpg",
@@ -20,9 +21,6 @@ const DEFAULT_HERO_IMAGES = [
 ];
 
 const HERO_AUTO_SLIDE_INTERVAL_MS = 5500;
-
-const DISCOVER_DESCRIPTION =
-  "NASQO Properties offers a full suite of professional services to support your real estate and construction needs. From land acquisition to interior design, we bring expertise, transparency, and quality to every project.";
 
 interface ServiceDetailTemplateProps {
   slug: string;
@@ -162,7 +160,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
       {/* Service Description Section */}
       <div className="description-container w-full overflow-x-hidden mt-[10%] md:mt-[10%] xl:mt-[8%] 2xl:mt-[6%]">
         <div className="content mx-[5%] lg:mx-[6%] 2xl:mx-[10%] max-w-full">
-          <div className="section_TAG w-full lg:w-[90%] 2xl:w-[40%]">
+          <div className="section_TAG scroll-reveal w-full lg:w-[90%] 2xl:w-[40%]">
             <SectionTags
               name={service.SectionTag ?? "Services"}
               imageSrc="/Main_Assets/Tag_Icon_blue.svg"
@@ -171,9 +169,10 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
           </div>
 
           <div className="main_desc_container lg:px-[5%] lg:py-[5%] 2xl:px-[3%] 2xl:py-0 2xl:text-neutral-500 lg:my-[5%] lg:border lg:border-neutral-200 lg:rounded-3xl">
-            <div className="description_content font-mona text-base lg:text-lg xl:text-xl my-[10%] lg:my-[6%] xl:my-[4%] leading-relaxed">
-              {service.description}
-            </div>
+            <LineRevealText
+              text={service.description}
+              className="description_content font-bricolage text-base lg:text-lg xl:text-xl my-[10%] lg:my-[6%] xl:my-[4%] leading-relaxed"
+            />
 
             {/* {service.additionalInfo && (
               <div className="mt-6 sm:mt-8 lg:mt-10 xl:mt-12 pt-6 sm:pt-8 xl:pt-10 border-t border-neutral-200">
@@ -189,7 +188,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
       {/* Discover more Services */}
       <section className="mx-auto mt-16 lg:mt-20 xl:mt-24 2xl:mt-8 pb-16 xl:pb-24 w-[90%] max-w-full 2xl:w-[80%] min-w-0 overflow-x-hidden box-border">
         <div className="w-full min-w-0">
-          <div className="section_tag_container w-full 2xl:w-[50%]">
+          <div className="section_tag_container scroll-reveal w-full 2xl:w-[50%]">
             <SectionTags
               name="Services"
               imageSrc="/Main_Assets/Tag_Icon_blue.svg"
@@ -197,13 +196,18 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
               subtext="From land acquisition to interior design, we offer a complete suite of professional services to support your real estate and construction needs."
             />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 mt-8 xl:mt-10 w-full min-w-0">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 mt-8 xl:mt-10 w-full min-w-0"
+            data-stagger-reveal
+            data-stagger-ms="120"
+          >
             {otherServices.slice(0, 5).map((s) => {
               const name = s.heroTitle ?? "Service";
               const img = s.heroImages?.[0] ?? s.imageSrc ?? "/PropertiesAssets/Img1.jpg";
               return (
                 <div
                   key={s.id}
+                  data-stagger-item
                   className="services_card_container h-full border border-neutral-300 rounded-2xl sm:rounded-3xl w-full min-w-0 overflow-hidden"
                 >
                   <div className="image_container relative overflow-hidden w-full h-[28vh] min-h-[180px] sm:h-[26vh] md:h-[28vh] xl:h-[36vh] 2xl:h-[42vh] z-0 flex items-center justify-center">
@@ -221,7 +225,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
                   </div>
                   <div className="subtext_button_container p-4 sm:p-[5%] lg:p-[6%]">
                     <div className="subtext font-mona text-xs sm:text-sm lg:text-sm leading-5 line-clamp-3">
-                      {DISCOVER_DESCRIPTION}
+                      {getServiceCardSummary(s)}
                     </div>
                     <div className="button_container mt-4 sm:mt-[6%]">
                       <Button
@@ -240,7 +244,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
       </section>
 
       {/* Testimonial Section */}
-      <div className="testimonial_section_container flex items-center text-white bg-[#191723] mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24 2xl:mt-12 2xl:min-h-[85vh] md:py-[5%]">
+      <div className="testimonial_section_container scroll-reveal flex items-center text-white bg-[#191723] mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24 2xl:mt-12 2xl:min-h-[85vh] md:py-[5%]">
         <Testimonial testimonials={testimonialData} />
       </div>
 

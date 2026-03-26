@@ -13,7 +13,7 @@ interface CallToActionProps {
 const CallToAction: React.FC<CallToActionProps> = ({
   imageSrc = "/HomeAssets/Img12.jpg",
   text = "Begin your path to success—contact us today.",
-  buttonText = "Learn More",
+  buttonText = "Contact us",
   href = "/Contact",
 }) => {
   return (

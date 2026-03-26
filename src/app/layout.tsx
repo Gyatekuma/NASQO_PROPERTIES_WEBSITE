@@ -7,6 +7,7 @@ import { LenisProvider } from "./components/providers/LenisProvider";
 import CallToActionWrapper from "./components/CallToActionWrapper";
 import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 import RoutePrefetcher from "./components/RoutePrefetcher";
+import ScrollRevealInit from "./components/ScrollRevealInit";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
         className={`${bricolage.variable} ${monaSans.variable} antialiased`}
       >
         <LenisProvider>
+          <ScrollRevealInit />
           <RoutePrefetcher />
           <Navbar />
           {children}

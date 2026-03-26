@@ -60,6 +60,8 @@ export interface PropertiesPageItem {
     title?: string;
     location?: string;
     imageSrc?: string;
+    /** Short teaser for cards; if omitted, first paragraph of `description` is used. */
+    cardSummary?: string;
     description: string;
     amenities: amenityProps[];
     href: string;
@@ -84,6 +86,8 @@ export interface ServicesPageItem {
   imageSrc?: string;
   ctoHref?: string;
   SectionTag?: string;
+  /** Short teaser for cards; if omitted, first paragraph of `description` is used. */
+  cardSummary?: string;
   description: string;
   additionalInfo?: string;
 }

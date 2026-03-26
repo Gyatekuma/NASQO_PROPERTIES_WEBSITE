@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../components/button";
 import SectionTags from "../components/SectionTags";
 import Metrics from "../components/Metrics";
@@ -21,96 +21,9 @@ const ABOUT_DESCRIPTION_SHORT =
 
 const ABOUT_DESCRIPTION_SENTENCES = ABOUT_DESCRIPTION_FULL.split(/(?<=\.)\s+/).filter(Boolean);
 
-function setupReveal(
-  scope: Element | null,
-  selector: string,
-  opts: { y?: number; duration?: number; stagger?: number; rootMargin?: string }
-) {
-  if (!scope) return () => {};
-  const reveals = scope.querySelectorAll<HTMLElement>(selector);
-  if (!reveals.length) return () => {};
-  const { y = 32, duration = 0.7, stagger = 0.06, rootMargin = "-10% 0px" } = opts;
-  const obs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry, i) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target as HTMLElement;
-        setTimeout(() => {
-          el.style.opacity = "1";
-          el.style.transform = "translateY(0)";
-        }, i * (stagger * 1000));
-      });
-    },
-    { rootMargin, threshold: 0 }
-  );
-  reveals.forEach((el) => {
-    el.style.opacity = "0";
-    el.style.transform = `translateY(${opts.y ?? 32}px)`;
-    el.style.transition = `opacity ${duration}s ease-out, transform ${duration}s ease-out`;
-    obs.observe(el);
-  });
-  return () => obs.disconnect();
-}
-
-function setupSectionReveal(
-  scope: Element | null,
-  selectors: { tag?: string; cards?: string },
-  opts: { y?: number; duration?: number; stagger?: number }
-) {
-  if (!scope) return () => {};
-  const { y = 48, duration = 0.8, stagger = 0.18 } = opts;
-  const rootMargin = "-12% 0px";
-  const obs = new IntersectionObserver(
-    ([entry]) => {
-      if (!entry?.isIntersecting) return;
-      const tag = selectors.tag ? scope.querySelector<HTMLElement>(selectors.tag) : null;
-      const cards = selectors.cards ? scope.querySelectorAll<HTMLElement>(selectors.cards) : [];
-      if (tag) {
-        tag.style.opacity = "1";
-        tag.style.transform = "translateY(0)";
-      }
-      cards.forEach((el, i) => {
-        setTimeout(() => {
-          el.style.opacity = "1";
-          el.style.transform = "translateY(0)";
-        }, (i + 1) * (stagger * 1000));
-      });
-    },
-    { rootMargin, threshold: 0 }
-  );
-  const tag = selectors.tag ? scope.querySelector<HTMLElement>(selectors.tag) : null;
-  const cards = selectors.cards ? scope.querySelectorAll<HTMLElement>(selectors.cards) : [];
-  if (tag) {
-    tag.style.opacity = "0";
-    tag.style.transform = `translateY(40px)`;
-    tag.style.transition = `opacity 0.7s ease-out, transform 0.7s ease-out`;
-  }
-  cards.forEach((el) => {
-    el.style.opacity = "0";
-    el.style.transform = `translateY(${y}px)`;
-    el.style.transition = `opacity ${duration}s ease-out, transform ${duration}s ease-out`;
-  });
-  obs.observe(scope);
-  return () => obs.disconnect();
-}
-
 function page() {
   const coreValues: coreValueProps[] = coreValuesDataAboutPage;
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-  const aboutSectionRef = useRef<HTMLDivElement>(null);
-  const metricsRef = useRef<HTMLDivElement>(null);
-  const visionSectionRef = useRef<HTMLDivElement>(null);
-  const missionSectionRef = useRef<HTMLDivElement>(null);
-  const coreValuesSectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const c1 = setupReveal(aboutSectionRef.current, ".about-page-reveal", { y: 32, stagger: 0.06 });
-    const c2 = setupReveal(metricsRef.current, ".about-page-metric-reveal", { y: 32, stagger: 0.15 });
-    const c3 = setupReveal(visionSectionRef.current, ".vision-reveal", { y: 48, duration: 0.8, stagger: 0.08 });
-    const c4 = setupReveal(missionSectionRef.current, ".mission-reveal", { y: 48, duration: 0.8, stagger: 0.08 });
-    const c5 = setupSectionReveal(coreValuesSectionRef.current, { tag: ".core-values-tag", cards: ".core-values-card" }, { stagger: 0.18 });
-    return () => { c1(); c2(); c3(); c4(); c5(); };
-  }, []);
 
   return (
     <div className="about_page_container">
@@ -136,7 +49,7 @@ function page() {
         </div>
 
         {/* About Section */}
-        <div ref={aboutSectionRef} className="about_section_container">
+        <div className="about_section_container">
           <div className="about_section_main_content mx-[5%] mt-[10%] xl:mt-[3%] 2xl:mx-[10%] 2xl:py-[5%]">
             <div className="about-page-reveal section_tag 2xl:w-[40%]">
               <SectionTags
@@ -174,7 +87,7 @@ function page() {
               </p>
             </div>
 
-            <div ref={metricsRef} className="metrics_container flex flex-col gap-5 my-[10%] w-[48%] md:grid md:grid-cols-2 md:w-full lg:flex-row lg:gap-4 xl:gap-6 2xl:gap-8 xl:grid-cols-4 xl:mt-[5%] xl:mb-0 2xl:mb-[1%]">
+            <div className="metrics_container flex flex-col gap-5 my-[10%] w-[48%] md:grid md:grid-cols-2 md:w-full lg:flex-row lg:gap-4 xl:gap-6 2xl:gap-8 xl:grid-cols-4 xl:mt-[5%] xl:mb-0 2xl:mb-[1%]">
               <div className="about-page-metric-reveal">
                 <Metrics title="120+" subtext="Projects Completed" />
               </div>
@@ -195,7 +108,7 @@ function page() {
 
         <div className="mission_and_vision_container mx-[5%] border-t border-t-neutral-200 2xl:mx-[10%]">
           {/* -------------------VISION SECTION------------------- */}
-          <div ref={visionSectionRef} className="flex flex-col xl:flex-row w-full min-h-screen xl:min-h-0 xl:py-[3%] xl:gap-10 xl:items-stretch 2xl:py-[4%] 2xl:gap-14 2xl:items-center">
+          <div className="flex flex-col xl:flex-row w-full min-h-screen xl:min-h-0 xl:py-[3%] xl:gap-10 xl:items-stretch 2xl:py-[4%] 2xl:gap-14 2xl:items-center">
             <div className="xl:w-1/2">
               <div className="vision-reveal image_container relative overflow-hidden h-[50vh] xl:h-[70vh] rounded-3xl">
                 <Image
@@ -237,7 +150,7 @@ function page() {
           </div>
 
           {/* -------------------MISSION SECTION------------------- */}
-          <div ref={missionSectionRef} className="flex flex-col xl:flex-row-reverse w-full min-h-screen xl:min-h-0 xl:py-[3%] xl:gap-10 xl:items-stretch 2xl:py-[4%] 2xl:gap-14 2xl:items-center">
+          <div className="flex flex-col xl:flex-row-reverse w-full min-h-screen xl:min-h-0 xl:py-[3%] xl:gap-10 xl:items-stretch 2xl:py-[4%] 2xl:gap-14 2xl:items-center">
             <div className="xl:w-1/2">
               <div className="mission-reveal image_container relative overflow-hidden h-[50vh] mt-[25%] md:mt-[4%] xl:mt-0 xl:h-[70vh] rounded-3xl">
                 <Image
@@ -279,7 +192,7 @@ function page() {
           </div>
 
           {/* -------------------CORE VALUES SECTION------------------- */}
-          <div ref={coreValuesSectionRef} className="core_value_container">
+          <div className="core_value_container" data-scroll-reveal-group>
             <div className="core_value_main_content mx-[5%] my-[30%] md:my-[20%] xl:mx-0 xl:mt-[8%] xl:mb-[2%] 2xl:mx-0 2xl:mt-[10%]">
               <div className="core-values-tag tag_section xl:w-[40%] 2xl:w-[28%]">
                 <SectionTags

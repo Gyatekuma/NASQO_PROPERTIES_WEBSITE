@@ -74,7 +74,7 @@ export default function ScrollRevealSection({
   }, [selector, groupReveal, y, duration, staggerDelay, triggerStart]);
 
   return (
-    <div ref={sectionRef} className={className}>
+    <div ref={sectionRef} className={className} data-scroll-reveal-managed>
       {children}
     </div>
   );

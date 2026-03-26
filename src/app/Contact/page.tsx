@@ -15,27 +15,28 @@ import ScrollRevealSection from "../components/ScrollRevealSection";
 
 type FieldErrors = Record<string, string>;
 
-const validateField = (
-  name: string,
-  value: string
-): string => {
+const validateField = (name: string, value: string): string => {
   const trimmed = value.trim();
   switch (name) {
     case "name":
       if (!trimmed) return "Name is required.";
       if (trimmed.length < 2) return "Name must be at least 2 characters.";
-      if (!/^[a-zA-Z\s\-'.]+$/.test(trimmed)) return "Name can only contain letters, spaces, hyphens, and apostrophes.";
+      if (!/^[a-zA-Z\s\-'.]+$/.test(trimmed))
+        return "Name can only contain letters, spaces, hyphens, and apostrophes.";
       return "";
     case "company":
       return "";
     case "phone":
       if (!trimmed) return "Phone number is required.";
-      if (!/^[\d\s+\-().]+$/.test(trimmed)) return "Phone number can only contain numbers, spaces, +, -, (, ), and dots.";
-      if (trimmed.replace(/\D/g, "").length < 10) return "Please enter a valid phone number (at least 10 digits).";
+      if (!/^[\d\s+\-().]+$/.test(trimmed))
+        return "Phone number can only contain numbers, spaces, +, -, (, ), and dots.";
+      if (trimmed.replace(/\D/g, "").length < 10)
+        return "Please enter a valid phone number (at least 10 digits).";
       return "";
     case "email":
       if (!trimmed) return "Email is required.";
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return "Please enter a valid email address.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed))
+        return "Please enter a valid email address.";
       return "";
     case "subject":
       if (!trimmed) return "Subject is required.";
@@ -59,9 +60,12 @@ const validateForm = (data: Record<string, string>): FieldErrors => {
   return errors;
 };
 
-const inputBaseClasses = "w-full px-4 py-3 font-mona text-neutral-900 bg-neutral-100 border rounded-xl placeholder:text-neutral-400 focus:outline-none focus:ring-2 transition-all";
-const inputErrorClasses = "border-red-500 focus:ring-red-500 focus:border-red-500";
-const inputValidClasses = "border-neutral-200 focus:ring-[#4361EE] focus:border-transparent";
+const inputBaseClasses =
+  "w-full px-4 py-3 font-mona text-neutral-900 bg-neutral-100 border rounded-xl placeholder:text-neutral-400 focus:outline-none focus:ring-2 transition-all";
+const inputErrorClasses =
+  "border-red-500 focus:ring-red-500 focus:border-red-500";
+const inputValidClasses =
+  "border-neutral-200 focus:ring-[#4361EE] focus:border-transparent";
 
 function ContactPage() {
   const [formData, setFormData] = useState({
@@ -80,28 +84,37 @@ function ContactPage() {
   const [submitSuccess, setSubmitSuccess] = useState<boolean | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (touched[name] || submitAttempted) {
       const err = validateField(name, value);
-      setErrors((prev) => (err ? { ...prev, [name]: err } : { ...prev, [name]: "" }));
+      setErrors((prev) =>
+        err ? { ...prev, [name]: err } : { ...prev, [name]: "" },
+      );
     }
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
     const err = validateField(name, value);
-    setErrors((prev) => (err ? { ...prev, [name]: err } : { ...prev, [name]: "" }));
+    setErrors((prev) =>
+      err ? { ...prev, [name]: err } : { ...prev, [name]: "" },
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitAttempted(true);
     setTouched(
-      Object.keys(formData).reduce((acc, k) => ({ ...acc, [k]: true }), {} as Record<string, boolean>)
+      Object.keys(formData).reduce(
+        (acc, k) => ({ ...acc, [k]: true }),
+        {} as Record<string, boolean>,
+      ),
     );
     const formErrors = validateForm(formData);
     setErrors(formErrors);
@@ -137,7 +150,9 @@ function ContactPage() {
       setSubmitAttempted(false);
     } catch (err) {
       console.error(err);
-      setSubmitMessage("Something went wrong while sending your message. Please try again.");
+      setSubmitMessage(
+        "Something went wrong while sending your message. Please try again.",
+      );
       setSubmitSuccess(false);
     } finally {
       setSubmitting(false);
@@ -195,57 +210,74 @@ function ContactPage() {
                   Get in touch
                 </h2>
                 <p className="font-mona text-neutral-500 text-sm sm:text-base mb-8 leading-relaxed">
-                  Sociosqu viverra lectus placerat sem efficitur molestie vehicula
-                  cubilia leo etiam nam.
+                  Have questions or ready to take the next step? Contact us
+                  today and let’s help you secure your ideal property.
                 </p>
 
                 {/* Contact blocks */}
                 <div className="space-y-6 sm:space-y-8">
                   <div className="flex gap-4">
-                    <div className="shrink-0 w-12 h-12 rounded-full bg-[#4361EE] flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-white" />
+                    <div className="shrink-0 w-10 h-10 rounded-full bg-[#4361EE] flex items-center justify-center">
+                      <MapPin className="w-4 h-4 text-white" />
                     </div>
                     <div>
                       <p className="font-bricolage font-semibold text-neutral-900 mb-1">
                         Head Office
                       </p>
-                      <p className="font-mona text-neutral-600 text-sm sm:text-base">
-                        Jalan Cempaka Wangi No 22
-                      </p>
-                      <p className="font-mona text-neutral-600 text-sm sm:text-base">
-                        Jakarta - Indonesia
+                      <p className="font-mona text-neutral-600 text-sm sm:text-base leading-relaxed">
+                        Kasoa Nyanyano Road, <br/>Nasqo Plaza building last floor,
+                        <br/>Adjacent the post office
                       </p>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <div className="shrink-0 w-12 h-12 rounded-full bg-[#4361EE] flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-white" />
+                    <div className="shrink-0 w-10 h-10 rounded-full bg-[#4361EE] flex items-center justify-center">
+                      <Mail className="w-4 h-4 text-white" />
                     </div>
                     <div>
                       <p className="font-bricolage font-semibold text-neutral-900 mb-1">
                         Email Us
                       </p>
-                      <p className="font-mona text-neutral-600 text-sm sm:text-base">
-                        support@yourdomain.tid
-                      </p>
-                      <p className="font-mona text-neutral-600 text-sm sm:text-base">
-                        hello@yourdomain.tid
-                      </p>
+                      <a
+                        href="mailto:nasqoproperties@gmail.com"
+                        className="font-mona text-neutral-600 text-sm sm:text-base hover:text-[#4361EE] transition-colors"
+                      >
+                        nasqoproperties@gmail.com
+                      </a>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <div className="shrink-0 w-12 h-12 rounded-full bg-[#4361EE] flex items-center justify-center">
-                      <Phone className="w-5 h-5 text-white" />
+                    <div className="shrink-0 w-10 h-10 rounded-full bg-[#4361EE] flex items-center justify-center">
+                      <Phone className="w-4 h-4 text-white" />
                     </div>
                     <div>
                       <p className="font-bricolage font-semibold text-neutral-900 mb-1">
                         Call Us
                       </p>
                       <p className="font-mona text-neutral-600 text-sm sm:text-base">
-                        Phone: +6221.2002.2012
+                        Cell:{" "}
+                        <a
+                          href="tel:+233240221212"
+                          className="text-inherit underline-offset-2 hover:underline hover:text-[#4361EE] transition-colors"
+                        >
+                          0240221212
+                        </a>
+                        {" / "}
+                        <a
+                          href="tel:+233277071717"
+                          className="text-inherit underline-offset-2 hover:underline hover:text-[#4361EE] transition-colors"
+                        >
+                          0277071717
+                        </a>
                       </p>
                       <p className="font-mona text-neutral-600 text-sm sm:text-base">
-                        Fax: +6221.2002.2013
+                        Office:{" "}
+                        <a
+                          href="tel:+233302864956"
+                          className="text-inherit underline-offset-2 hover:underline hover:text-[#4361EE] transition-colors"
+                        >
+                          0302864956
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -264,9 +296,9 @@ function ContactPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={label}
-                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#4361EE] flex items-center justify-center text-white hover:opacity-90 transition-opacity"
+                        className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#4361EE] flex items-center justify-center text-white hover:opacity-90 transition-opacity"
                       >
-                        <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                        <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </a>
                     ))}
                   </div>
@@ -278,7 +310,10 @@ function ContactPage() {
                 <h2 className="font-bricolage text-2xl sm:text-3xl font-semibold text-neutral-900 mb-6">
                   Send us a message
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-4 sm:space-y-5"
+                >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                     <div>
                       <input
@@ -290,10 +325,16 @@ function ContactPage() {
                         onBlur={handleBlur}
                         className={getInputClasses("name")}
                         aria-invalid={!!errors.name}
-                        aria-describedby={errors.name ? "name-error" : undefined}
+                        aria-describedby={
+                          errors.name ? "name-error" : undefined
+                        }
                       />
                       {errors.name && (
-                        <p id="name-error" className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 font-mona" role="alert">
+                        <p
+                          id="name-error"
+                          className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 font-mona"
+                          role="alert"
+                        >
                           <AlertCircle className="w-4 h-4 shrink-0" />
                           {errors.name}
                         </p>
@@ -322,10 +363,16 @@ function ContactPage() {
                         onBlur={handleBlur}
                         className={getInputClasses("phone")}
                         aria-invalid={!!errors.phone}
-                        aria-describedby={errors.phone ? "phone-error" : undefined}
+                        aria-describedby={
+                          errors.phone ? "phone-error" : undefined
+                        }
                       />
                       {errors.phone && (
-                        <p id="phone-error" className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 font-mona" role="alert">
+                        <p
+                          id="phone-error"
+                          className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 font-mona"
+                          role="alert"
+                        >
                           <AlertCircle className="w-4 h-4 shrink-0" />
                           {errors.phone}
                         </p>
@@ -341,10 +388,16 @@ function ContactPage() {
                         onBlur={handleBlur}
                         className={getInputClasses("email")}
                         aria-invalid={!!errors.email}
-                        aria-describedby={errors.email ? "email-error" : undefined}
+                        aria-describedby={
+                          errors.email ? "email-error" : undefined
+                        }
                       />
                       {errors.email && (
-                        <p id="email-error" className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 font-mona" role="alert">
+                        <p
+                          id="email-error"
+                          className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 font-mona"
+                          role="alert"
+                        >
                           <AlertCircle className="w-4 h-4 shrink-0" />
                           {errors.email}
                         </p>
@@ -361,10 +414,16 @@ function ContactPage() {
                       onBlur={handleBlur}
                       className={getInputClasses("subject")}
                       aria-invalid={!!errors.subject}
-                      aria-describedby={errors.subject ? "subject-error" : undefined}
+                      aria-describedby={
+                        errors.subject ? "subject-error" : undefined
+                      }
                     />
                     {errors.subject && (
-                      <p id="subject-error" className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 font-mona" role="alert">
+                      <p
+                        id="subject-error"
+                        className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 font-mona"
+                        role="alert"
+                      >
                         <AlertCircle className="w-4 h-4 shrink-0" />
                         {errors.subject}
                       </p>
@@ -380,10 +439,16 @@ function ContactPage() {
                       onBlur={handleBlur}
                       className={getInputClasses("message")}
                       aria-invalid={!!errors.message}
-                      aria-describedby={errors.message ? "message-error" : undefined}
+                      aria-describedby={
+                        errors.message ? "message-error" : undefined
+                      }
                     />
                     {errors.message && (
-                      <p id="message-error" className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 font-mona" role="alert">
+                      <p
+                        id="message-error"
+                        className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 font-mona"
+                        role="alert"
+                      >
                         <AlertCircle className="w-4 h-4 shrink-0" />
                         {errors.message}
                       </p>
@@ -415,17 +480,17 @@ function ContactPage() {
         className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px]"
       >
         <div className="contact-reveal w-full h-full">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.6506532888974!2d-0.11954368422947938!3d51.50072927963566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604b900d26973%3A0x4291f3172409ea92!2sLondon%20Eye!5e0!3m2!1sen!2suk!4v1640000000000!5m2!1sen!2suk"
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Office Location"
-          className="w-full h-full"
-        />
+          <iframe
+            src="https://www.google.com/maps?q=Kasoa+Nyanyano+Road,+Kasoa,+Ghana&z=15&output=embed"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="NASQO Properties — Kasoa Nyanyano Road, Ghana"
+            className="w-full h-full"
+          />
         </div>
       </ScrollRevealSection>
 

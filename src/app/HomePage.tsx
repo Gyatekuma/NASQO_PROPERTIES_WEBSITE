@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import HeroComponent from "./components/HeroComponent";
 import Metrics from "./components/Metrics";
 import SectionTags from "./components/SectionTags";
@@ -54,52 +54,12 @@ function HomePage() {
   const goToNext = () =>
     setCurrentPropertyIndex((i) => (i === properties.length - 1 ? 0 : i + 1));
 
-  const aboutSectionRef = useRef<HTMLDivElement>(null);
-  const servicesSectionRef = useRef<HTMLDivElement>(null);
-  const propertiesSectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const setup = (ref: React.RefObject<HTMLElement | null>, sel: string) => {
-      const section = ref.current;
-      if (!section) return () => {};
-      const reveals = section.querySelectorAll<HTMLElement>(sel);
-      if (!reveals.length) return () => {};
-      const obs = new IntersectionObserver(
-        ([e]) => {
-          if (!e?.isIntersecting) return;
-          reveals.forEach((el, i) => {
-            setTimeout(() => {
-              el.style.opacity = "1";
-              el.style.transform = "translateY(0)";
-            }, i * 30);
-          });
-        },
-        { rootMargin: "-5% 0px", threshold: 0 }
-      );
-      reveals.forEach((el) => {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(48px)";
-        el.style.transition = "opacity 0.45s ease-out, transform 0.45s ease-out";
-      });
-      obs.observe(section);
-      return () => obs.disconnect();
-    };
-    const c1 = setup(aboutSectionRef, ".about-reveal");
-    const c2 = setup(servicesSectionRef, ".services-reveal");
-    const c3 = setup(propertiesSectionRef, ".properties-reveal");
-    return () => {
-      c1();
-      c2();
-      c3();
-    };
-  }, []);
-
   return (
     <div>
       <HeroComponent />
       {/* About Section */}
 
-      <div ref={aboutSectionRef} className="about_section_container">
+      <div className="about_section_container">
         <div className="about_section_main_content mx-[5%] mt-[10%] xl:mt-[6%] 2xl:mt-[5%] flex flex-col md:flex-row md:gap-[6%] 2xl:mx-[10%] lg:gap-[2%] xl:items-stretch xl:gap-0">
           {/* Left section */}
           <div className="left_section md:flex md:flex-col md:justify-between 2xl:w-1/2 lg:w-full">
@@ -264,7 +224,7 @@ function HomePage() {
       </div> */}
 
       {/* Properties Section */}
-      <div ref={propertiesSectionRef} className="properties-container xl:my-[10%]">
+      <div className="properties-container xl:my-[10%]">
         <div
           className="main_content mx-[5%] 2xl:mx-[10%] xl:w-full flex flex-col xl:flex-row xl:items-stretch gap-20 md:gap-0 xl:gap-20"
         >
@@ -365,7 +325,7 @@ function HomePage() {
                   <Button
                     text="Get in touch"
                     variants="primary"
-                    href={currentProperty.href}
+                    href="/Contact"
                   />
                 </div>
                 <div className="price_container whitespace-nowrap">
@@ -383,7 +343,7 @@ function HomePage() {
       </div>
 
       {/* Services */}
-      <div ref={servicesSectionRef} className="main_services_container">
+      <div className="main_services_container">
         <div className="main_services-content mx-[5%]  2xl:mx-[10%] mt-[30%] xl:mt-[18%] 2xl:mt-0">
           <div className="tag_section xl:w-[60%]">
             <div className="services-reveal tag content 2xl:w-[75%]">
@@ -395,7 +355,7 @@ function HomePage() {
               />
             </div>
             <div className="services-reveal button_container xl:w-[60%] 2xl:w-[50%] mt-4 md:mt-6">
-              <Button text="Learn more" variants="primary" href="/categories" />
+              <Button text="Learn more" variants="primary" href="/Services" />
             </div>
           </div>
 
@@ -405,9 +365,11 @@ function HomePage() {
 
           <div
             className={`services_container grid grid-cols-1 ${servicesGridCols} gap-6 lg:gap-8 mt-6 xl:mt-10`}
+            data-stagger-reveal
+            data-stagger-ms="110"
           >
             {servicesCards.map((card) => (
-              <div key={card.id} className="services-reveal">
+              <div key={card.id} data-stagger-item>
               <ServicesCard
                 id={card.id}
                 imageSrc={card.imageSrc}

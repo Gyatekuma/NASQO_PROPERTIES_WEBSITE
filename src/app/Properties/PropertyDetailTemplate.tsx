@@ -7,9 +7,10 @@ import SectionTags from "../components/SectionTags";
 import Faq from "../components/Faq";
 import Testimonial from "../components/Testimonial";
 import ScrollRevealSection from "../components/ScrollRevealSection";
+import LineRevealText from "../components/LineRevealText";
 import { CheckCircle2, Sparkles } from "lucide-react";
 import { faqData, propertiesPageData, testimonialData } from "../Data/AppData";
-import type { PropertiesPageItem } from "../Types/types";
+import { getPropertyCardSummary } from "../lib/getPropertyCardSummary";
 
 const DEFAULT_HERO_IMAGES = [
   "/PropertiesAssets/Img11.webp",
@@ -23,9 +24,6 @@ const DEFAULT_HERO_IMAGES = [
 const HERO_AUTO_SLIDE_INTERVAL_MS = 5500;
 const BLUR =
   "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAQEA";
-
-const DISCOVER_DESCRIPTION =
-  "Royal Kingdom Estate ensures efficient land acquisition processes, minimizing bureaucratic obstacles to foster trust and transparency with our clients, while providing expert guidance, secure documentation, and reliable support that guarantees long-term property value and client satisfaction.";
 
 interface PropertyDetailTemplateProps {
   slug: string;
@@ -192,7 +190,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
       {/* Properties Description Section */}
       <div className="description-container">
         <div className="content mx-[5%] xl:mt-[5%] 2xl:mx-[10%]">
-          <div className="section_TAG 2xl:w-[40%]">
+          <div className="section_TAG scroll-reveal 2xl:w-[40%]">
             <SectionTags
               name={property.SectionTag ?? "Services"}
               imageSrc="/Main_Assets/Tag_Icon_blue.svg"
@@ -203,10 +201,11 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
             </div>
           </div>
 
-          <div className="main_desc_container lg:px-[5%] 2xl:px-[3%] 2xl:text-neutral-500 lg:my-[5%] lg:border lg:border-neutral-200 lg:rounded-3xl lg:">
-            <div className="description_content font-bricolage text-base my-[10%] xl:my-[4%] xl:text-xl">
-              {property.description}
-            </div>
+          <div className="main_desc_container scroll-reveal lg:px-[5%] 2xl:px-[3%] 2xl:text-neutral-500 lg:my-[5%] lg:border lg:border-neutral-200 lg:rounded-3xl lg:">
+            <LineRevealText
+              text={property.description}
+              className="description_content font-bricolage text-base my-[10%] xl:my-[4%] xl:text-xl"
+            />
 
             {property.additionalInfo && (
               <div className="mt-10 xl:mt-12 pt-8 xl:pt-10 border-t border-neutral-200">
@@ -218,10 +217,15 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                       </p>
                     </div>
                   ) : additionalInfoItems.length > 0 ? (
-                    <ul className="space-y-3 xl:space-y-4">
+                    <ul
+                      className="flex flex-col gap-2 xl:gap-3"
+                      data-stagger-reveal
+                      data-stagger-ms="115"
+                    >
                       {additionalInfoItems.map((item, index) => (
                         <li
                           key={`${property.id}-additional-${index}`}
+                          data-stagger-item
                           className="group flex items-start gap-3 rounded-xl bg-white border border-neutral-200 p-3 xl:p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#4361EE]/40 hover:shadow-md"
                         >
                           {item.toLowerCase().startsWith("special package") ? (
@@ -311,7 +315,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
             )}
 
             <div className="lowerside flex flex-col gap-4 lg:flex-row lg:items-stretch lg:w-full 2xl:gap-12 mt-10 md:mt-12 xl:mt-[10%] xl:mb-[54] 2xl:mt-[5%]">
-              <div className="amenities_container bg-[#191723] p-[5%] xl:p-[3%] lg:w-[50%] rounded-3xl flex flex-col text-center">
+              <div className="amenities_container scroll-reveal bg-[#191723] p-[5%] xl:p-[3%] lg:w-[50%] rounded-3xl flex flex-col text-center">
                 <div className="header text-white font-bricolage font-semibold text-xl pb-[3%] 2xl:text-2xl">
                   Community Amenities
                 </div>
@@ -331,7 +335,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                   })}
                 </div>
               </div>
-              <div className="maps_container bg-white lg:w-[50%] rounded-3xl p-[5%] xl:p-[2.5%] 2xl:p-[2%] shadow-lg flex flex-col gap-3 xl:gap-4 lg:h-full">
+              <div className="maps_container scroll-reveal bg-white lg:w-[50%] rounded-3xl p-[5%] xl:p-[2.5%] 2xl:p-[2%] shadow-lg flex flex-col gap-3 xl:gap-4 lg:h-full">
                 <h3 className="text-[#191723] font-bricolage font-semibold text-base sm:text-lg">
                   {locationDetails.sectionTitle}
                 </h3>
@@ -376,19 +380,24 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                           </h3>
                         </div>
                         <div className="bg-[#F3F5F8] rounded-2xl p-5 xl:p-6 border border-neutral-200 flex-1">
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 h-full content-between auto-rows-fr">
+                          <div
+                            className="grid grid-cols-1 sm:grid-cols-2 gap-3 h-full content-between auto-rows-fr"
+                            data-stagger-reveal
+                            data-stagger-ms="115"
+                          >
                             {property.priceTiers.map((tier, i) => (
                               <div
                                 key={i}
-                                className="group relative bg-white border border-neutral-200 rounded-xl p-4 xl:p-5 flex flex-col justify-center hover:border-[#4361EE]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                                data-stagger-item
+                                className="group relative bg-white border border-neutral-200 rounded-xl p-4 xl:p-5 flex flex-col justify-center gap-0.5 hover:border-[#4361EE]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                               >
-                                <p className="font-mona text-[#191723] text-xs xl:text-sm capitalize mb-1 line-clamp-2">
+                                <p className="font-mona text-[#191723] text-xs xl:text-sm capitalize line-clamp-2 leading-snug">
                                   {tier.label}
                                 </p>
-                                <p className="font-bricolage font-bold text-[#4361EE] text-xl xl:text-2xl">
+                                <p className="font-bricolage font-bold text-[#4361EE] text-xl xl:text-2xl leading-tight">
                                   {tier.price}
                                 </p>
-                                <p className="font-mona text-neutral-400 text-xs mt-0.5">Total price</p>
+                                <p className="font-mona text-neutral-400 text-xs leading-tight">Total price</p>
                               </div>
                             ))}
                           </div>
@@ -417,10 +426,15 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                               <p className="font-bricolage font-semibold text-[#191723] text-xs uppercase tracking-wider mb-2">
                                 Deposit (30%)
                               </p>
-                              <ul className="space-y-3">
+                              <ul
+                                className="flex flex-col gap-2"
+                                data-stagger-reveal
+                                data-stagger-ms="115"
+                              >
                                 {property.paymentDeposits.map((dep, i) => (
                                   <li
                                     key={i}
+                                    data-stagger-item
                                     className="flex flex-wrap justify-between items-center gap-3 px-4 py-3 font-mona text-xs xl:text-sm text-[#191723] bg-white border border-neutral-200 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-[#4361EE]/40 hover:shadow-md"
                                   >
                                     <span>{dep.label}</span>
@@ -449,19 +463,24 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                             </h3>
                           </div>
                           <div className="bg-[#F3F5F8] rounded-2xl p-5 xl:p-6 border border-neutral-200 flex-1">
-                            <div className="flex flex-col gap-3 h-full">
+                            <div
+                              className="flex flex-col gap-3 h-full"
+                              data-stagger-reveal
+                              data-stagger-ms="115"
+                            >
                               {property.priceTiers.map((tier, i) => (
                                 <div
                                   key={i}
-                                  className="group flex-1 bg-white border border-neutral-200 rounded-xl p-4 xl:p-5 flex flex-col justify-center hover:border-[#4361EE]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                                  data-stagger-item
+                                  className="group flex-1 bg-white border border-neutral-200 rounded-xl p-4 xl:p-5 flex flex-col justify-center gap-0.5 hover:border-[#4361EE]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                                 >
-                                  <p className="font-mona text-[#191723] text-xs xl:text-sm uppercase tracking-wide mb-1">
+                                  <p className="font-mona text-[#191723] text-xs xl:text-sm uppercase tracking-wide leading-snug">
                                     {tier.label}
                                   </p>
-                                  <p className="font-bricolage font-bold text-[#4361EE] text-xl xl:text-2xl">
+                                  <p className="font-bricolage font-bold text-[#4361EE] text-xl xl:text-2xl leading-tight">
                                     {tier.price}
                                   </p>
-                                  <p className="font-mona text-neutral-400 text-xs mt-0.5">Total land price</p>
+                                  <p className="font-mona text-neutral-400 text-xs leading-tight">Total land price</p>
                                 </div>
                               ))}
                             </div>
@@ -479,7 +498,11 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                             </h3>
                           </div>
                           <div className="bg-[#F3F5F8] rounded-2xl p-5 xl:p-6 border border-neutral-200 flex-1">
-                            <ul className="flex flex-col gap-3 h-full">
+                            <ul
+                              className="flex flex-col gap-2 h-full"
+                              data-stagger-reveal
+                              data-stagger-ms="115"
+                            >
                               {property.paymentDeposits.map((dep, i) => {
                                 const [rawTitle, ...restParts] = dep.label.split(":");
                                 const title = rawTitle?.trim();
@@ -487,6 +510,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                                 return (
                                   <li
                                     key={i}
+                                    data-stagger-item
                                     className="flex-1 bg-white border border-neutral-200 rounded-xl px-4 py-3 flex items-center transition-all duration-200 hover:-translate-y-0.5 hover:border-[#4361EE]/40 hover:shadow-md"
                                   >
                                     <p className="font-mona text-[#191723] text-xs xl:text-sm leading-relaxed">
@@ -535,7 +559,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
       {/* Discover more Properties */}
       <section className="mx-auto mt-16 xl:mt-24 2xl:mt-28 pb-16 xl:pb-24 w-[90%] max-w-full 2xl:w-[80%] min-w-0 overflow-x-hidden box-border">
         <div className="w-full min-w-0">
-          <div className="section_tag_container 2xl:w-[50%]">
+          <div className="section_tag_container scroll-reveal 2xl:w-[50%]">
             <SectionTags
               name="Service"
               imageSrc="/Main_Assets/Tag_Icon_blue.svg"
@@ -543,13 +567,18 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
               subtext="We began with a vision to help you discover premium properties that perfectly match your lifestyle and aspirations."
             />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 mt-8 xl:mt-10 w-full min-w-0">
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 mt-8 xl:mt-10 w-full min-w-0"
+            data-stagger-reveal
+            data-stagger-ms="120"
+          >
             {otherProperties.slice(0, 3).map((p) => {
               const name = p.heroTitle ?? p.title ?? "Property";
               const img = p.heroImages?.[0] ?? p.imageSrc ?? "/PropertiesAssets/Img11.webp";
               return (
                 <div
                   key={p.id}
+                  data-stagger-item
                   className="services_card_container h-full border border-neutral-300 rounded-3xl w-full min-w-0"
                 >
                   <div className="image_container relative overflow-hidden w-full h-[32vh] md:h-[28vh] xl:h-[36vh] 2xl:h-[42vh] z-0 rounded-t-3xl flex items-center justify-center">
@@ -567,7 +596,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                   </div>
                   <div className="subtext_button_container p-[6%]">
                     <div className="subtext font-mona text-base xl:text-sm leading-5 line-clamp-3">
-                      {DISCOVER_DESCRIPTION}
+                      {getPropertyCardSummary(p)}
                     </div>
                     <div className="button_container mt-[6%]">
                       <Button
@@ -586,7 +615,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
       </section>
 
       {/* Testimonial Section */}
-      <div className="testimonial_section_container flex items-center text-white bg-[#191723] mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24 2xl:mt-16 2xl:min-h-[85vh] md:py-[5%]">
+      <div className="testimonial_section_container scroll-reveal flex items-center text-white bg-[#191723] mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24 2xl:mt-16 2xl:min-h-[85vh] md:py-[5%]">
         <Testimonial testimonials={testimonialData} />
       </div>
 

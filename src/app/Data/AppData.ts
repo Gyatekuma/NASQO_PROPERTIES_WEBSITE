@@ -24,7 +24,7 @@ import type { ServicesPageItem } from "../Types/types";
 
 export const contactConfig = {
   whatsappNumber: "233596703795",
-  phone: "+233 596703795",
+  phone: "0302864956",
   email: "homely@gmail.com",
   whatsappIntroMessage:
     "Hi! I came across NASQO Properties and I'm interested in learning more about your properties and services. Could you please help me with more information?",
@@ -34,25 +34,25 @@ export const coreValuesData = [
   {
     id: "1",
     title: "Long lasting service",
-    subtext: "Quality developments built for durability and long-term value.",
+    subtext: "Built with durability in mind to ensure your investment stands the test of time.",
     icon: FunnelPlus,
   },
   {
     id: "2",
     title: "Client-Focused Service",
-    subtext: "Quality developments built for durability and long-term value.",
+    subtext: "We prioritize your needs, delivering solutions tailored to your goals and satisfaction.",
     icon: Users,
   },
   {
     id: "3",
     title: "Safe Haven Living",
-    subtext: "Quality developments built for durability and long-term value.",
+    subtext: "Designed to provide comfort, security, and peace of mind for everyday living",
     icon: ShieldCheck,
   },
   {
     id: "4",
     title: "Transparent Transactions",
-    subtext: "Quality developments built for durability and long-term value.",
+    subtext: "Clear processes and honest communication at every step, with no hidden surprises",
     icon: BadgeCent,
   },
 ];
@@ -62,7 +62,7 @@ export const propertiesData = [
   {
     id: "1",
     title: "Abena Yedua Apartments",
-    location: "East Legon, Accra",
+    location: "Kasoa, Nyanyano kakraba",
     description:
       "Abena Yedua Housing offers a unique blend of comfort, community, and modern living. This thoughtfully planned residential development provides a serene, well-organized environment for individuals and families. With reliable utilities, organized layouts, and green spaces, residents can focus on building their dream homes stress-free. Flexible ownership options make it easy to secure your place in this thriving community.",
     imageSrc: "/PropertiesAssets/ImgAY8.webp",
@@ -83,7 +83,7 @@ export const propertiesData = [
   {
     id: "2",
     title: "Rocky Mountains Estate",
-    location: "Aburi, Eastern Region",
+    location: "Kasoa Winneba Road, Akrampa",
     description:
       "Rocky Mountains is a carefully planned 500-acre eco-friendly community nestled in the serene enclave of Aburi, Eastern Region. It offers fully serviced plots with essential infrastructure—electricity, water, asphalt roads, sidewalks, and secure gate posts—already in place. Convenient payment terms with just 30% deposit and proximity to major landmarks make this the ideal foundation for your dream lifestyle.",
     imageSrc: "/PropertiesAssets/Img22.webp",
@@ -105,7 +105,7 @@ export const propertiesData = [
   {
     id: "3",
     title: "Nhyira City Prime Lands",
-    location: "Aburi, Eastern Region",
+    location: "Winneba – Gomoa Apre/Mprumen",
     description:
       "Nhyira City Prime Lands blends nature seamlessly with modern living in a carefully planned 500-acre eco-friendly community in Aburi. Fully serviced plots come with essential infrastructure including electricity, water, asphalt roads, sidewalks, and secure perimeter fencing already in place. Multiple purchasing phases with convenient and affordable payment terms ensure accessibility for all buyers.",
     imageSrc: "/PropertiesAssets/ImgN1.webp",
@@ -126,7 +126,7 @@ export const propertiesData = [
   {
     id: "4",
     title: "Skycity Dwellings",
-    location: "Kasoa, Accra",
+    location: "Kasoa, Bawjiase Road, downtown",
     description:
       "Skycity Dwellings is a modern expression of comfortable urban living along Bawjiase Road in Kasoa. Featuring contemporary architecture with spacious layouts, large windows, and private balconies, it offers one-bedroom and two-bedroom apartments for individuals, professionals, and families. Organized infrastructure, 24/7 security, and easy access to essential services make Skycity a lifestyle destination you can truly call home.",
     imageSrc: "/PropertiesAssets/ImgSC1.webp",
@@ -219,10 +219,10 @@ export const propertiesPageData: PropertiesPageItem[] = [
     price: "$1,650,500",
     locationDetails: {
       sectionTitle: "Location Details",
-      locationName: "East Legon-Accra",
+      locationName: "Kasoa, Nyanyano kakraba",
       mapEmbedUrl:
-        "https://www.google.com/maps?q=East+Legon,Accra,Ghana&z=15&output=embed",
-      mapTitle: "Map - East Legon, Accra",
+        "https://www.google.com/maps?q=Kasoa,+Nyanyano+kakraba,+Ghana&z=15&output=embed",
+      mapTitle: "Map - Kasoa, Nyanyano kakraba",
       brochureButtonText: "Download Brochure",
       brochureHref: "#",
     },
@@ -276,10 +276,10 @@ export const propertiesPageData: PropertiesPageItem[] = [
       "All rooms ensuite. Wardrobes, kitchen cabinet, tiled compound, solar power supply available in case of power-outage. Reserved poly tank also available.",
     locationDetails: {
       sectionTitle: "Location Details",
-      locationName: "Palm Springs, CA",
+      locationName: "Kasoa Winneba Road, Akrampa",
       mapEmbedUrl:
-        "https://www.google.com/maps?q=Palm+Springs,CA,USA&z=15&output=embed",
-      mapTitle: "Map - Palm Springs, CA",
+        "https://www.google.com/maps?q=Kasoa+Winneba+Road,+Akrampa,+Ghana&z=15&output=embed",
+      mapTitle: "Map - Kasoa Winneba Road, Akrampa",
       brochureButtonText: "Download Brochure",
       brochureHref: "#",
     },
@@ -384,10 +384,10 @@ export const propertiesPageData: PropertiesPageItem[] = [
     price: "$78,000",
     locationDetails: {
       sectionTitle: "Location Details",
-      locationName: "Aburi, Eastern Region",
+      locationName: "Winneba – Gomoa Apre/Mprumen",
       mapEmbedUrl:
-        "https://www.google.com/maps?q=Aburi,Eastern+Region,Ghana&z=15&output=embed",
-      mapTitle: "Map - Aburi, Eastern Region",
+        "https://www.google.com/maps?q=Winneba,+Gomoa+Apre+Mprumen,+Ghana&z=15&output=embed",
+      mapTitle: "Map - Winneba, Gomoa Apre/Mprumen",
       brochureButtonText: "Download Brochure",
       brochureHref: "#",
     },
@@ -458,10 +458,10 @@ export const propertiesPageData: PropertiesPageItem[] = [
     price: "$2,150,000",
     locationDetails: {
       sectionTitle: "Location Details",
-      locationName: "Skycity Enclave, Accra",
+      locationName: "Kasoa, Bawjiase Road, downtown",
       mapEmbedUrl:
-        "https://www.google.com/maps?q=Accra,Ghana&z=15&output=embed",
-      mapTitle: "Map - Skycity Enclave, Accra",
+        "https://www.google.com/maps?q=Kasoa,+Bawjiase+Road,+downtown,+Ghana&z=15&output=embed",
+      mapTitle: "Map - Kasoa, Bawjiase Road, downtown",
       brochureButtonText: "Download Brochure",
       brochureHref: "#",
     },
@@ -622,37 +622,58 @@ export const faqData = [
   {
     id: "1",
     number: "01",
-    question: "What is your key expertise?",
+    question: "What services does Nasqo Properties offer?",
     answer:
-      "We specialize in complete product development: from the very first ideation stages, through design, prototyping and testing to development and launch. Our development team can deliver both web and mobile products using technologies like Angular, PWA, PHP, Laravel, Flutter and native technologies for applications.",
+      "Nasqo Properties provides a full range of real estate services including land acquisition, property sales, general construction, project management, facility management, and interior design. We support clients from property purchase all the way to development and long-term management.",
   },
   {
     id: "2",
     number: "02",
-    question: "Which project's details do you need to provide an estimation?",
+    question: "Are your lands and properties properly documented?",
     answer:
-      "To provide an accurate estimation, we typically need project scope, timelines, technical requirements, design assets, and any specific integrations or third-party services. Share your brief or schedule a call and we'll outline what we need.",
+      "Yes, all our lands and properties are carefully verified and come with proper documentation. We ensure every property is litigation-free and legally secure, giving you complete peace of mind throughout the purchase process.",
   },
   {
     id: "3",
     number: "03",
-    question: "How do you ensure the delivery of agreed-upon requirements?",
+    question: "Do you offer flexible payment plans?",
     answer:
-      "We follow a structured process with regular milestones, reviews, and client sign-offs. Our team uses agile methodologies, detailed documentation, and transparent communication to ensure we meet and exceed the agreed requirements.",
+      "Yes, we offer flexible and convenient payment options depending on the property. Many of our developments allow installment payments with an initial deposit, making it easier for clients to own property without financial strain.",
   },
   {
     id: "4",
     number: "04",
-    question: "How quick can you start the project?",
+    question: "Can I schedule a site visit before making a purchase?",
     answer:
-      "Depending on team availability and project complexity, we can typically start within 1–2 weeks after kickoff. For urgent projects, we offer expedited onboarding—contact us to discuss your timeline.",
+      "Absolutely. We encourage all clients to schedule a site visit to experience the property firsthand. Our team will guide you through the location, amenities, and answer any questions to help you make an informed decision.",
   },
   {
     id: "5",
     number: "05",
-    question: "What are your pricing models?",
+    question: "Do you help with building after purchasing land?",
     answer:
-      "We offer flexible pricing: fixed-price for well-defined scopes, time-and-materials for evolving projects, and retainer arrangements for ongoing work. We'll recommend the best model based on your project needs.",
+      "Yes, we provide end-to-end support. After land acquisition, our construction and project management teams can help design and build your property, ensuring quality, efficiency, and a stress-free experience.",
+  },
+  {
+    id: "6",
+    number: "06",
+    question: "What makes Nasqo Properties different from other real estate companies?",
+    answer:
+      "We focus on transparency, quality, and long-term value. From verified properties and structured communities to modern infrastructure and client-focused service, we go beyond selling land—we help you build a secure future and lasting investment.",
+  },
+  {
+    id: "7",
+    number: "07",
+    question: "Do you provide property management services after purchase?",
+    answer:
+      "Yes, we offer professional facility management services to maintain and enhance the value of your property. This includes maintenance, security coordination, and overall property care to ensure long-term performance.",
+  },
+  {
+    id: "8",
+    number: "08",
+    question: "Where are your properties located?",
+    answer:
+      "Our properties are strategically located in high-growth areas such as East Legon, Kasoa, and Aburi in the Eastern Region. These locations are selected for their accessibility, development potential, and long-term investment value.",
   },
 ];
 

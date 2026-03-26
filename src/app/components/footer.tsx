@@ -130,7 +130,7 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
-                <span>Kumasi-Ashanti Region</span>
+                <span>Kasoa Nyanyano Road, Nasqo Plaza Building Last Floor adjacent the post office</span>
               </li>
               <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
                 <Mail className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
@@ -138,7 +138,7 @@ const Footer: React.FC = () => {
                   href="mailto:homely@gmail.com"
                   className="hover:text-white transition-all duration-200 hover:translate-x-1 inline-block"
                 >
-                  homely@gmail.com
+                  nasqoproperties@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
