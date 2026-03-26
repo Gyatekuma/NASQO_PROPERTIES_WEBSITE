@@ -225,8 +225,10 @@ function ContactPage() {
                         Head Office
                       </p>
                       <p className="font-mona text-neutral-600 text-sm sm:text-base leading-relaxed">
-                        Kasoa Nyanyano Road, <br/>Nasqo Plaza building last floor,
-                        <br/>Adjacent the post office
+                        Kasoa Nyanyano Road, <br />
+                        Nasqo Plaza building last floor,
+                        <br />
+                        Adjacent the post office
                       </p>
                     </div>
                   </div>

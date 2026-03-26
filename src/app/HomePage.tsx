@@ -20,7 +20,9 @@ import {
 import Image from "./components/OptimizedImage";
 import dynamic from "next/dynamic";
 import ParallaxPropertyImage from "./components/ParallaxPropertyImage";
-import ScrollRevealSection from "./components/ScrollRevealSection";
+import ScrollRevealSection, {
+  FAQ_SECTION_SCROLL_REVEAL,
+} from "./components/ScrollRevealSection";
 
 const Testimonial = dynamic(() => import("./components/Testimonial"), { ssr: true });
 const Faq = dynamic(() => import("./components/Faq"), { ssr: true });
@@ -391,11 +393,7 @@ function HomePage() {
 
       {/* Faq Section */}
       <ScrollRevealSection
-        selector=".faq-reveal"
-        groupReveal
-        triggerStart="top 80%"
-        duration={0.5}
-        staggerDelay={0.04}
+        {...FAQ_SECTION_SCROLL_REVEAL}
         className="faq_section_container mx-[5%] xl:mx-[8%] 2xl:mx-[10%] py-[10%] xl:py-[8%]"
       >
         <Faq faqs={faqData} imageSrc="/HomeAssets/Img222.webp" />

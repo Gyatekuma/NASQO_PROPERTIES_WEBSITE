@@ -6,7 +6,9 @@ import Image from "../components/OptimizedImage";
 import SectionTags from "../components/SectionTags";
 import Faq from "../components/Faq";
 import Testimonial from "../components/Testimonial";
-import ScrollRevealSection from "../components/ScrollRevealSection";
+import ScrollRevealSection, {
+  FAQ_SECTION_SCROLL_REVEAL,
+} from "../components/ScrollRevealSection";
 import LineRevealText from "../components/LineRevealText";
 import { faqData, servicesPageData, testimonialData } from "../Data/AppData";
 import { getServiceCardSummary } from "../lib/getServiceCardSummary";
@@ -250,7 +252,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
 
       {/* FAQ Section */}
       <ScrollRevealSection
-        selector=".faq-reveal"
+        {...FAQ_SECTION_SCROLL_REVEAL}
         className="faq_section_container mx-4 sm:mx-[5%] 2xl:mx-[10%] py-8 sm:py-[8%] lg:py-[10%] xl:py-[8%] pb-12 sm:pb-16 xl:pb-24"
       >
         <Faq

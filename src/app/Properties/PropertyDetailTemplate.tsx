@@ -6,7 +6,9 @@ import Image from "../components/OptimizedImage";
 import SectionTags from "../components/SectionTags";
 import Faq from "../components/Faq";
 import Testimonial from "../components/Testimonial";
-import ScrollRevealSection from "../components/ScrollRevealSection";
+import ScrollRevealSection, {
+  FAQ_SECTION_SCROLL_REVEAL,
+} from "../components/ScrollRevealSection";
 import LineRevealText from "../components/LineRevealText";
 import { CheckCircle2, Sparkles } from "lucide-react";
 import { faqData, propertiesPageData, testimonialData } from "../Data/AppData";
@@ -621,11 +623,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
 
       {/* FAQ Section */}
       <ScrollRevealSection
-        selector=".faq-reveal"
-        groupReveal
-        triggerStart="top 92%"
-        duration={0.5}
-        staggerDelay={0.04}
+        {...FAQ_SECTION_SCROLL_REVEAL}
         className="faq_section_container mx-[5%] 2xl:mx-[10%] py-[10%] xl:py-[8%] pb-16 xl:pb-24"
       >
         <Faq

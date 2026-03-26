@@ -13,6 +13,19 @@ export interface ScrollRevealSectionProps {
   groupReveal?: boolean;
 }
 
+/** Shared props for `<Faq />` wrappers so Home, About, Services, and Properties behave identically. */
+export const FAQ_SECTION_SCROLL_REVEAL: Pick<
+  ScrollRevealSectionProps,
+  "selector" | "groupReveal" | "y" | "duration" | "staggerDelay" | "triggerStart"
+> = {
+  selector: ".faq-reveal",
+  groupReveal: true,
+  y: 40,
+  duration: 0.55,
+  staggerDelay: 0.115,
+  triggerStart: "top 85%",
+};
+
 export default function ScrollRevealSection({
   selector,
   children,

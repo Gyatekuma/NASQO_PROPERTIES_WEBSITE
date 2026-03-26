@@ -44,6 +44,8 @@ export async function POST(request: Request) {
     // Gmail App Passwords are often shown with spaces; remove them safely.
     const smtpPass = smtpPassRaw.replace(/\s+/g, "");
 
+    // Gmail SMTP (explicit host avoids nodemailer TransportOptions typing issues with `service`).
+    // pool: false avoids reusing connections that may have been closed by the server.
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,

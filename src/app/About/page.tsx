@@ -9,7 +9,9 @@ import { coreValuesDataAboutPage, faqData } from "../Data/AppData";
 import { coreValueProps } from "../Types/types";
 import Faq from "../components/Faq";
 import DescriptionHero from "../components/DescriptionHero";
-import ScrollRevealSection from "../components/ScrollRevealSection";
+import ScrollRevealSection, {
+  FAQ_SECTION_SCROLL_REVEAL,
+} from "../components/ScrollRevealSection";
 import Testimonial from "../components/Testimonial";
 import { testimonialData } from "../Data/AppData";
 
@@ -247,7 +249,10 @@ function page() {
           </div>
 
 
-          <ScrollRevealSection selector=".faq-reveal" className="mb-16 2xl:my-[15%] w-full">
+          <ScrollRevealSection
+            {...FAQ_SECTION_SCROLL_REVEAL}
+            className="mb-16 2xl:my-[15%] w-full"
+          >
             <Faq faqs={faqData} className="w-full" />
           </ScrollRevealSection>
         </div>
