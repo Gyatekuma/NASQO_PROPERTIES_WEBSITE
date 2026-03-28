@@ -23,7 +23,7 @@ import type { PropertiesPageItem } from "../Types/types";
 import type { ServicesPageItem } from "../Types/types";
 
 export const contactConfig = {
-  whatsappNumber: "233596703795",
+  whatsappNumber: "233240221212",
   phone: "0302864956",
   email: "homely@gmail.com",
   whatsappIntroMessage:
