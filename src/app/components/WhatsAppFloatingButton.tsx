@@ -5,6 +5,10 @@ import { contactConfig } from "../Data/AppData";
 
 const WHATSAPP_URL = `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(contactConfig.whatsappIntroMessage)}`;
 
+const whatsappLabel = contactConfig.whatsappDisplayName?.trim()
+  ? `Message ${contactConfig.whatsappDisplayName} on WhatsApp`
+  : "Chat with us on WhatsApp";
+
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -25,7 +29,8 @@ export default function WhatsAppFloatingButton() {
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-4 sm:bottom-6 sm:right-4 md:bottom-8 md:right-6 lg:bottom-8 lg:right-6 xl:bottom-8 xl:right-8 2xl:bottom-8 2xl:right-8 z-[9999] w-14 h-14 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:scale-110 hover:shadow-xl active:scale-95 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2 touch-manipulation"
-      aria-label="Chat with us on WhatsApp"
+      aria-label={whatsappLabel}
+      title={contactConfig.whatsappDisplayName?.trim() || "WhatsApp"}
     >
       <WhatsAppIcon className="w-7 h-7 sm:w-7 sm:h-7 md:w-8 md:h-8" />
     </a>
