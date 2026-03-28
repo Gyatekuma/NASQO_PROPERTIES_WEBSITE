@@ -10,8 +10,11 @@ import {
   Linkedin,
   Palette,
   CircleDot,
+  MessageCircle,
 } from "lucide-react";
 import { servicesPageData, propertiesPageData, contactConfig } from "../Data/AppData";
+
+const footerWhatsAppUrl = `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(contactConfig.whatsappIntroMessage)}`;
 
 const quickLinks = [
   { href: "/", label: "Home" },
@@ -126,6 +129,20 @@ const Footer: React.FC = () => {
                 <Phone className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
                 <a href={`tel:${contactConfig.phone.replace(/\s/g, "")}`} className="hover:text-white transition-all duration-200 hover:translate-x-1 inline-block">
                   {contactConfig.phone}
+                </a>
+              </li>
+              <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
+                <MessageCircle className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
+                <a
+                  href={footerWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-all duration-200 hover:translate-x-1 inline-block"
+                  title={`Chat on WhatsApp with ${contactConfig.whatsappDisplayName}`}
+                >
+                  <span className="font-medium text-white">
+                    Chat on WhatsApp with {contactConfig.whatsappDisplayName}
+                  </span>
                 </a>
               </li>
               <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">

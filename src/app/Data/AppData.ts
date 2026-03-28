@@ -26,7 +26,7 @@ export const contactConfig = {
   /** E.164 digits for wa.me (024 022 1212 → +233 24 022 1212) */
   whatsappNumber: "233240221212",
   /** Must match the WhatsApp / WhatsApp Business display name for that number */
-  whatsappDisplayName: "Nasqo Properties",
+  whatsappDisplayName: "NASQO Properties",
   phone: "0302864956",
   email: "homely@gmail.com",
   whatsappIntroMessage:
