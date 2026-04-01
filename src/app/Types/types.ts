@@ -75,6 +75,8 @@ export interface PropertiesPageItem {
     paymentDeposits?: PaymentDeposit[];
     /** Optional: extra info (e.g. "All rooms ensuite...") */
     additionalInfo?: string;
+    /** Optional: bullet list for property-specific features (e.g. Rocky Mountains) */
+    propertyFeatures?: string[];
 }
 
 /** Single item in services page data */

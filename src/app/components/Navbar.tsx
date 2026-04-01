@@ -5,19 +5,67 @@ import Image from './OptimizedImage'
 import { usePathname } from 'next/navigation'
 import { Menu, MoveRight, ChevronDown } from 'lucide-react'
 import { servicesPageData, propertiesPageData } from '../Data/AppData'
+import { useLenis } from './providers/LenisProvider'
 
 function Navbar() {
     const pathname = usePathname();
+    const lenis = useLenis();
     const [isOpen, setIsOpen] = useState(false);
     const [servicesExpanded, setServicesExpanded] = useState(false);
     const [propertiesExpanded, setPropertiesExpanded] = useState(false);
+    /** Bumps when menu opens so stagger animations replay */
+    const [mobileMenuAnimCycle, setMobileMenuAnimCycle] = useState(0);
+    const prevIsOpenRef = useRef(false);
 
     useEffect(() => {
       if (!isOpen) {
         setServicesExpanded(false);
         setPropertiesExpanded(false);
       }
+      if (isOpen && !prevIsOpenRef.current) {
+        setMobileMenuAnimCycle((c) => c + 1);
+      }
+      prevIsOpenRef.current = isOpen;
     }, [isOpen]);
+
+    /** Lock page scroll when mobile menu is open (Lenis + native overflow). */
+    useEffect(() => {
+      if (typeof window === 'undefined') return;
+
+      const html = document.documentElement;
+      const body = document.body;
+
+      const applyLock = () => {
+        if (!isOpen || window.innerWidth >= 768) return;
+        html.style.overflow = 'hidden';
+        body.style.overflow = 'hidden';
+        body.style.overscrollBehavior = 'none';
+        lenis?.stop();
+      };
+
+      const releaseLock = () => {
+        html.style.overflow = '';
+        body.style.overflow = '';
+        body.style.overscrollBehavior = '';
+        lenis?.start();
+      };
+
+      const sync = () => {
+        if (isOpen && window.innerWidth < 768) {
+          applyLock();
+        } else {
+          releaseLock();
+        }
+      };
+
+      sync();
+      window.addEventListener('resize', sync);
+
+      return () => {
+        window.removeEventListener('resize', sync);
+        releaseLock();
+      };
+    }, [isOpen, lenis]);
 
     const desktopNavRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -46,13 +94,25 @@ function Navbar() {
       return pathname === link.path;
     };
 
-    const activeRingClasses = 'ring-2 ring-white/90 rounded-lg outline-none';
+    /** Main nav items — blue text + light blue fill when route is active */
+    const navActiveDesktop = 'bg-blue-50 text-blue-700 font-semibold shadow-sm';
+    const navInactiveDesktop = 'font-medium';
+    const navActiveMobileRow =
+      'bg-blue-50 text-blue-700 font-semibold tracking-[-0.03em] rounded-lg px-3.5';
+    const navInactiveMobileRow = 'text-neutral-500 font-normal tracking-[-0.03em] px-3.5';
 
   return (
-
-
-
-    <div className='main_navbar_container fixed top-0 left-0 right-0 z-50 w-full'>
+    <>
+      {/* Full-screen blur behind mobile menu (navbar stays z-50 on top) */}
+      {isOpen && (
+        <button
+          type="button"
+          aria-label="Close menu"
+          className="fixed inset-0 z-40 h-dvh w-full md:hidden bg-neutral-950/45 backdrop-blur-md transition-opacity duration-300"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+      <div className="main_navbar_container fixed top-0 left-0 right-0 z-50 w-full">
       <header>
         <nav className="">
 
@@ -88,23 +148,26 @@ function Navbar() {
                         <button
                           type="button"
                           onClick={(e) => { e.stopPropagation(); setServicesExpanded(!servicesExpanded); setPropertiesExpanded(false); }}
-                          className={`flex items-center gap-1.5 py-1 px-2 -mx-2 rounded-lg text-white/90 hover:text-white cursor-pointer transition-all duration-200 ${isLinkActive(link) ? `font-bold ${activeRingClasses}` : 'font-medium'}`}
+                          className={`flex items-center gap-1.5 py-1.5 px-3 -mx-2 rounded-lg cursor-pointer transition-all duration-200 ${isLinkActive(link) ? navActiveDesktop : 'text-white/90 hover:text-white ' + navInactiveDesktop}`}
                         >
                           {link.name}
                           <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesExpanded ? 'rotate-180' : ''}`} />
                         </button>
                         {servicesExpanded && (
                           <div className="absolute top-full left-0 mt-3 py-2 min-w-[240px] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-neutral-100 z-50 dropdown-enter">
-                            {servicesPageData.map((service) => (
+                            {servicesPageData.map((service) => {
+                              const subActive = pathname === `/Services/${service.slug}` || pathname?.startsWith(`/Services/${service.slug}/`);
+                              return (
                               <Link
                                 key={service.id}
                                 href={`/Services/${service.slug}`}
                                 onClick={() => { setServicesExpanded(false); }}
-                                className="block px-5 py-2.5 text-neutral-600 hover:text-blue-600 hover:bg-blue-50 text-[15px] transition-colors duration-150"
+                                className={`block px-5 py-2.5 text-[15px] transition-colors duration-150 rounded-lg mx-1 ${subActive ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-neutral-600 hover:text-blue-600 hover:bg-blue-50'}`}
                               >
                                 {service.heroTitle}
                               </Link>
-                            ))}
+                              );
+                            })}
                           </div>
                         )}
                       </>
@@ -113,37 +176,40 @@ function Navbar() {
                         <button
                           type="button"
                           onClick={(e) => { e.stopPropagation(); setPropertiesExpanded(!propertiesExpanded); setServicesExpanded(false); }}
-                          className={`flex items-center gap-1.5 py-1 px-2 -mx-2 rounded-lg text-white/90 hover:text-white cursor-pointer transition-all duration-200 ${isLinkActive(link) ? `font-bold ${activeRingClasses}` : 'font-medium'}`}
+                          className={`flex items-center gap-1.5 py-1.5 px-3 -mx-2 rounded-lg cursor-pointer transition-all duration-200 ${isLinkActive(link) ? navActiveDesktop : 'text-white/90 hover:text-white ' + navInactiveDesktop}`}
                         >
                           {link.name}
                           <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${propertiesExpanded ? 'rotate-180' : ''}`} />
                         </button>
                         {propertiesExpanded && (
                           <div className="absolute top-full left-0 mt-3 py-2 min-w-[240px] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-neutral-100 z-50 dropdown-enter">
-                            {propertiesPageData.map((property) => (
+                            {propertiesPageData.map((property) => {
+                              const subActive = pathname === `/Properties/${property.slug}` || pathname?.startsWith(`/Properties/${property.slug}/`);
+                              return (
                               <Link
                                 key={property.id}
                                 href={`/Properties/${property.slug}`}
                                 onClick={() => { setPropertiesExpanded(false); }}
-                                className="block px-5 py-2.5 text-neutral-600 hover:text-blue-600 hover:bg-blue-50 text-[15px] transition-colors duration-150"
+                                className={`block px-5 py-2.5 text-[15px] transition-colors duration-150 rounded-lg mx-1 ${subActive ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-neutral-600 hover:text-blue-600 hover:bg-blue-50'}`}
                               >
                                 {property.heroTitle ?? property.title ?? 'Property'}
                               </Link>
-                            ))}
+                              );
+                            })}
                           </div>
                         )}
                       </>
                     ) : link.name === 'Contact' ? (
                       <Link
                         href={link.path}
-                        className={`bg-white text-neutral-800 rounded-full px-4 py-2 text-sm shadow-sm hover:shadow-md hover:bg-white/95 cursor-pointer transition-all duration-200 ${isLinkActive(link) ? 'font-bold ring-2 ring-white/90' : 'font-medium'}`}
+                        className={`rounded-full px-4 py-2 text-sm shadow-sm cursor-pointer transition-all duration-200 ${isLinkActive(link) ? 'bg-blue-50 text-blue-700 font-semibold ring-2 ring-blue-200/80' : 'bg-white text-neutral-800 font-medium hover:shadow-md hover:bg-white/95'}`}
                       >
                         Contact Us
                       </Link>
                     ) : (
                       <Link
                         href={link.path}
-                        className={`py-1 px-2 -mx-2 rounded-lg text-white/90 hover:text-white cursor-pointer transition-all duration-200 ${isLinkActive(link) ? `font-bold ${activeRingClasses}` : 'font-medium'}`}
+                        className={`py-1.5 px-3 -mx-2 rounded-lg cursor-pointer transition-all duration-200 ${isLinkActive(link) ? navActiveDesktop : 'text-white/90 hover:text-white ' + navInactiveDesktop}`}
                       >
                         {link.name}
                       </Link>
@@ -154,105 +220,132 @@ function Navbar() {
 
 
 
-              {/* Mobile screen icon - when open: flex row top bar with logo + menu */}
+              {/* Mobile screen icon - when open: header + scrollable nav inside panel */}
               <div 
-              onClick={() => setIsOpen(!isOpen)}
-              className={`humburger_menu relative md:hidden lg:hidden xl:hidden font-mona font-semibold py-3 px-3 bg-white text-black cursor-pointer hover:opacity-80
-              [transition:width_0.4s_cubic-bezier(0.22,1,0.36,1),height_0.4s_cubic-bezier(0.22,1,0.36,1)]
-              ${isOpen ? 'rounded-none w-screen h-[93vh] flex flex-col' : 'rounded-full w-[120px] h-12 flex items-center'}`}>
+              onClick={!isOpen ? () => setIsOpen(true) : undefined}
+              className={`humburger_menu relative md:hidden lg:hidden xl:hidden font-mona antialiased
+              [transition:width_0.4s_cubic-bezier(0.22,1,0.36,1),height_0.4s_cubic-bezier(0.22,1,0.36,1),box-shadow_0.35s_ease]
+              ${isOpen
+                ? 'rounded-b-[1.75rem] w-screen h-[95vh] max-h-[95dvh] flex flex-col overflow-hidden bg-white text-neutral-900 shadow-[0_12px_48px_-12px_rgba(15,23,42,0.12)]'
+                : 'rounded-full w-[120px] h-11 flex items-center justify-center bg-white/95 text-neutral-800 shadow-sm shadow-neutral-900/5 ring-1 ring-neutral-200/80 hover:bg-white hover:ring-neutral-300/90 hover:shadow-md hover:shadow-neutral-900/8 active:scale-[0.98] cursor-pointer py-3 px-3'}`}>
                 {isOpen ? (
-                  <div className="flex flex-row justify-between items-center w-full px-6 pt-6 shrink-0">
-                    <div className="nav_logo relative w-[72px] h-8 shrink-0">
-                      <Image
-                        src="/Main_Assets/Main_Logo_Black.svg"
-                        alt="logo"
-                        width={100}
-                        height={100}
-                        className="w-full h-auto object-contain object-left"
-                      />
-                    </div>
-                    <div className="humburger_menu_content flex flex-row gap-2 items-center">
-                      <Menu className="humburger_menu_icon" />
-                      <p className="uppercase">menu</p>
+                  <>
+                  <div
+                    className="w-full shrink-0 cursor-pointer border-b border-neutral-100 pt-7 pb-5"
+                    onClick={() => setIsOpen(!isOpen)}
+                  >
+                    <div className="mx-auto flex w-[90%] max-w-full flex-row items-center justify-between px-2">
+                      <div className="nav_logo relative h-[22px] w-[52px] shrink-0 opacity-95">
+                        <Image
+                          src="/Main_Assets/Main_Logo_Black.svg"
+                          alt="logo"
+                          width={100}
+                          height={100}
+                          className="h-full w-full object-contain object-left"
+                        />
+                      </div>
+                      <div className="humburger_menu_content flex flex-row items-center gap-2.5 text-neutral-400">
+                        <Menu className="humburger_menu_icon h-[18px] w-[18px]" strokeWidth={1.75} />
+                        <p className="text-[11px] font-medium uppercase tracking-[0.22em]">menu</p>
+                      </div>
                     </div>
                   </div>
+                  <div
+                    className={`mobile_navItems flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain pb-[max(1.25rem,env(safe-area-inset-bottom))] transition-opacity duration-300 ease-out [scrollbar-width:thin] [-webkit-overflow-scrolling:touch] [scrollbar-color:rgba(115,115,115,0.25)_transparent] ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  >
+                    <div key={mobileMenuAnimCycle} className="mx-auto flex w-[90%] max-w-full flex-col px-2">
+                    {navLinks.map((link, index) => {
+                      const staggerMs = 90;
+                      const baseDelay = 60;
+                      const rowDelay = isOpen ? baseDelay + index * staggerMs : 0;
+                      const rowActive = isLinkActive(link);
+                      const rowText = rowActive ? navActiveMobileRow : navInactiveMobileRow;
+                      const rowPad = 'py-[1.1rem]';
+                      const divider = 'border-b border-neutral-100';
+                      return (
+                      <div key={link.id}>
+                        {link.name === 'Services' ? (
+                          <div
+                            className={`mobile-nav-link-enter items flex items-center justify-between text-xl leading-snug ${rowPad} ${divider} cursor-pointer ${rowText}`}
+                            style={{ animationDelay: `${rowDelay}ms` }}
+                            onClick={() => { setServicesExpanded(!servicesExpanded); setPropertiesExpanded(false); }}
+                          >
+                            <span>{link.name}</span>
+                            <ChevronDown className={`size-4.5 shrink-0 transition-transform duration-300 ease-out ${rowActive ? 'text-blue-600' : 'text-neutral-300'} ${servicesExpanded ? 'rotate-180' : ''}`} strokeWidth={rowActive ? 3 : 2.5} />
+                          </div>
+                        ) : link.name === 'Properties' ? (
+                          <div
+                            className={`mobile-nav-link-enter items flex items-center justify-between text-xl leading-snug ${rowPad} ${divider} cursor-pointer ${rowText}`}
+                            style={{ animationDelay: `${rowDelay}ms` }}
+                            onClick={() => { setPropertiesExpanded(!propertiesExpanded); setServicesExpanded(false); }}
+                          >
+                            <span>{link.name}</span>
+                            <ChevronDown className={`size-4.5 shrink-0 transition-transform duration-300 ease-out ${rowActive ? 'text-blue-600' : 'text-neutral-300'} ${propertiesExpanded ? 'rotate-180' : ''}`} strokeWidth={rowActive ? 3 : 2.5} />
+                          </div>
+                        ) : (
+                          <div
+                            className={`mobile-nav-link-enter items flex items-center justify-between text-xl leading-snug ${rowPad} ${rowText} ${link.name === 'Contact' ? 'border-b-0' : divider}`}
+                            style={{ animationDelay: `${rowDelay}ms` }}
+                          >
+                            <Link href={link.path} onClick={() => setIsOpen(false)} className={`outline-none focus-visible:ring-2 focus-visible:ring-blue-300/80 focus-visible:ring-offset-2 focus-visible:rounded-sm ${rowActive ? 'text-blue-700' : ''}`}>{link.name}</Link>
+                            <MoveRight className={`size-4.5 shrink-0 ${rowActive ? 'text-blue-600' : 'text-neutral-200'}`} strokeWidth={rowActive ? 2.5 : 1.5} />
+                          </div>
+                        )}
+                        {link.name === 'Services' && servicesExpanded && (
+                          <div className="pl-[6%] pt-1 pb-4 flex flex-col gap-1 border-b border-neutral-100">
+                            {servicesPageData.map((service, subIndex) => {
+                              const subActive = pathname === `/Services/${service.slug}` || pathname?.startsWith(`/Services/${service.slug}/`);
+                              return (
+                              <Link
+                                key={service.id}
+                                href={`/Services/${service.slug}`}
+                                onClick={() => { setIsOpen(false); setServicesExpanded(false); }}
+                                className={`mobile-nav-link-enter text-[0.9375rem] leading-relaxed py-2.5 px-3 -mx-1 rounded-xl transition-colors duration-200 ${subActive ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-neutral-500 hover:text-blue-700 hover:bg-blue-50/60'}`}
+                                style={{ animationDelay: `${baseDelay + index * staggerMs + 40 + subIndex * 55}ms` }}
+                              >
+                                {service.heroTitle}
+                              </Link>
+                              );
+                            })}
+                          </div>
+                        )}
+                        {link.name === 'Properties' && propertiesExpanded && (
+                          <div className="pl-[6%] pt-1 pb-4 flex flex-col gap-1 border-b border-neutral-100">
+                            {propertiesPageData.map((property, subIndex) => {
+                              const subActive = pathname === `/Properties/${property.slug}` || pathname?.startsWith(`/Properties/${property.slug}/`);
+                              return (
+                              <Link
+                                key={property.id}
+                                href={`/Properties/${property.slug}`}
+                                onClick={() => { setIsOpen(false); setPropertiesExpanded(false); }}
+                                className={`mobile-nav-link-enter text-[0.9375rem] leading-relaxed py-2.5 px-3 -mx-1 rounded-xl transition-colors duration-200 ${subActive ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-neutral-500 hover:text-blue-700 hover:bg-blue-50/60'}`}
+                                style={{ animationDelay: `${baseDelay + index * staggerMs + 40 + subIndex * 55}ms` }}
+                              >
+                                {property.heroTitle ?? property.title ?? 'Property'}
+                              </Link>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                      );
+                    })}
+                    </div>
+                  </div>
+                  </>
                 ) : (
-                  <div className="humburger_menu_content flex flex-row gap-2 items-center">
-                    <Menu className="humburger_menu_icon" />
-                    <p className="uppercase">menu</p>
+                  <div className="humburger_menu_content flex flex-row gap-2 items-center justify-center">
+                    <Menu className="humburger_menu_icon h-[17px] w-[17px] text-neutral-700" strokeWidth={1.75} />
+                    <p className="uppercase tracking-[0.2em] text-[11px] font-medium text-neutral-700">menu</p>
                   </div>
                 )}
               </div>
 
           </div>
-
-          {/* Mobile Screen Navigation Items */}
-            <div className={`mobile_navItems absolute top-[15%] translate-x-[12%] w-[80%] md:hidden transition-opacity duration-300 ease-out ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-              {navLinks.map((link, index) => (
-                <div key={link.id}>
-                  {link.name === 'Services' ? (
-                    <div
-                      className="mobile-nav-link-enter items flex items-center justify-between text-2xl py-[5%] px-[3%] border-b text-neutral-500 cursor-pointer"
-                      style={{ animationDelay: isOpen ? `${120 + index * 80}ms` : '0ms' }}
-                      onClick={() => { setServicesExpanded(!servicesExpanded); setPropertiesExpanded(false); }}
-                    >
-                      <span>{link.name}</span>
-                      <ChevronDown className={`w-6 h-6 transition-transform duration-200 ${servicesExpanded ? 'rotate-180' : ''}`} />
-                    </div>
-                  ) : link.name === 'Properties' ? (
-                    <div
-                      className="mobile-nav-link-enter items flex items-center justify-between text-2xl py-[5%] px-[3%] border-b text-neutral-500 cursor-pointer"
-                      style={{ animationDelay: isOpen ? `${120 + index * 80}ms` : '0ms' }}
-                      onClick={() => { setPropertiesExpanded(!propertiesExpanded); setServicesExpanded(false); }}
-                    >
-                      <span>{link.name}</span>
-                      <ChevronDown className={`w-6 h-6 transition-transform duration-200 ${propertiesExpanded ? 'rotate-180' : ''}`} />
-                    </div>
-                  ) : (
-                    <div
-                      className="mobile-nav-link-enter items flex items-center justify-between text-2xl py-[5%] px-[3%] border-b text-neutral-500"
-                      style={{ animationDelay: isOpen ? `${120 + index * 80}ms` : '0ms' }}
-                    >
-                      <Link href={link.path} onClick={() => setIsOpen(false)}>{link.name}</Link>
-                      <MoveRight/>
-                    </div>
-                  )}
-                  {link.name === 'Services' && servicesExpanded && (
-                    <div className="pl-[6%] pb-[3%] flex flex-col gap-1">
-                      {servicesPageData.map((service, subIndex) => (
-                        <Link
-                          key={service.id}
-                          href={`/Services/${service.slug}`}
-                          onClick={() => { setIsOpen(false); setServicesExpanded(false); }}
-                          className="mobile-nav-link-enter text-lg text-neutral-500 hover:text-blue-600 hover:bg-blue-50/50 py-1.5 px-2 -mx-2 rounded border-b border-neutral-200 last:border-b-0 transition-colors duration-150"
-                          style={{ animationDelay: isOpen ? `${120 + (index + 1) * 80 + subIndex * 60}ms` : '0ms' }}
-                        >
-                          {service.heroTitle}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                  {link.name === 'Properties' && propertiesExpanded && (
-                    <div className="pl-[6%] pb-[3%] flex flex-col gap-1">
-                      {propertiesPageData.map((property, subIndex) => (
-                        <Link
-                          key={property.id}
-                          href={`/Properties/${property.slug}`}
-                          onClick={() => { setIsOpen(false); setPropertiesExpanded(false); }}
-                          className="mobile-nav-link-enter text-lg text-neutral-500 hover:text-blue-600 hover:bg-blue-50/50 py-1.5 px-2 -mx-2 rounded border-b border-neutral-200 last:border-b-0 transition-colors duration-150"
-                          style={{ animationDelay: isOpen ? `${120 + (index + 1) * 80 + subIndex * 60}ms` : '0ms' }}
-                        >
-                          {property.heroTitle ?? property.title ?? 'Property'}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
         </nav>
       </header>
     </div>
+    </>
   )
 }
 

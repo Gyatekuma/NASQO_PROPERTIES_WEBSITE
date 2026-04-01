@@ -88,7 +88,7 @@ export const propertiesData = [
     title: "Rocky Mountains Estate",
     location: "Kasoa Winneba Road, Akrampa",
     description:
-      "Rocky Mountains is a carefully planned 500-acre eco-friendly community nestled in the serene enclave of Aburi, Eastern Region. It offers fully serviced plots with essential infrastructure—electricity, water, asphalt roads, sidewalks, and secure gate posts—already in place. Convenient payment terms with just 30% deposit and proximity to major landmarks make this the ideal foundation for your dream lifestyle.",
+      "Rocky Mountains Estate, located along the Kasoa–Winneba Road in Akrampa, offers a unique opportunity to own property in a well-planned, eco-conscious community that seamlessly combines natural serenity with modern infrastructure. Designed to eliminate the typical challenges of land development, the estate comes fully serviced with essential infrastructure including reliable electricity and water supply, well-constructed asphalt roads, proper drainage systems, sidewalks, ambient street lighting, a secure gatehouse, and a fully walled perimeter to ensure safety and order. At the heart of the development is a strong focus on lifestyle and convenience, with key amenities such as a gated community with 24/7 security, a community swimming pool, restaurant and bar, fully equipped gym, on-site supermarket, unisex salon, laundry services office, children's playground, and a dedicated facility management office all thoughtfully integrated to support comfortable everyday living. Strategically positioned within a fast-developing area and within easy reach of key urban centers, Rocky Mountains Estate offers both immediate livability and strong long-term investment value, with flexible and affordable payment options that make owning a serviced plot both simple and accessible. Whether you are looking to build your dream home or secure a valuable real estate asset, this development provides the perfect foundation for both, offering a serene environment that promotes a balanced lifestyle away from city congestion while still keeping you connected. With increasing development in the surrounding area, property value appreciation is highly promising, making this an investment you can confidently make today.",
     imageSrc: "/PropertiesAssets/Img22.webp",
     amenities: [
       { id: "1", name: "Gated community", icon: FenceIcon },
@@ -110,7 +110,7 @@ export const propertiesData = [
     title: "Nhyira City Prime Lands",
     location: "Winneba – Gomoa Apre/Mprumen",
     description:
-      "Nhyira City Prime Lands blends nature seamlessly with modern living in a carefully planned 500-acre eco-friendly community in Aburi. Fully serviced plots come with essential infrastructure including electricity, water, asphalt roads, sidewalks, and secure perimeter fencing already in place. Multiple purchasing phases with convenient and affordable payment terms ensure accessibility for all buyers.",
+      "Nhyira City Prime Lands blends nature seamlessly with modern living in a carefully planned 500-acre eco-friendly community in Winneba – Gomoa Apre/Mprumen. Fully serviced plots come with essential infrastructure including electricity, water, asphalt roads, sidewalks, and secure perimeter fencing already in place. Multiple purchasing phases with convenient and affordable payment terms ensure accessibility for all buyers.",
     imageSrc: "/PropertiesAssets/ImgN1.webp",
     amenities: [
       { id: "1", name: "Security Gate Post", icon: CctvIcon },
@@ -220,6 +220,9 @@ export const propertiesPageData: PropertiesPageItem[] = [
 
     href: "/Properties/abena-yedua-apartments",
     price: "$1,650,500",
+    additionalInfo:
+      "One bedroom and 2 bedroom apartments, and they will be up to let, not selling",
+    additionalInfoLeadingIcon: "home",
     locationDetails: {
       sectionTitle: "Location Details",
       locationName: "Kasoa, Nyanyano kakraba",
@@ -235,9 +238,9 @@ export const propertiesPageData: PropertiesPageItem[] = [
     slug: "rocky-mountains-estate",
     title: "Rocky Mountains Estate",
     heroTitle: "Rocky Mountains Estate",
-    location: "Palm Springs, CA",
+    location: "Kasoa Winneba Road, Akrampa",
     description:
-      "Rocky Mountains is where life offers you the opportunity to blend nature seamlessly with the conveniences of modern living. It is a carefully planned 500-acre eco-friendly community located in the lush, serene enclave of Aburi, in the Eastern Region. This development offers fully serviced plots, designed to provide a sustainable and organic lifestyle, freeing you from the burdens of infrastructure development. Grace City Prime Land is more than just a residential area; it's a model community birthed from the high demand of our discerning clientele. Responding to countless requests, RKE has stepped in to create a space where essential infrastructure- including electricity, water, asphalt roads, sidewalks, a green park, efficient drainage, a secure gate post, parameter fence wall and ambient street lights – is already in place. This means you can focus on building your dream home and embracing a holistic way of life from day one, without the stress of coordinating these essential amenities yourself. Grace City Prime Land offers a unique opportunity to own fully serviced plots with convenient and affordable payment terms. The community is within reasonable proximity to major landmarks and amenities, and just a 40-minute drive from the airport, this is your chance to move into a community that takes away the burden of infrastructure worries. Embrace the ease of holistic and organic living at Grace City Prime Land, where your dream lifestyle becomes a reality.",
+      "Rocky Mountains Estate, located along the Kasoa–Winneba Road in Akrampa, offers a unique opportunity to own property in a well-planned, eco-conscious community that seamlessly combines natural serenity with modern infrastructure. Designed to eliminate the typical challenges of land development, the estate comes fully serviced with essential infrastructure including reliable electricity and water supply, well-constructed asphalt roads, proper drainage systems, sidewalks, ambient street lighting, a secure gatehouse, and a fully walled perimeter to ensure safety and order. At the heart of the development is a strong focus on lifestyle and convenience, with key amenities such as a gated community with 24/7 security, a community swimming pool, restaurant and bar, fully equipped gym, on-site supermarket, unisex salon, laundry services office, children's playground, and a dedicated facility management office all thoughtfully integrated to support comfortable everyday living. Strategically positioned within a fast-developing area and within easy reach of key urban centers, Rocky Mountains Estate offers both immediate livability and strong long-term investment value, with flexible and affordable payment options that make owning a serviced plot both simple and accessible. Whether you are looking to build your dream home or secure a valuable real estate asset, this development provides the perfect foundation for both, offering a serene environment that promotes a balanced lifestyle away from city congestion while still keeping you connected. With increasing development in the surrounding area, property value appreciation is highly promising, making this an investment you can confidently make today.",
     imageSrc: "/HomeAssets/Img111.webp",
     heroImages: [
       "/PropertiesAssets/Img11.webp",
@@ -275,8 +278,6 @@ export const propertiesPageData: PropertiesPageItem[] = [
       { label: "30% of $75,000", amount: "$22,500" },
       { label: "30% of $85,000", amount: "$25,500" },
     ],
-    additionalInfo:
-      "All rooms ensuite. Wardrobes, kitchen cabinet, tiled compound, solar power supply available in case of power-outage. Reserved poly tank also available.",
     locationDetails: {
       sectionTitle: "Location Details",
       locationName: "Kasoa Winneba Road, Akrampa",
@@ -286,6 +287,15 @@ export const propertiesPageData: PropertiesPageItem[] = [
       brochureButtonText: "Download Brochure",
       brochureHref: "#",
     },
+    propertyFeatures: [
+      "En-suite bedrooms",
+      "Fitted wardrobes in all bedrooms",
+      "Fully tiled with fitted kitchen",
+      "Spacious tiled compound with perimeter wall",
+      "Solar power supply available in case of power outage",
+      "Poly tank available for your reserved water supply",
+      "P.O.P ceiling",
+    ],
   },
   {
     id: "3",
@@ -305,7 +315,7 @@ export const propertiesPageData: PropertiesPageItem[] = [
     SectionTag: "Properties",
     priceRange: "$45,000 - $85,000",
     description:
-      "Nhyira City Prime Lands is where life offers you the opportunity to blend nature seamlessly with the conveniences of modern living. It is a carefully planned 500-acre eco-friendly community located in the lush, serene enclave of Aburi, in the Eastern Region. This development offers fully serviced plots, designed to provide a sustainable and organic lifestyle, freeing you from the burdens of infrastructure development. Grace City Prime Land is more than just a residential area; it's a model community birthed from the high demand of our discerning clientele. Responding to countless requests, RKE has stepped in to create a space where essential infrastructure- including electricity, water, asphalt roads, sidewalks, a green park, efficient drainage, a secure gate post, parameter fence wall and ambient street lights – is already in place. This means you can focus on building your dream home and embracing a holistic way of life from day one, without the stress of coordinating these essential amenities yourself. Grace City Prime Land offers a unique opportunity to own fully serviced plots with convenient and affordable payment terms. The community is within reasonable proximity to major landmarks and amenities, and just a 40-minute drive from the airport, this is your chance to move into a community that takes away the burden of infrastructure worries. Embrace the ease of holistic and organic living at Grace City Prime Land, where your dream lifestyle becomes a reality.",
+      "Nhyira City Prime Lands is where life offers you the opportunity to blend nature seamlessly with the conveniences of modern living. It is a carefully planned 500-acre eco-friendly community located in the lush, serene enclave of Winneba – Gomoa Apre/Mprumen. This development offers fully serviced plots, designed to provide a sustainable and organic lifestyle, freeing you from the burdens of infrastructure development. Nhyira City Prime Lands is more than just a residential area; it's a model community birthed from the high demand of our discerning clientele. Responding to countless requests, RKE has stepped in to create a space where essential infrastructure—including electricity, water, asphalt roads, sidewalks, a green park, efficient drainage, a secure gate post, perimeter fence wall and ambient street lights – is already in place. This means you can focus on building your dream home and embracing a holistic way of life from day one, without the stress of coordinating these essential amenities yourself. Nhyira City Prime Lands offers a unique opportunity to own fully serviced plots with convenient and affordable payment terms. The community is within reasonable proximity to major landmarks and amenities, and just a 40-minute drive from the airport, this is your chance to move into a community that takes away the burden of infrastructure worries. Embrace the ease of holistic and organic living at Nhyira City Prime Lands, where your dream lifestyle becomes a reality.",
     priceTiers: [
       { label: "Phase 1", price: "GHS 20,000" },
       { label: "Phase 2", price: "GHS 15,000" },
@@ -595,8 +605,8 @@ export const testimonialData = [
     id: "1",
     description:
       "After months of searching across different websites, I finally found my ideal home in no time using this platform. The listings were detailed, and the photos accurately reflected each property. Everything was clearly presented, which made comparing options easy and stress-free. Scheduling viewings and making inquiries felt smooth and straightforward. Customer service was top-notch, answering all my questions promptly and professionally. I will definitely use this platform again in the future and highly recommend it to others!",
-    name: "John Doe",
-    title: "Property Owner",
+    name: "Kelvin Ampadu",
+    title: "Real Estate Developer",
     icon: "/Main_Assets/Tag_outline_main.svg",
     imageSrc: "/HomeAssets/TEAM-1.webp",
   },
@@ -604,7 +614,7 @@ export const testimonialData = [
     id: "2",
     description:
       "I discovered the perfect property much faster than I expected! The platform provided clear descriptions, high-quality images, and all the essential details I needed to make a confident decision. The entire experience was smooth and hassle-free, and the support team was incredibly responsive whenever I needed assistance. I would absolutely recommend this service to anyone searching for their next home and will gladly return in the future.",
-    name: "Caleb Mensah",
+    name: "Bright Elikem",
     title: "MD, Rome Estate",
     icon: "/Main_Assets/Tag_outline_main.svg",
     imageSrc: "/HomeAssets/TEAM-2.webp",
@@ -613,8 +623,8 @@ export const testimonialData = [
     id: "3",
     description:
       "I had an amazing experience using this platform to find my new home! The property listings were informative and well-organized, making it easy to compare options and narrow down my choices. The photos truly reflected what was available, and the entire process felt straightforward and stress-free. Whenever I had questions, the customer support team responded promptly and professionally. I wouldn’t hesitate to use this service again and highly recommend it to anyone looking for a reliable real estate solution.",
-    name: "Caleb Mensah",
-    title: "MD, Rome Estate",
+    name: "Evans Tetteh",
+    title: "Real Estate Agent",
     icon: "/Main_Assets/Tag_outline_main.svg",
     imageSrc: "/HomeAssets/TEAM-3.webp",
   },
@@ -685,45 +695,44 @@ export const faqData = [
 export const coreValuesDataAboutPage = [
   {
     id: "1",
-    title: "Long lasting service",
+    title: "Transparent, verifiable transactions",
     subtext:
-      "We ensure every deal is transparent, secure, and reliable, giving clients peace of mind.Our commitment to honesty and integrity sets the foundation for lasting client relationships.",
-    icon: FunnelPlus,
+      "From documentation to closing, NASQO Properties prioritizes clarity and due diligence—so buyers and investors understand every step and can move forward with confidence.",
+    icon: ShieldCheck,
   },
   {
     id: "2",
-    title: "Client-Focused Service",
+    title: "Guidance rooted in local expertise",
     subtext:
-      "We ensure every deal is transparent, secure, and reliable, giving clients peace of mind.Our commitment to honesty and integrity sets the foundation for lasting client relationships.",
+      "We pair honest advice with deep knowledge of Ghana’s property landscape, helping you choose land and homes in well-positioned communities that fit your goals and budget.",
     icon: Users,
   },
   {
     id: "3",
-    title: "Safe Haven Living",
+    title: "Communities built for lasting value",
     subtext:
-      "We ensure every deal is transparent, secure, and reliable, giving clients peace of mind.Our commitment to honesty and integrity sets the foundation for lasting client relationships.",
-    icon: ShieldCheck,
+      "We focus on thoughtfully planned developments—reliable infrastructure, security, and growth potential—so your property remains a sound place to live or invest for years to come.",
+    icon: Building2,
   },
   {
     id: "4",
-    title: "Transparent Transactions",
+    title: "Clear pricing & honest communication",
     subtext:
-      "We ensure every deal is transparent, secure, and reliable, giving clients peace of mind.Our commitment to honesty and integrity sets the foundation for lasting client relationships.",
+      "No surprises: we explain costs, payment options, and timelines upfront, so you can plan your purchase or investment with confidence and peace of mind.",
     icon: BadgeCent,
   },
-
   {
     id: "5",
-    title: "Transparent Transactions",
+    title: "Quality infrastructure you can rely on",
     subtext:
-      "We ensure every deal is transparent, secure, and reliable, giving clients peace of mind.Our commitment to honesty and integrity sets the foundation for lasting client relationships.",
-    icon: BadgeCent,
+      "We align with developments that emphasize roads, utilities, drainage, and sound construction—protecting both everyday comfort and long-term resale value.",
+    icon: FunnelPlus,
   },
   {
     id: "6",
-    title: "Transparent Transactions",
+    title: "Safety and peace of mind",
     subtext:
-      "We ensure every deal is transparent, secure, and reliable, giving clients peace of mind.Our commitment to honesty and integrity sets the foundation for lasting client relationships.",
-    icon: BadgeCent,
+      "From gated layouts to professional security where provided, we prioritize environments where families and investors feel secure in the community they choose.",
+    icon: CctvIcon,
   },
 ];

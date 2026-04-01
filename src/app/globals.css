@@ -135,21 +135,29 @@ body {
   opacity: 0;
 }
 
-/* Mobile navbar menu animations */
+/* Mobile navbar menu — staggered slide + fade (delays set inline on each row) */
 @keyframes mobile-nav-link-enter {
   from {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translate3d(-8px, 6px, 0);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .mobile-nav-link-enter {
   opacity: 0;
-  animation: mobile-nav-link-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: mobile-nav-link-enter 0.48s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav-link-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Desktop nav dropdown animation */

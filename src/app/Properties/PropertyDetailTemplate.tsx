@@ -209,6 +209,40 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
               className="description_content font-bricolage text-base my-[10%] xl:my-[4%] xl:text-xl"
             />
 
+            {property.propertyFeatures && property.propertyFeatures.length > 0 && (
+              <div
+                className="scroll-reveal mt-8 md:mt-10 xl:mt-12 mb-2 xl:mb-4"
+                data-scroll-reveal
+              >
+                <div className="rounded-2xl bg-[#F3F5F8] p-4 sm:p-5 xl:p-6 border border-neutral-200">
+                  <h3 className="font-bricolage font-semibold text-[#191723] text-sm sm:text-base uppercase tracking-wide mb-4 xl:mb-5">
+                    Property features
+                  </h3>
+                  <ul
+                    className="flex flex-col gap-2 sm:gap-2.5 xl:gap-3"
+                    data-stagger-reveal
+                    data-stagger-ms="90"
+                  >
+                    {property.propertyFeatures.map((feature, index) => (
+                      <li
+                        key={`${property.id}-feature-${index}`}
+                        data-stagger-item
+                        className="group flex items-start gap-3 rounded-lg bg-white border border-neutral-200 px-4 py-3.5 sm:px-4 sm:py-3.5 xl:px-5 xl:py-4 shadow-sm transition-all duration-200 hover:border-[#4361EE]/35 hover:shadow-md"
+                      >
+                        <CheckCircle2
+                          className="w-5 h-5 xl:w-[22px] xl:h-[22px] shrink-0 text-[#4361EE] mt-0.5"
+                          aria-hidden
+                        />
+                        <span className="font-mona text-sm sm:text-base text-neutral-800 leading-relaxed">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
             {property.additionalInfo && (
               <div className="mt-10 xl:mt-12 pt-8 xl:pt-10 border-t border-neutral-200">
                 <div className="font-mona text-base xl:text-lg text-neutral-700 leading-relaxed bg-[#F3F5F8] rounded-2xl p-5 xl:p-6 border border-neutral-200">

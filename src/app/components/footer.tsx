@@ -8,12 +8,24 @@ import {
   Inbox,
   Instagram,
   Linkedin,
-  Palette,
-  CircleDot,
+  Facebook,
   MessageCircle,
 } from "lucide-react";
 import { servicesPageData, propertiesPageData, contactConfig } from "../Data/AppData";
 
+/** Twitter / X platform logo (not Lucide’s generic “X” close icon) */
+function XTwitterIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden
+      {...props}
+    >
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
 const footerWhatsAppUrl = `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(contactConfig.whatsappIntroMessage)}`;
 
 const quickLinks = [
@@ -25,10 +37,10 @@ const quickLinks = [
 ];
 
 const socialLinks = [
-  { href: "https://behance.net", label: "Behance", icon: Palette },
-  { href: "https://instagram.com", label: "Instagram", icon: Instagram },
-  { href: "https://dribbble.com", label: "Dribbble", icon: CircleDot },
+  { href: "https://x.com", label: "X (Twitter)", icon: XTwitterIcon },
+  { href: "https://facebook.com", label: "Facebook", icon: Facebook },
   { href: "https://linkedin.com", label: "LinkedIn", icon: Linkedin },
+  { href: "https://instagram.com", label: "Instagram", icon: Instagram },
 ];
 
 const Footer: React.FC = () => {

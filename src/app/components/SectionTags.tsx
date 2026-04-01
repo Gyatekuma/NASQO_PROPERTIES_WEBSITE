@@ -9,9 +9,9 @@ interface SectionTagsProps {
   subtext?: string
 }
 
-const SectionTags: React.FC<SectionTagsProps> = ({ name, imageSrc, className, header, subtext }) => {
+const SectionTags: React.FC<SectionTagsProps> = ({ name, imageSrc, className = '', header, subtext }) => {
   return (
-    <div className="main_container flex  flex-col itemx-center gap-[3%] 2xl:gap-1 my-[10%] xl:my-[2%] md:w-[85%] xl:w-[94%] 2xl:w-[100%]">
+    <div className={`main_container flex flex-col itemx-center gap-[3%] 2xl:gap-1 my-[10%] xl:my-[2%] md:w-[85%] xl:w-[94%] 2xl:w-[100%] ${className}`}>
       <div className="tag-text-container flex items-center gap-3 xl:w-[200]">
         <Image
         src={imageSrc}

@@ -21,7 +21,8 @@ const ABOUT_DESCRIPTION_FULL =
 const ABOUT_DESCRIPTION_SHORT =
   "At Homely, we are committed to helping individuals, families, and investors discover properties that truly match their dreams and long-term goals. With a strong focus on transparency, professionalism, and client satisfaction, we simplify the entire real estate journey—from property search and acquisition to documentation and ownership support—ensuring every transaction is smooth and stress-free.";
 
-const ABOUT_DESCRIPTION_SENTENCES = ABOUT_DESCRIPTION_FULL.split(/(?<=\.)\s+/).filter(Boolean);
+const ABOUT_DESCRIPTION_SENTENCES =
+  ABOUT_DESCRIPTION_FULL.split(/(?<=\.)\s+/).filter(Boolean);
 
 function page() {
   const coreValues: coreValueProps[] = coreValuesDataAboutPage;
@@ -83,7 +84,8 @@ function page() {
               <p className="about_description hidden font-bricolage font-semibold text-neutral-500 lg:block xl:text-xl xl:mt-6 2xl:text-2xl 2xl:tracking-tight 2xl:mt-8 leading-relaxed">
                 {ABOUT_DESCRIPTION_SENTENCES.map((sentence, i) => (
                   <span key={i} className="about-page-reveal">
-                    {sentence}{i < ABOUT_DESCRIPTION_SENTENCES.length - 1 ? " " : ""}
+                    {sentence}
+                    {i < ABOUT_DESCRIPTION_SENTENCES.length - 1 ? " " : ""}
                   </span>
                 ))}
               </p>
@@ -121,23 +123,24 @@ function page() {
                 />
               </div>
             </div>
-            <div className="xl:w-1/2 flex flex-col xl:h-[70vh] xl:justify-evenly 2xl:h-auto 2xl:gap-14 2xl:mt-[-3%]">
+            <div className="xl:w-1/2 flex flex-col mt-8 xl:h-[70vh] xl:justify-evenly 2xl:h-auto 2xl:gap-14 2xl:mt-[-3%]">
               <div className="vision-reveal section_tags xl:w-[85%] 2xl:w-[70%]">
                 <SectionTags
-                  name="mission and vision"
+                  className="!my-0 mb-2 md:mb-3 xl:!my-[2%]"
+                  name="Vision"
                   imageSrc="/Main_Assets/Tag_Icon_blue.svg"
                   header="What drives us"
                   subtext="We began with a vision to connect people to premium properties that suit their lifestyles and needs."
                 />
               </div>
 
-              <div className="vision-reveal vision_statement font-bricolage font-bold text-lg leading-5 mt-4 xl:mt-0 md:text-2xl md:leading-7 xl:text-xl xl:leading-7 2xl:text-3xl 2xl:leading-10 xl:w-[90%] 2xl:w-[85%] 2xl:tracking-tighter">
+              <div className="vision-reveal vision_statement font-bricolage font-bold text-lg leading-5 mt-5 mb-8 md:mt-3 md:mb-10 xl:mt-0 xl:mb-0 md:text-2xl md:leading-7 xl:text-xl xl:leading-7 2xl:text-3xl 2xl:leading-10 xl:w-[90%] 2xl:w-[85%] 2xl:tracking-tighter">
                 A trusted real estate brand leading the market, simplifying
                 property ownership for everyone, while building strong and
                 thriving communities
               </div>
 
-              <div className="vision-reveal description_container font-mona text-neutral-500 text-xs p-[5%] md:text-sm md:p-[3%] xl:text-xs xl:p-[3%] xl:w-[90%] bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] 2xl:text-sm rounded-3xl 2xl:p-[3%]">
+              <div className="vision-reveal description_container font-mona text-neutral-500 text-xs px-5 py-8 leading-relaxed md:text-sm md:p-[3%] md:leading-normal xl:text-xs xl:p-[3%] xl:w-[90%] bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] 2xl:text-sm rounded-3xl 2xl:p-[3%]">
                 We aim to create a reliable property ecosystem where individuals
                 and businesses can confidently acquire secure, well-verified
                 properties through transparent processes, expert guidance, and
@@ -163,31 +166,32 @@ function page() {
                 />
               </div>
             </div>
-            <div className="xl:w-1/2 flex flex-col xl:h-[70vh] xl:justify-evenly 2xl:h-auto 2xl:gap-14 2xl:mt-[-3%]">
+            <div className="xl:w-1/2 flex mt-8 flex-col xl:h-[70vh] xl:justify-evenly 2xl:h-auto 2xl:gap-14 2xl:mt-[-3%]">
               <div className="mission-reveal section_tags xl:w-[85%] 2xl:w-[70%]">
                 <SectionTags
-                  name="mission and vision"
+                  className="!my-0 mb-2 md:mb-3 xl:!my-[2%]"
+                  name="Mission"
                   imageSrc="/Main_Assets/Tag_Icon_blue.svg"
-                  header="Our Mission and Vision"
-                  subtext="We began with a vision to connect people to premium properties that suit their lifestyles and needs."
+                  header="What Guides Us"
+                  subtext="We deliver secure, verified properties through transparent and seamless processes."
                 />
               </div>
 
-              <div className="mission-reveal vision_statement font-bricolage font-bold text-lg leading-5 mt-4 xl:mt-0 md:text-2xl md:leading-7 xl:text-xl xl:leading-7 2xl:text-3xl 2xl:leading-10 xl:w-[90%] 2xl:w-[85%] 2xl:tracking-tighter">
+              <div className="mission-reveal vision_statement font-bricolage font-bold mt-5 text-lg leading-5 mt-2 mb-8 md:mt-3 md:mb-10 xl:mt-0 xl:mb-0 md:text-2xl md:leading-7 xl:text-xl xl:leading-7 2xl:text-3xl 2xl:leading-10 xl:w-[90%] 2xl:w-[85%] 2xl:tracking-tighter">
                 Reliable property solutions delivered with professionalism,
                 connecting clients with the right opportunities, and maintaining
                 integrity in every transaction.
               </div>
 
-              <div className="mission-reveal description_container font-mona text-neutral-500 text-xs p-[5%] md:text-sm md:p-[3%] xl:text-xs xl:p-[3%] xl:w-[90%] bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] 2xl:text-sm rounded-3xl 2xl:p-[3%]">
-                We aim to create a reliable property ecosystem where individuals
-                and businesses can confidently acquire secure, well-verified
-                properties through transparent processes, expert guidance, and
-                community-focused developments that promote long-term growth and
-                sustainable living. By combining market expertise with
-                innovative solutions, we ensure every client experiences a
-                seamless property journey from search to ownership. Our
-                commitment is to build lasting value, strengthen communities,
+              <div className="mission-reveal description_container font-mona text-neutral-500 text-xs px-5 py-8 leading-relaxed md:text-sm md:p-[3%] md:leading-normal xl:text-xs xl:p-[3%] xl:w-[90%] bg-[#f7f7f7] border border-neutral-200 2xl:w-[88%] 2xl:text-sm rounded-3xl 2xl:p-[3%]">
+                We are committed to delivering a reliable property ecosystem
+                that empowers individuals and businesses to confidently acquire
+                secure, well-verified properties through transparent processes,
+                expert guidance, and community-focused developments, simplifying
+                the property journey from search to ownership while leveraging
+                market expertise and innovative solutions to provide seamless,
+                client-centered experiences that promote sustainable living and
+                long-term growth, create lasting value, strengthen communities,
                 and make quality property investment accessible to all.
               </div>
             </div>
@@ -214,7 +218,7 @@ function page() {
                       className="core-values-card core_value_card_item border-2 border-neutral-200 rounded-3xl py-[6%] px-[6%] flex flex-col items-center gap-6 xl:flex-col xl:items-start xl:py-[5%] xl:px-[5%] xl:gap-3 2xl:flex-row 2xl:items-center 2xl:px-[8%] 2xl:py-[8%] 2xl:gap-6 group cursor-pointer transition-all duration-300 ease-out hover:border-[#4361EE] hover:shadow-lg"
                     >
                       <div className="icon">
-                        <Icon className="w-5 xl:w-5 h-auto text-[#4361EE]" />
+                        <Icon className="h-auto w-6 text-[#4361EE] md:w-7 xl:w-7 2xl:w-8" />
                       </div>
 
                       <div className="text font-mona flex flex-col gap-2 text-center xl:text-left xl:gap-2 2xl:gap-3">
@@ -232,7 +236,6 @@ function page() {
             </div>
           </div>
 
-
           {/* about_description_hero section */}
 
           <DescriptionHero
@@ -247,7 +250,6 @@ function page() {
           <div className="testimonial_section_container relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen flex items-center text-white bg-[#191723] mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24 2xl:mt-16 2xl:min-h-[85vh] md:py-[5%]">
             <Testimonial testimonials={testimonialData} />
           </div>
-
 
           <ScrollRevealSection
             {...FAQ_SECTION_SCROLL_REVEAL}
