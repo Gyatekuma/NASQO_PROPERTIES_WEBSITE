@@ -49,7 +49,7 @@ export interface PropertiesPageItem {
     id: string;
     /** URL slug for routing (e.g. grace-city-prime-lands) */
     slug: string;
-    /** Hero-style property (e.g. Grace City Prime Lands) */
+    /** Hero-style property (e.g. Nhyira City Prime Lands) */
     heroTitle?: string;
     /** Hero carousel images (at least 6 for the hero section) */
     heroImages?: string[];
@@ -77,6 +77,8 @@ export interface PropertiesPageItem {
     additionalInfo?: string;
     /** Optional: bullet list for property-specific features (e.g. Rocky Mountains) */
     propertyFeatures?: string[];
+    /** Optional: show a Lucide icon before single-card additionalInfo (e.g. home for rentals) */
+    additionalInfoLeadingIcon?: "home";
 }
 
 /** Single item in services page data */

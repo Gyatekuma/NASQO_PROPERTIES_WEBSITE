@@ -221,13 +221,11 @@ function Navbar() {
 
 
               {/* Mobile screen icon - when open: header + scrollable nav inside panel */}
-              <div 
-              onClick={!isOpen ? () => setIsOpen(true) : undefined}
-              className={`humburger_menu relative md:hidden lg:hidden xl:hidden font-mona antialiased
-              [transition:width_0.4s_cubic-bezier(0.22,1,0.36,1),height_0.4s_cubic-bezier(0.22,1,0.36,1),box-shadow_0.35s_ease]
-              ${isOpen
-                ? 'rounded-b-[1.75rem] w-screen h-[95vh] max-h-[95dvh] flex flex-col overflow-hidden bg-white text-neutral-900 shadow-[0_12px_48px_-12px_rgba(15,23,42,0.12)]'
-                : 'rounded-full w-[120px] h-11 flex items-center justify-center bg-white/95 text-neutral-800 shadow-sm shadow-neutral-900/5 ring-1 ring-neutral-200/80 hover:bg-white hover:ring-neutral-300/90 hover:shadow-md hover:shadow-neutral-900/8 active:scale-[0.98] cursor-pointer py-3 px-3'}`}>
+              <div
+              onClick={() => setIsOpen(!isOpen)}
+              className={`humburger_menu relative md:hidden lg:hidden xl:hidden font-mona font-semibold py-3 px-3 bg-white text-black cursor-pointer hover:opacity-80
+              [transition:width_0.4s_cubic-bezier(0.22,1,0.36,1),height_0.4s_cubic-bezier(0.22,1,0.36,1)]
+              ${isOpen ? 'rounded-b-2xl w-screen h-[95vh] max-h-[95dvh] flex flex-col overflow-hidden' : 'rounded-full w-[120px] h-12 flex items-center'}`}>
                 {isOpen ? (
                   <>
                   <div

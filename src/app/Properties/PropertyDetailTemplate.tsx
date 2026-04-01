@@ -10,7 +10,7 @@ import ScrollRevealSection, {
   FAQ_SECTION_SCROLL_REVEAL,
 } from "../components/ScrollRevealSection";
 import LineRevealText from "../components/LineRevealText";
-import { CheckCircle2, Sparkles } from "lucide-react";
+import { CheckCircle2, Sparkles, Home } from "lucide-react";
 import { faqData, propertiesPageData, testimonialData } from "../Data/AppData";
 import { getPropertyCardSummary } from "../lib/getPropertyCardSummary";
 
@@ -248,7 +248,17 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                 <div className="font-mona text-base xl:text-lg text-neutral-700 leading-relaxed bg-[#F3F5F8] rounded-2xl p-5 xl:p-6 border border-neutral-200">
                   {additionalInfoSingleCard ? (
                     <div className="rounded-xl bg-white border border-neutral-200 p-4 xl:p-5 transition-all duration-200 hover:border-[#4361EE]/40 hover:shadow-md">
-                      <p className="text-sm xl:text-base leading-relaxed text-neutral-700">
+                      <p
+                        className={`text-sm xl:text-base leading-relaxed text-neutral-700 ${
+                          property.additionalInfoLeadingIcon ? "flex items-start gap-2.5" : ""
+                        }`}
+                      >
+                        {property.additionalInfoLeadingIcon === "home" && (
+                          <Home
+                            className="w-5 h-5 shrink-0 text-[#4361EE] mt-0.5"
+                            aria-hidden
+                          />
+                        )}
                         {property.additionalInfo}
                       </p>
                     </div>
