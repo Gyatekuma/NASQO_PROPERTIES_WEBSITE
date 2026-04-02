@@ -9,7 +9,7 @@ import Testimonial from "../components/Testimonial";
 import ScrollRevealSection, {
   FAQ_SECTION_SCROLL_REVEAL,
 } from "../components/ScrollRevealSection";
-import LineRevealText from "../components/LineRevealText";
+import MobileExpandableLineReveal from "../components/MobileExpandableLineReveal";
 import { CheckCircle2, Sparkles, Home } from "lucide-react";
 import { faqData, propertiesPageData, testimonialData } from "../Data/AppData";
 import { getPropertyCardSummary } from "../lib/getPropertyCardSummary";
@@ -77,6 +77,8 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
     property.slug === "skycity-dwellings" ||
     property.slug === "abena-yedua-apartments" ||
     property.slug === "rocky-mountains-estate";
+  const showPriceTag =
+    Boolean((displayPrice ?? "").trim()) && !hideHeroPriceTag;
   const { additionalInfoItems, additionalInfoSingleCard } = (() => {
     if (!property.additionalInfo) return { additionalInfoItems: [], additionalInfoSingleCard: false };
     const raw = property.additionalInfo
@@ -230,8 +232,9 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
               name={property.SectionTag ?? "Services"}
               imageSrc="/Main_Assets/Tag_Icon_blue.svg"
               header={displayTitle}
+              className={showPriceTag ? undefined : "max-lg:!mb-3"}
             />
-            {(displayPrice ?? "").trim() && !hideHeroPriceTag && (
+            {showPriceTag && (
             <div className="price_tag font-bricolage font-bold text-2xl xl:text-4xl text-[#4361EE] mt-[-13%] xl:mt-[-4%]">
               {displayPrice}
             </div>
@@ -239,9 +242,13 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
           </div>
 
           <div className="main_desc_container scroll-reveal pb-8 lg:px-[5%] lg:pb-10 xl:pb-12 2xl:px-[3%] 2xl:text-neutral-500 lg:my-[5%] lg:border lg:border-neutral-200 lg:rounded-3xl">
-            <LineRevealText
+            <MobileExpandableLineReveal
               text={property.description}
-              className="description_content font-bricolage text-base my-[10%] xl:my-[4%] xl:text-xl"
+              className={
+                showPriceTag
+                  ? "description_content font-bricolage text-base my-[10%] xl:my-[4%] xl:text-xl"
+                  : "description_content font-bricolage text-base max-lg:mt-2 max-lg:mb-[10%] lg:my-[10%] xl:my-[4%] xl:text-xl"
+              }
             />
 
             {property.propertyFeatures && property.propertyFeatures.length > 0 && (

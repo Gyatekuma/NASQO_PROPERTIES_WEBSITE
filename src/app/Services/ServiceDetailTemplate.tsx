@@ -9,7 +9,7 @@ import Testimonial from "../components/Testimonial";
 import ScrollRevealSection, {
   FAQ_SECTION_SCROLL_REVEAL,
 } from "../components/ScrollRevealSection";
-import LineRevealText from "../components/LineRevealText";
+import MobileExpandableLineReveal from "../components/MobileExpandableLineReveal";
 import { faqData, servicesPageData, testimonialData } from "../Data/AppData";
 import { getServiceCardSummary } from "../lib/getServiceCardSummary";
 
@@ -167,13 +167,14 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
               name={service.SectionTag ?? "Services"}
               imageSrc="/Main_Assets/Tag_Icon_blue.svg"
               header={displayTitle}
+              className="max-lg:!mb-3"
             />
           </div>
 
           <div className="main_desc_container lg:px-[5%] lg:py-[5%] 2xl:px-[3%] 2xl:py-0 2xl:text-neutral-500 lg:my-[5%] lg:border lg:border-neutral-200 lg:rounded-3xl">
-            <LineRevealText
+            <MobileExpandableLineReveal
               text={service.description}
-              className="description_content font-bricolage text-base lg:text-lg xl:text-xl my-[10%] lg:my-[6%] xl:my-[4%] leading-relaxed"
+              className="description_content font-bricolage text-base lg:text-lg xl:text-xl max-lg:mt-2 max-lg:mb-[10%] lg:my-[6%] xl:my-[4%] leading-relaxed"
             />
 
             {/* {service.additionalInfo && (
