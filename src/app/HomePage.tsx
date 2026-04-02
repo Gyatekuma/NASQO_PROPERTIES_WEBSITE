@@ -6,7 +6,8 @@ import SectionTags from "./components/SectionTags";
 import Button from "./components/button";
 import ServicesCard from "./components/ServicesCard";
 import PropertyCards from "./components/PropertyCards";
-import { coreValuesData, propertiesData, propertiesPageData, servicesPageData, testimonialData, faqData } from "./Data/AppData";
+import { coreValuesData, propertiesPageData, servicesPageData, testimonialData, faqData } from "./Data/AppData";
+import type { PropertiesPageItem } from "./Types/types";
 import { coreValueProps, propertiesProps } from "./Types/types";
 import {
   Cctv,
@@ -24,13 +25,28 @@ import ScrollRevealSection, {
   FAQ_SECTION_SCROLL_REVEAL,
 } from "./components/ScrollRevealSection";
 
+/** Homepage carousel uses `propertiesPageData`; `cardSummary` is the short blurb (full `description` stays on detail pages). */
+function propertiesPageItemToHomeCarousel(p: PropertiesPageItem): propertiesProps {
+  return {
+    id: p.id,
+    title: p.heroTitle ?? p.title ?? "Property",
+    location: p.location ?? p.locationDetails.locationName,
+    description: p.cardSummary ?? p.description,
+    imageSrc: p.heroImages?.[0] ?? p.imageSrc ?? "/PropertiesAssets/Img11.webp",
+    amenities: p.amenities,
+    href: `/Properties/${p.slug}`,
+    price: p.price,
+    ...(p.priceRange ? { priceRange: p.priceRange } : {}),
+  };
+}
+
 const Testimonial = dynamic(() => import("./components/Testimonial"), { ssr: true });
 const Faq = dynamic(() => import("./components/Faq"), { ssr: true });
 const ServicesBanner = dynamic(() => import("./components/ServicesBanner"), { ssr: true });
 
 function HomePage() {
   const coreValues: coreValueProps[] = coreValuesData;
-  const properties: propertiesProps[] = propertiesData;
+  const properties: propertiesProps[] = propertiesPageData.map(propertiesPageItemToHomeCarousel);
   const servicesCards = servicesPageData.map((service) => ({
     id: service.id,
     imageSrc: service.heroImages?.[0] ?? "/HomeAssets/Img111.webp",
@@ -185,32 +201,41 @@ function HomePage() {
                 />
               </div>
             </div>
-            {propertiesPageData.slice(0, 1).map((property) => (
+            {propertiesPageData.slice(0, 1).map((property) => {
+              const teaser = property.cardSummary ?? property.description;
+              return (
               <PropertyCards
                 key={property.id}
                 title={property.heroTitle ?? property.title ?? "Property"}
-                subtext={property.description.slice(0, 140).trim() + (property.description.length > 140 ? "…" : "")}
+                subtext={teaser.slice(0, 140).trim() + (teaser.length > 140 ? "…" : "")}
                 imageSrc={property.heroImages?.[0] ?? property.imageSrc ?? "/HomeAssets/Img111.webp"}
                 href={`/Properties/${property.slug}`}
                 cardSize="small"
                 className="lg:h-[26vh] xl:h-[26vh] 2xl:h-[28vh]"
                 alt={property.heroTitle ?? property.title ?? "Property"}
               />
-            ))}
+            );
+            })}
           </div>
 
           <div className="final_section_container mt-[-11%] md:mt-[-5%] xl:mt-[-8%] xl:flex xl:gap-6 ">
-            {propertiesPageData.slice(1, 4).map((property) => (
+            {propertiesPageData.slice(1, 4).map((property) => {
+              const teaser = property.cardSummary ?? property.description;
+              const cardSubtext = property.cardSummary
+                ? teaser.trim()
+                : `${teaser.slice(0, 140).trim()}${teaser.length > 140 ? "…" : ""}`;
+              return (
               <PropertyCards
                 key={property.id}
                 title={property.heroTitle ?? property.title ?? "Property"}
-                subtext={property.description.slice(0, 140).trim() + (property.description.length > 140 ? "…" : "")}
+                subtext={cardSubtext}
                 imageSrc={property.heroImages?.[1] ?? property.imageSrc ?? "/HomeAssets/Img222.webp"}
                 href={`/Properties/${property.slug}`}
                 className="lg:h-[24vh] xl:h-[24vh] 2xl:h-[26vh]"
                 alt={property.heroTitle ?? property.title ?? "Property"}
               />
-            ))}
+            );
+            })}
           </div>
         </div>
       </div>
@@ -307,8 +332,10 @@ function HomePage() {
                   </p>
                 </div>
               </div>
-              <div className="properties-reveal subtext text-neutral-500 font-mona text-lg md:text-xl lg:text-2xl xl:text-sm 2xl:text-sm tracking-tight leading-6 xl:leading-[1.2rem] 2xl:leading-[1.2rem] md:leading-7 mt-[8%] mb-[6%] md:mt-[4%] md:mb-[3%] xl:mt-[3%] xl:mb-[2%]">
-                {currentProperty.description}
+              <div className="properties-reveal subtext mt-[8%] mb-[6%] min-w-0 md:mt-[4%] md:mb-[3%] xl:mt-[3%] xl:mb-[2%]">
+                <p className="break-words text-neutral-500 font-mona text-lg md:text-xl lg:text-2xl xl:text-sm 2xl:text-sm tracking-tight leading-6 xl:leading-[1.2rem] 2xl:leading-[1.2rem] md:leading-7 line-clamp-6 overflow-hidden">
+                  {currentProperty.description}
+                </p>
               </div>
               <div className="amenities_container">
                 {currentProperty.amenities.map((amenity) => {
@@ -340,9 +367,6 @@ function HomePage() {
                   <div className="price_container whitespace-nowrap">
                     <p className="font-bricolage tracking-tigher font-semibold text-3xl md:text-4xl lg:text-5xl xl:text-xl 2xl:text-2xl md:tracking-tight">
                       {carouselDisplayPrice}
-                    </p>
-                    <p className="font-mona font-semibold text-lg lg:text-2xl xl:text-sm text-neutral-500 tracking-tight mt-[-2%] md:mt-[-1%] lg:mt-0">
-                      Discounted Price
                     </p>
                   </div>
                 )}

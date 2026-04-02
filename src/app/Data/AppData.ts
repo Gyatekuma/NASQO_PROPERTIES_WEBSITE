@@ -64,95 +64,7 @@ export const coreValuesData = [
   },
 ];
 
-// Properties Data
-export const propertiesData = [
-  {
-    id: "1",
-    title: "Abena Yedua Apartments",
-    location: "Kasoa, Nyanyano kakraba",
-    description:
-      "Abena Yedua Housing offers a unique blend of comfort, community, and modern living. This thoughtfully planned residential development provides a serene, well-organized environment for individuals and families. With reliable utilities, organized layouts, and green spaces, residents can focus on building their dream homes stress-free. Flexible ownership options make it easy to secure your place in this thriving community.",
-    imageSrc: "/PropertiesAssets/ImgAY8.webp",
-    amenities: [
-      { id: "1", name: "Security Gate Post", icon: CctvIcon },
-      { id: "2", name: "Perimeter fence wall", icon: FenceIcon },
-      { id: "3", name: "Fast and Reliable internet", icon: WifiIcon },
-      { id: "4", name: "Asphalt Roads", icon: BusFrontIcon },
-      { id: "5", name: "Good electricity", icon: CableIcon },
-      { id: "6", name: "Good water supply", icon: ShowerHeadIcon },
-      { id: "7", name: "Ultramodern washrooms", icon: CctvIcon },
-      { id: "8", name: "Sidewalks", icon: FootprintsIcon },
-      { id: "9", name: "Swimming Pool", icon: WavesIcon },
-    ],
-    href: "/Properties/abena-yedua-apartments",
-    price: "$10,000 - $100,000",
-  },
-  {
-    id: "2",
-    title: "Rocky Mountains Estate",
-    location: "Kasoa Winneba Road, Akrampa",
-    description:
-      "Rocky Mountains Estate, located along the Kasoa–Winneba Road in Akrampa, offers a unique opportunity to own property in a well-planned, eco\u2011conscious community that seamlessly combines natural serenity with modern infrastructure. Designed to eliminate the typical challenges of land development, the estate comes fully serviced with essential infrastructure including reliable electricity and water supply, well-constructed asphalt roads, proper drainage systems, sidewalks, ambient street lighting, a secure gatehouse, and a fully walled perimeter to ensure safety and order. At the heart of the development is a strong focus on lifestyle and convenience, with key amenities such as a gated community with 24/7 security, a community swimming pool, restaurant and bar, fully equipped gym, on-site supermarket, unisex salon, laundry services office, children's playground, and a dedicated facility management office all thoughtfully integrated to support comfortable everyday living. Strategically positioned within a fast-developing area and within easy reach of key urban centers, Rocky Mountains Estate offers both immediate livability and strong long-term investment value, with flexible and affordable payment options that make owning a serviced plot both simple and accessible. Whether you are looking to build your dream home or secure a valuable real estate asset, this development provides the perfect foundation for both, offering a serene environment that promotes a balanced lifestyle away from city congestion while still keeping you connected. With increasing development in the surrounding area, property value appreciation is highly promising, making this an investment you can confidently make today.",
-    imageSrc: "/PropertiesAssets/Img22.webp",
-    amenities: [
-      { id: "1", name: "Gated community", icon: FenceIcon },
-      { id: "2", name: "24/7 security", icon: CctvIcon },
-      { id: "3", name: "Community swimming pool", icon: WavesIcon },
-      { id: "4", name: "Restaurant and bar", icon: UtensilsCrossed },
-      { id: "5", name: "Gym", icon: Dumbbell },
-      { id: "6", name: "Supermarket", icon: Store },
-      { id: "7", name: "Unisex saloon", icon: Scissors },
-      { id: "8", name: "Laundry services office", icon: ShowerHeadIcon },
-      { id: "9", name: "Children playground", icon: Baby },
-      { id: "10", name: "On-site facility management office", icon: Building2 },
-    ],
-    href: "/Properties/rocky-mountains-estate",
-    price: "$50,000 - $85,000",
-  },
-  {
-    id: "3",
-    title: "Nhyira City Prime Lands",
-    location: "Winneba – Gomoa Apre/Mprumen",
-    description:
-      "Nhyira City Prime Lands blends nature seamlessly with modern living in a carefully planned 500-acre eco-friendly community in Winneba – Gomoa Apre/Mprumen. Fully serviced plots come with essential infrastructure including electricity, water, asphalt roads, sidewalks, and secure perimeter fencing already in place. Multiple purchasing phases with convenient and affordable payment terms ensure accessibility for all buyers.",
-    imageSrc: "/PropertiesAssets/ImgN1.webp",
-    amenities: [
-      { id: "1", name: "Security Gate Post", icon: CctvIcon },
-      { id: "2", name: "Perimeter fence wall", icon: FenceIcon },
-      { id: "3", name: "Fast and Reliable internet", icon: WifiIcon },
-      { id: "4", name: "Asphalt Roads", icon: BusFrontIcon },
-      { id: "5", name: "Good electricity", icon: CableIcon },
-      { id: "6", name: "Good water supply", icon: ShowerHeadIcon },
-      { id: "7", name: "Ultramodern washrooms", icon: CctvIcon },
-      { id: "8", name: "Sidewalks", icon: FootprintsIcon },
-      { id: "9", name: "Swimming Pool", icon: WavesIcon },
-    ],
-    href: "/Properties/nhyira-city-prime-lands",
-    price: "$78,000",
-  },
-  {
-    id: "4",
-    title: "Skycity Dwellings",
-    location: "Kasoa, Bawjiase Road, downtown",
-    description:
-      "Skycity Dwellings is a modern expression of comfortable urban living along Bawjiase Road in Kasoa. Featuring contemporary architecture with spacious layouts, large windows, and private balconies, it offers one-bedroom and two-bedroom apartments for individuals, professionals, and families. Organized infrastructure, 24/7 security, and easy access to essential services make Skycity a lifestyle destination you can truly call home.",
-    imageSrc: "/PropertiesAssets/ImgSC1.webp",
-    amenities: [
-      { id: "1", name: "24/7 security", icon: CctvIcon },
-      { id: "2", name: "Community swimming pool", icon: WavesIcon },
-      { id: "3", name: "Restaurant and bar", icon: UtensilsCrossed },
-      { id: "4", name: "Gym", icon: Dumbbell },
-      { id: "5", name: "Supermarket", icon: Store },
-      { id: "6", name: "Unisex saloon", icon: Scissors },
-      { id: "7", name: "Laundry services office", icon: ShowerHeadIcon },
-      { id: "8", name: "Children playground", icon: Baby },
-      { id: "9", name: "On-site facility management office", icon: Building2 },
-    ],
-    href: "/Properties/skycity-dwellings",
-    price: "$30,000 - $180,000",
-  },
-];
-
+/** Featured property listings — homepage carousel and `/Properties/[slug]` use this array. */
 export const propertiesPageData: PropertiesPageItem[] = [
   {
     id: "1",
@@ -171,6 +83,8 @@ export const propertiesPageData: PropertiesPageItem[] = [
     ctoHref: "/Contact",
     SectionTag: "Properties",
     priceRange: "$10,000 - $100,000",
+    cardSummary:
+      "Abena Yedua is a modern, purpose-built rental community in Kasoa, Nyanyano kakraba, designed for individuals, couples, and families who want a secure, organized place to live without the usual moving stress. The development is taking shape with a secure gate post, perimeter fencing, and dependable electricity and water. Residents will enjoy fast internet, an on-site supermarket, and apartments with ultramodern washrooms and practical layouts. Landscaped sidewalks and green spaces add to a calm, welcoming neighborhood feel. Flexible rental options and quality infrastructure come together so you can settle in and focus on daily life with confidence.",
     description:
       "Abena Yedua Housing is a modern, purpose-built community designed specifically for comfortable rental living. Currently under construction, it provides a secure, convenient, and well-organized environment for individuals, couples, and families seeking a hassle-free lifestyle. Every detail of the development has been carefully planned to ensure residents enjoy comfort, safety, and modern amenities from day one, with a seamless living experience that removes the usual stress of settling into a new home. The community will feature a secure gate post and a fully enclosed perimeter fence wall, offering privacy and peace of mind. Residents will benefit from fast and reliable internet, a conveniently located on-site supermarket, and dependable electricity and water supply for uninterrupted living. Each apartment is being designed with ultramodern washrooms, spacious layouts, and functional interiors that maximize both comfort and practicality. In addition, well-constructed sidewalks and landscaped green spaces will create a safe, relaxing, and welcoming environment for everyday living. Abena Yedua Housing is more than just a place to rent—it is a thoughtfully planned neighborhood that promotes a sense of community and belonging. With flexible rental options, quality infrastructure, and modern conveniences, it offers a balanced lifestyle where comfort, security, and convenience come together, making it an ideal choice for anyone seeking a modern and stress-free living experience.",
     amenities: [
@@ -239,8 +153,10 @@ export const propertiesPageData: PropertiesPageItem[] = [
     title: "Rocky Mountains Estate",
     heroTitle: "Rocky Mountains Estate",
     location: "Kasoa Winneba Road, Akrampa",
+    cardSummary:
+      "Rocky Mountains Estate sits along the Kasoa–Winneba Road in Akrampa, offering a well-planned, eco\u2011conscious setting that combines natural serenity with modern infrastructure. The estate is fully serviced with utilities, roads, drainage, lighting, and security so you can focus on building rather than fixing basics. Lifestyle amenities include a gated community, pool, gym, supermarket, restaurant, and on-site management support for everyday convenience. The location sits in a growing corridor with access to urban centers while keeping a calmer residential atmosphere. Flexible, affordable payment options make owning a serviced plot here realistic for families and investors alike.",
     description:
-      "Rocky Mountains Estate, located along the Kasoa–Winneba Road in Akrampa, offers a unique opportunity to own property in a well-planned, eco\u2011conscious community that seamlessly combines natural serenity with modern infrastructure. Designed to eliminate the typical challenges of land development, the estate comes fully serviced with essential infrastructure including reliable electricity and water supply, proper drainage systems, sidewalks, ambient street lighting, a secure gatehouse, and a fully walled perimeter to ensure safety and order. At the heart of the development is a strong focus on lifestyle and convenience, with key amenities such as a gated community with 24/7 security, a community swimming pool, restaurant and bar, fully equipped gym, on-site supermarket, unisex salon, laundry services office, children's playground, and a dedicated facility management office all thoughtfully integrated to support comfortable everyday living. Strategically positioned within a fast-developing area and within easy reach of key urban centers, Rocky Mountains Estate offers both immediate livability and strong long-term investment value, with flexible and affordable payment options that make owning a serviced plot both simple and accessible. Whether you are looking to build your dream home or secure a valuable real estate asset, this development provides the perfect foundation for both, offering a serene environment that promotes a balanced lifestyle away from city congestion while still keeping you connected. With increasing development in the surrounding area, property value appreciation is highly promising, making this an investment you can confidently make today.",
+      "Rocky Mountains Estate, located along the Kasoa–Winneba Road in Akrampa, offers a unique opportunity to own property in a well-planned, eco\u2011conscious community that seamlessly combines natural serenity with modern infrastructure. Designed to eliminate the typical challenges of land development, the estate comes fully serviced with essential infrastructure including reliable electricity and water supply, well-constructed asphalt roads, proper drainage systems, sidewalks, ambient street lighting, a secure gatehouse, and a fully walled perimeter to ensure safety and order. At the heart of the development is a strong focus on lifestyle and convenience, with key amenities such as a gated community with 24/7 security, a community swimming pool, restaurant and bar, fully equipped gym, on-site supermarket, unisex salon, laundry services office, children's playground, and a dedicated facility management office all thoughtfully integrated to support comfortable everyday living. Strategically positioned within a fast-developing area and within easy reach of key urban centers, Rocky Mountains Estate offers both immediate livability and strong long-term investment value, with flexible and affordable payment options that make owning a serviced plot both simple and accessible. Whether you are looking to build your dream home or secure a valuable real estate asset, this development provides the perfect foundation for both, offering a serene environment that promotes a balanced lifestyle away from city congestion while still keeping you connected. With increasing development in the surrounding area, property value appreciation is highly promising, making this an investment you can confidently make today.",
     imageSrc: "/HomeAssets/Img111.webp",
     heroImages: [
       "/PropertiesAssets/Img11.webp",
@@ -314,6 +230,8 @@ export const propertiesPageData: PropertiesPageItem[] = [
     ctoHref: "/Contact",
     SectionTag: "Properties",
     priceRange: "GHC 12,000 - GHC 20,000",
+    cardSummary:
+      "Nhyira City Estate is a carefully planned 385-acre eco\u2011friendly community in Winneba – Gomoa Apre/Mprumen, created for homeowners who want nature and modern convenience in one place. Fully serviced plots are supported by electricity, water, a transport yard, drainage, security, perimeter fencing, and ambient street lighting so you are not starting from scratch. A green park, recreational facilities, and community-focused amenities add to everyday quality of life. The location keeps schools, markets, and nearby towns within practical reach while preserving a quieter residential setting. Flexible payment terms are designed to help you secure the right plot and move your dream home forward with confidence.",
     description:
       "Nhyira City Estate is where life offers you the opportunity to blend nature seamlessly with the conveniences of modern living. This carefully planned 385\u2011acre eco\u2011friendly community is located in the lush, serene enclave of Winneba – Gomoa Apre/Mprumen. The development offers fully serviced plots designed to provide a sustainable and organic lifestyle, freeing you from the burdens of infrastructure development. Nhyira City Estate is more than just a residential area; it is a model community created in response to the high demand from discerning homeowners. Nasqo Properties has ensured that essential infrastructure—including electricity, water, Transport yard for easy mobility, sidewalks, a green park, efficient drainage, a secure gate post, perimeter fence wall, and ambient street lighting—is already in place. This allows residents to focus entirely on designing and building their dream homes while embracing a holistic, stress-free way of life from day one. Nhyira City Estate also provides flexible and convenient payment terms, making it easier for homeowners to secure their ideal plots. The community is strategically located with easy access to nearby towns, schools, markets, and essential services, offering the perfect balance of tranquility and convenience. Embrace the ease of holistic and organic living at Nhyira City Estate, where thoughtfully planned infrastructure, natural surroundings, and a vibrant community come together to turn your dream lifestyle into reality.",
     priceTiers: [
@@ -383,6 +301,8 @@ export const propertiesPageData: PropertiesPageItem[] = [
     ctoHref: "/Contact",
     SectionTag: "Properties",
     priceRange: "$30,000 - $180,000",
+    cardSummary:
+      "Skycity Dwellings is an upcoming residential development along Bawjiase Road in Kasoa, envisioned as a contemporary place to live with calmer surroundings and city convenience within reach. The project is planned around one-bedroom and two-bedroom apartments with spacious layouts, generous windows, and private balconies for light-filled, comfortable homes. Secure access and organized infrastructure are part of the vision, supporting peace of mind for residents and investors in a fast-growing area. Everyday needs—from shops to transport links—are easier to reach from this central Kasoa position. Together, design, security, and location aim to create a community you will be proud to call home.",
     description:
       "Skycity Dwellings is an upcoming residential development envisioned as a modern expression of comfortable urban living. Strategically located along Bawjiase Road in Kasoa, the project is being thoughtfully planned to combine contemporary architecture with a calm and organized living environment, offering the perfect balance between city accessibility and peaceful residential life. Its location also places residents within reach of essential amenities, making everyday living both convenient and efficient. The development is positioned within a fast-growing area, making it an attractive option for both residents and investors alike. The development is set to feature one-bedroom and two-bedroom apartments, designed with spacious layouts, large windows, and private balconies to create bright, airy, and comfortable living spaces. Every detail is being carefully considered to ensure functionality, style, and everyday convenience for individuals, young professionals, and families. The design approach focuses on maximizing space and natural light, creating homes that feel both modern and welcoming. These features are intended to enhance daily living while maintaining a strong sense of comfort and practicality. Skycity Dwellings is also planned to include secure access, organized infrastructure, and a well-structured environment that promotes safety and ease of living. With its strategic location and forward-thinking design, it will offer residents easy access to key services, transport links, and commercial areas within Kasoa. More than just a future housing project, Skycity Dwellings represents a vision for modern living—where comfort, security, and community come together to create a place residents will be proud to call home.",
     amenities: [

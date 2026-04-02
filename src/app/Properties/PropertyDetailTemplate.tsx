@@ -232,9 +232,9 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
               header={displayTitle}
             />
             {(displayPrice ?? "").trim() && !hideHeroPriceTag && (
-              <div className="price_tag font-bricolage font-bold text-2xl xl:text-4xl text-[#4361EE] mt-[-13%] xl:mt-[-4%]">
-                {displayPrice}
-              </div>
+            <div className="price_tag font-bricolage font-bold text-2xl xl:text-4xl text-[#4361EE] mt-[-13%] xl:mt-[-4%]">
+              {displayPrice}
+            </div>
             )}
           </div>
 
