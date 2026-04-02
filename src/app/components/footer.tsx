@@ -143,7 +143,7 @@ const Footer: React.FC = () => {
                   {contactConfig.phone}
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
+              {/* <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
                 <MessageCircle className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
                 <a
                   href={footerWhatsAppUrl}
@@ -156,10 +156,18 @@ const Footer: React.FC = () => {
                     Chat on WhatsApp with {contactConfig.whatsappDisplayName}
                   </span>
                 </a>
-              </li>
+              </li> */}
               <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
-                <span>Kasoa Nyanyano Road, Nasqo Plaza Building Last Floor adjacent the post office</span>
+                <span>
+                  Nasqo Plaza Building Last Floor
+                  <br />
+                  adjacent the post office
+                  <br />
+                  <span className="font-semibold text-[#4361EE]">CG-0591-6743</span>, Kasoa
+                  <br />
+                  Nyanyano Rd
+                </span>
               </li>
               <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
                 <Mail className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
@@ -172,7 +180,7 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
                 <Inbox className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
-                <span>PO Box 1324</span>
+                <span>P.O Box wu 34, Kasoa</span>
               </li>
             </ul>
           </div>

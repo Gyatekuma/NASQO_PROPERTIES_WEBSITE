@@ -20,6 +20,8 @@ export interface propertiesProps {
     amenities:amenityProps[];
     href:string;
     price:string;
+    /** When set, shown on the home carousel instead of `price` (matches detail `priceRange`) */
+    priceRange?: string;
 }
 
 /** Location details for the Properties page map/brochure section */

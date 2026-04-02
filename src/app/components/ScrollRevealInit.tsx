@@ -29,7 +29,9 @@ function isInsideGroup(el: Element): boolean {
 }
 
 function isStaggerItem(el: Element): boolean {
-  return !!el.closest("[data-stagger-item]");
+  // Only treat the element itself as a stagger item (not ancestors), so nested
+  // `.scroll-reveal` / `[data-scroll-reveal]` inside a stagger row can still animate.
+  return el.matches("[data-stagger-item]");
 }
 
 export default function ScrollRevealInit() {
@@ -91,7 +93,7 @@ export default function ScrollRevealInit() {
 
     const staggerContainers = document.querySelectorAll<HTMLElement>("[data-stagger-reveal]");
     staggerContainers.forEach((container) => {
-      const items = container.querySelectorAll<HTMLElement>("[data-stagger-item]");
+      const items = container.querySelectorAll<HTMLElement>(":scope > [data-stagger-item]");
       if (!items.length) return;
 
       const staggerMs = Math.max(

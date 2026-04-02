@@ -10,12 +10,8 @@ import {
   Instagram,
   Linkedin,
   AlertCircle,
-  MessageCircle,
 } from "lucide-react";
 import ScrollRevealSection from "../components/ScrollRevealSection";
-import { contactConfig } from "../Data/AppData";
-
-const CONTACT_WHATSAPP_URL = `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(contactConfig.whatsappIntroMessage)}`;
 
 type FieldErrors = Record<string, string>;
 
@@ -229,10 +225,16 @@ function ContactPage() {
                         Head Office
                       </p>
                       <p className="font-mona text-neutral-600 text-sm sm:text-base leading-relaxed">
-                        Kasoa Nyanyano Road, <br />
-                        Nasqo Plaza building last floor,
+                        Nasqo Plaza Building Last Floor
                         <br />
-                        Adjacent the post office
+                        adjacent the post office
+                        <br />
+                        <span className="font-mona font-semibold text-[#4361EE]">
+                          CG-0591-6743
+                        </span>
+                        , Kasoa
+                        <br />
+                        Nyanyano Rd
                       </p>
                     </div>
                   </div>
@@ -249,24 +251,6 @@ function ContactPage() {
                         className="font-mona text-neutral-600 text-sm sm:text-base hover:text-[#4361EE] transition-colors"
                       >
                         nasqoproperties@gmail.com
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="shrink-0 w-10 h-10 rounded-full bg-[#4361EE] flex items-center justify-center">
-                      <MessageCircle className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <p className="font-bricolage font-semibold text-neutral-900 mb-1">
-                        WhatsApp
-                      </p>
-                      <a
-                        href={CONTACT_WHATSAPP_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-mona text-neutral-600 text-sm sm:text-base hover:text-[#4361EE] transition-colors"
-                      >
-                        Chat on WhatsApp with {contactConfig.whatsappDisplayName}
                       </a>
                     </div>
                   </div>
@@ -505,14 +489,14 @@ function ContactPage() {
       >
         <div className="contact-reveal w-full h-full">
           <iframe
-            src="https://www.google.com/maps?q=Kasoa+Nyanyano+Road,+Kasoa,+Ghana&z=15&output=embed"
+            src="https://www.google.com/maps?q=CG-0591-6743+Kasoa+Ghana&z=16&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="NASQO Properties — Kasoa Nyanyano Road, Ghana"
+            title="NASQO Properties — Nasqo Plaza, CG-0591-6743, Kasoa Nyanyano Rd, Ghana"
             className="w-full h-full"
           />
         </div>

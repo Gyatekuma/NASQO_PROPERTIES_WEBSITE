@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from './OptimizedImage'
 import { usePathname } from 'next/navigation'
-import { Menu, MoveRight, ChevronDown } from 'lucide-react'
+import { Menu, X, MoveRight, ChevronDown } from 'lucide-react'
 import { servicesPageData, propertiesPageData } from '../Data/AppData'
 import { useLenis } from './providers/LenisProvider'
 
@@ -179,7 +179,9 @@ function Navbar() {
                           className={`flex items-center gap-1.5 py-1.5 px-3 -mx-2 rounded-lg cursor-pointer transition-all duration-200 ${isLinkActive(link) ? navActiveDesktop : 'text-white/90 hover:text-white ' + navInactiveDesktop}`}
                         >
                           {link.name}
-                          <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${propertiesExpanded ? 'rotate-180' : ''}`} />
+                          <span className="nav-icon-wiggle inline-flex shrink-0">
+                            <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${propertiesExpanded ? 'rotate-180' : ''}`} />
+                          </span>
                         </button>
                         {propertiesExpanded && (
                           <div className="absolute top-full left-0 mt-3 py-2 min-w-[240px] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-neutral-100 z-50 dropdown-enter">
@@ -220,36 +222,39 @@ function Navbar() {
 
 
 
-              {/* Mobile screen icon - when open: header + scrollable nav inside panel */}
+              {/* Mobile menu panel — outer shell must not toggle isOpen on every tap (breaks Services/Properties expand). */}
               <div
-              onClick={() => setIsOpen(!isOpen)}
               className={`humburger_menu relative md:hidden lg:hidden xl:hidden font-mona font-semibold py-3 px-3 bg-white text-black cursor-pointer hover:opacity-80
               [transition:width_0.4s_cubic-bezier(0.22,1,0.36,1),height_0.4s_cubic-bezier(0.22,1,0.36,1)]
               ${isOpen ? 'rounded-b-2xl w-screen h-[95vh] max-h-[95dvh] flex flex-col overflow-hidden' : 'rounded-full w-[120px] h-12 flex items-center'}`}>
                 {isOpen ? (
                   <>
-                  <div
-                    className="w-full shrink-0 cursor-pointer border-b border-neutral-100 pt-7 pb-5"
-                    onClick={() => setIsOpen(!isOpen)}
+                  <button
+                    type="button"
+                    aria-label="Close menu"
+                    aria-expanded={true}
+                    className="w-full shrink-0 cursor-pointer border-b border-neutral-100 pt-7 pb-5 text-left"
+                    onClick={() => setIsOpen(false)}
                   >
                     <div className="mx-auto flex w-[90%] max-w-full flex-row items-center justify-between px-2">
-                      <div className="nav_logo relative h-[22px] w-[52px] shrink-0 opacity-95">
+                      <div className="nav_logo relative h-[22px] w-[52px] shrink-0 opacity-95 pointer-events-none">
                         <Image
-                          src="/Main_Assets/Main_Logo_Black.svg"
-                          alt="logo"
+                          src="/Main_Assets/Main_Logo_black.svg"
+                          alt=""
                           width={100}
                           height={100}
                           className="h-full w-full object-contain object-left"
                         />
                       </div>
-                      <div className="humburger_menu_content flex flex-row items-center gap-2.5 text-neutral-400">
-                        <Menu className="humburger_menu_icon h-[18px] w-[18px]" strokeWidth={1.75} />
-                        <p className="text-[11px] font-medium uppercase tracking-[0.22em]">menu</p>
+                      <div className="humburger_menu_content flex flex-row items-center gap-2.5 text-neutral-700">
+                        <X className="humburger_menu_icon h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden />
+                        <p className="text-[11px] font-medium uppercase tracking-[0.22em]">close</p>
                       </div>
                     </div>
-                  </div>
+                  </button>
                   <div
                     className={`mobile_navItems flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain pb-[max(1.25rem,env(safe-area-inset-bottom))] transition-opacity duration-300 ease-out [scrollbar-width:thin] [-webkit-overflow-scrolling:touch] [scrollbar-color:rgba(115,115,115,0.25)_transparent] ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <div key={mobileMenuAnimCycle} className="mx-auto flex w-[90%] max-w-full flex-col px-2">
                     {navLinks.map((link, index) => {
@@ -266,19 +271,31 @@ function Navbar() {
                           <div
                             className={`mobile-nav-link-enter items flex items-center justify-between text-xl leading-snug ${rowPad} ${divider} cursor-pointer ${rowText}`}
                             style={{ animationDelay: `${rowDelay}ms` }}
-                            onClick={() => { setServicesExpanded(!servicesExpanded); setPropertiesExpanded(false); }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setServicesExpanded((v) => !v);
+                              setPropertiesExpanded(false);
+                            }}
                           >
                             <span>{link.name}</span>
-                            <ChevronDown className={`size-4.5 shrink-0 transition-transform duration-300 ease-out ${rowActive ? 'text-blue-600' : 'text-neutral-300'} ${servicesExpanded ? 'rotate-180' : ''}`} strokeWidth={rowActive ? 3 : 2.5} />
+                            <span className="nav-icon-wiggle inline-flex shrink-0">
+                              <ChevronDown className={`size-4.5 transition-transform duration-300 ease-out ${rowActive ? 'text-blue-600' : 'text-neutral-600'} ${servicesExpanded ? 'rotate-180' : ''}`} strokeWidth={rowActive ? 3 : 2.5} />
+                            </span>
                           </div>
                         ) : link.name === 'Properties' ? (
                           <div
                             className={`mobile-nav-link-enter items flex items-center justify-between text-xl leading-snug ${rowPad} ${divider} cursor-pointer ${rowText}`}
                             style={{ animationDelay: `${rowDelay}ms` }}
-                            onClick={() => { setPropertiesExpanded(!propertiesExpanded); setServicesExpanded(false); }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setPropertiesExpanded((v) => !v);
+                              setServicesExpanded(false);
+                            }}
                           >
                             <span>{link.name}</span>
-                            <ChevronDown className={`size-4.5 shrink-0 transition-transform duration-300 ease-out ${rowActive ? 'text-blue-600' : 'text-neutral-300'} ${propertiesExpanded ? 'rotate-180' : ''}`} strokeWidth={rowActive ? 3 : 2.5} />
+                            <span className="nav-icon-wiggle inline-flex shrink-0">
+                              <ChevronDown className={`size-4.5 transition-transform duration-300 ease-out ${rowActive ? 'text-blue-600' : 'text-neutral-600'} ${propertiesExpanded ? 'rotate-180' : ''}`} strokeWidth={rowActive ? 3 : 2.5} />
+                            </span>
                           </div>
                         ) : (
                           <div
@@ -286,7 +303,9 @@ function Navbar() {
                             style={{ animationDelay: `${rowDelay}ms` }}
                           >
                             <Link href={link.path} onClick={() => setIsOpen(false)} className={`outline-none focus-visible:ring-2 focus-visible:ring-blue-300/80 focus-visible:ring-offset-2 focus-visible:rounded-sm ${rowActive ? 'text-blue-700' : ''}`}>{link.name}</Link>
-                            <MoveRight className={`size-4.5 shrink-0 ${rowActive ? 'text-blue-600' : 'text-neutral-200'}`} strokeWidth={rowActive ? 2.5 : 1.5} />
+                            <span className="nav-icon-wiggle inline-flex shrink-0">
+                              <MoveRight className={`size-4.5 ${rowActive ? 'text-blue-600' : 'text-neutral-600'}`} strokeWidth={rowActive ? 2.5 : 2} />
+                            </span>
                           </div>
                         )}
                         {link.name === 'Services' && servicesExpanded && (
@@ -332,10 +351,16 @@ function Navbar() {
                   </div>
                   </>
                 ) : (
-                  <div className="humburger_menu_content flex flex-row gap-2 items-center justify-center">
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-label="Open menu"
+                    onClick={() => setIsOpen(true)}
+                    className="humburger_menu_content flex w-full h-full flex-row gap-2 items-center justify-center"
+                  >
                     <Menu className="humburger_menu_icon h-[17px] w-[17px] text-neutral-700" strokeWidth={1.75} />
                     <p className="uppercase tracking-[0.2em] text-[11px] font-medium text-neutral-700">menu</p>
-                  </div>
+                  </button>
                 )}
               </div>
 

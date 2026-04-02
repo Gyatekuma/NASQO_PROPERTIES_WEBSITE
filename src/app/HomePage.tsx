@@ -51,6 +51,12 @@ function HomePage() {
             : "lg:grid-cols-1";
   const [currentPropertyIndex, setCurrentPropertyIndex] = useState(0);
   const currentProperty = properties[currentPropertyIndex];
+  const carouselDisplayPrice =
+    currentProperty.priceRange ?? currentProperty.price;
+  const hideCarouselPrice =
+    currentProperty.href === "/Properties/skycity-dwellings" ||
+    currentProperty.href === "/Properties/abena-yedua-apartments" ||
+    currentProperty.href === "/Properties/rocky-mountains-estate";
   const goToPrev = () =>
     setCurrentPropertyIndex((i) => (i === 0 ? properties.length - 1 : i - 1));
   const goToNext = () =>
@@ -330,14 +336,16 @@ function HomePage() {
                     href="/Contact"
                   />
                 </div>
-                <div className="price_container whitespace-nowrap">
-                  <p className="font-bricolage tracking-tigher font-semibold text-3xl md:text-4xl lg:text-5xl xl:text-xl 2xl:text-2xl md:tracking-tight">
-                    {currentProperty.price}
-                  </p>
-                  <p className="font-mona font-semibold text-lg lg:text-2xl xl:text-sm text-neutral-500 tracking-tight mt-[-2%] md:mt-[-1%] lg:mt-0">
-                    Discounted Price
-                  </p>
-                </div>
+                {(carouselDisplayPrice ?? "").trim() && !hideCarouselPrice && (
+                  <div className="price_container whitespace-nowrap">
+                    <p className="font-bricolage tracking-tigher font-semibold text-3xl md:text-4xl lg:text-5xl xl:text-xl 2xl:text-2xl md:tracking-tight">
+                      {carouselDisplayPrice}
+                    </p>
+                    <p className="font-mona font-semibold text-lg lg:text-2xl xl:text-sm text-neutral-500 tracking-tight mt-[-2%] md:mt-[-1%] lg:mt-0">
+                      Discounted Price
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

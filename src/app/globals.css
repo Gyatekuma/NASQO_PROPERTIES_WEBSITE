@@ -160,6 +160,37 @@ body {
   }
 }
 
+/* Nav row chevrons / arrows — gentle idle wiggle */
+@keyframes nav-icon-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-7deg);
+  }
+  40% {
+    transform: rotate(7deg);
+  }
+  60% {
+    transform: rotate(-4deg);
+  }
+  80% {
+    transform: rotate(4deg);
+  }
+}
+
+.nav-icon-wiggle {
+  display: inline-flex;
+  animation: nav-icon-wiggle 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-icon-wiggle {
+    animation: none;
+  }
+}
+
 /* Desktop nav dropdown animation */
 @keyframes dropdown-fade-in {
   from {
