@@ -33,6 +33,7 @@ const quickLinks = [
   { href: "/About", label: "About" },
   { href: "/Services", label: "Services" },
   { href: "/Properties", label: "Properties" },
+  { href: "/Lands", label: "Lands" },
   { href: "/Contact", label: "Contact Us" },
 ];
 

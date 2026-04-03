@@ -114,7 +114,7 @@ function Navbar() {
       )}
       <div className="main_navbar_container fixed top-0 left-0 right-0 z-50 w-full">
       <header>
-        <nav className="">
+        <nav className="" aria-label="Primary navigation">
 
           {/* NavLogo - crossfades white/black for seamless transition, inline with menu when open */}
           <div className="main_navbar_nav relative flex justify-between items-center px-[5%] md:px-[8%] xl:px-[10%] py-5 md:py-6 border-b border-white/5 bg-black/40 backdrop-blur-md">

@@ -268,7 +268,7 @@ function HomePage() {
         </div>
 
         <div className="button_container xl:w-[60%] 2xl:w-[55%] mt-4 md:mt-6">
-          <Button text="Learn more" variants="primary" href="/categories" />
+          <Button text="Learn more" variants="primary" href="/Properties" />
         </div>
       </div> */}
 

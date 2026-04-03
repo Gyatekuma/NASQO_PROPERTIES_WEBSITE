@@ -39,9 +39,9 @@ function page() {
 
           <div className="relative z-10 flex flex-col h-full text-white justify-center items-center text-center px-[5%] md:px-[8%] xl:px-0 xl:items-start xl:text-left">
             <div className="hero-texts xl:ml-[5%] 2xl:ml-[10%] font-bricolage">
-              <p className="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl font-semibold tracking-tight">
+              <h1 className="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl font-semibold tracking-tight">
                 We are Nasqo Properties
-              </p>
+              </h1>
             </div>
           </div>
         </div>

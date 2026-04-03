@@ -181,7 +181,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
           </div>
 
           <div className="relative z-10 shrink-0 px-[5%] pb-6 pt-2 max-md:pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1rem))] md:pb-10 xl:px-[5%] xl:pb-12 2xl:px-[10%] 2xl:pb-16">
-            <div className="flex -translate-y-16 xl:hidden items-center justify-center gap-2">
+            <div className="flex -translate-y-32 xl:hidden items-center justify-center gap-2">
               {heroImages.map((_, index) => (
                 <button
                   key={index}

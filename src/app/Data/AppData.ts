@@ -24,7 +24,6 @@ import { ShieldCheck } from "lucide-react";
 import { BadgeCent } from "lucide-react";
 import type { PropertiesPageItem } from "../Types/types";
 import type { ServicesPageItem } from "../Types/types";
-import { ST } from "next/dist/shared/lib/utils";
 
 export const contactConfig = {
   /** E.164 digits for wa.me (024 022 1212 → +233 24 022 1212) */
