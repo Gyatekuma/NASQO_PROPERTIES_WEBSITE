@@ -77,6 +77,8 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
     property.slug === "skycity-dwellings" ||
     property.slug === "abena-yedua-apartments" ||
     property.slug === "rocky-mountains-estate";
+  const hideBrochureButton =
+    property.slug === "skycity-dwellings" || property.slug === "abena-yedua-apartments";
   const showPriceTag =
     Boolean((displayPrice ?? "").trim()) && !hideHeroPriceTag;
   const { additionalInfoItems, additionalInfoSingleCard } = (() => {
@@ -320,23 +322,27 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                     referrerPolicy="no-referrer-when-downgrade"
                   />
                 </div>
-                <div className="flex flex-col items-center gap-3 xl:flex-row xl:justify-between xl:items-center xl:gap-4">
+                <div
+                  className={`flex flex-col items-center gap-3 xl:gap-4 ${hideBrochureButton ? "" : "xl:flex-row xl:justify-between xl:items-center"}`}
+                >
                   <p className="text-[#68647a] font-mona font-semibold text-sm sm:text-base text-center xl:text-left">
                     {locationDetails.locationName}
                   </p>
-                  <div className="w-full flex justify-center xl:w-auto xl:flex-initial">
-                    <Button
-                      text={locationDetails.brochureButtonText}
-                      variants="primary"
-                      href={locationDetails.brochureHref}
-                      download={
-                        locationDetails.brochureHref.startsWith("/PropertiesAssets/")
-                          ? true
-                          : undefined
-                      }
-                      className="whitespace-nowrap w-auto min-w-[180px] sm:min-w-[200px] xl:min-w-[220px] 2xl:min-w-[240px] xl:px-8 2xl:px-10"
-                    />
-                  </div>
+                  {!hideBrochureButton && (
+                    <div className="w-full flex justify-center xl:w-auto xl:flex-initial">
+                      <Button
+                        text={locationDetails.brochureButtonText}
+                        variants="primary"
+                        href={locationDetails.brochureHref}
+                        download={
+                          locationDetails.brochureHref.startsWith("/PropertiesAssets/")
+                            ? true
+                            : undefined
+                        }
+                        className="whitespace-nowrap w-auto min-w-[180px] sm:min-w-[200px] xl:min-w-[220px] 2xl:min-w-[240px] xl:px-8 2xl:px-10"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

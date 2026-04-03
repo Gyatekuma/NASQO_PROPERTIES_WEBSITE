@@ -144,6 +144,24 @@ const Footer: React.FC = () => {
                   {contactConfig.phone}
                 </a>
               </li>
+              <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
+                <Phone className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
+                <span>
+                  <span className="font-semibold text-[#4361EE]">Cell</span>
+                  {": "}
+                  {contactConfig.cellNumbers.map((cell, i) => (
+                    <React.Fragment key={cell.tel}>
+                      {i > 0 ? " / " : null}
+                      <a
+                        href={`tel:${cell.tel}`}
+                        className="hover:text-white transition-all duration-200 hover:underline underline-offset-2"
+                      >
+                        {cell.label}
+                      </a>
+                    </React.Fragment>
+                  ))}
+                </span>
+              </li>
               {/* <li className="flex items-start gap-3 text-white/90 text-sm md:text-base">
                 <MessageCircle className="w-4 h-4 mt-0.5 shrink-0" aria-hidden />
                 <a

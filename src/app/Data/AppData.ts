@@ -31,6 +31,11 @@ export const contactConfig = {
   /** Must match the WhatsApp / WhatsApp Business display name for that number */
   whatsappDisplayName: "NASQO Properties",
   phone: "0302864956",
+  /** Mobile numbers shown in footer (local format); tel links use +233 without leading 0 */
+  cellNumbers: [
+    { label: "0240221212", tel: "+233240221212" },
+    { label: "0277071717", tel: "+233277071717" },
+  ] as const,
   email: "homely@gmail.com",
   whatsappIntroMessage:
     "Hi! I came across NASQO Properties and I'm interested in learning more about your properties and services. Could you please help me with more information?",
