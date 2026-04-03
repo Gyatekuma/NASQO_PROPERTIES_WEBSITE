@@ -81,7 +81,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
   return (
     <div>
       {/* Hero Section - auto-sliding with crossfade + scale transition */}
-      <div className="relative w-full max-w-[100vw] h-screen min-h-[500px] overflow-hidden">
+      <div className="relative h-[100dvh] max-h-[100dvh] min-h-0 w-full max-w-[100vw] overflow-hidden">
         {/* Stacked hero images with crossfade + subtle zoom */}
         {heroImages.map((src, index) => (
           <div
@@ -100,7 +100,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
         <div className="absolute inset-0 z-[2] pointer-events-none bg-black/20" aria-hidden />
         <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/70" aria-hidden />
 
-        <div className="relative z-10 flex flex-col h-full min-h-[500px]">
+        <div className="relative z-10 flex h-full min-h-0 flex-col">
           <div className="flex flex-1 flex-col justify-center text-white">
             <div className="hero-texts flex flex-col items-center text-center px-[5%] md:px-[8%] xl:px-0 xl:items-start xl:text-left xl:ml-[5%] 2xl:ml-[10%] font-bricolage">
               <h1 className="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl xl:mt-[15%] 2xl:mt-[15%] font-semibold tracking-tight">
@@ -116,8 +116,8 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
             </div>
           </div>
 
-          <div className="relative z-10 px-[5%] pb-8 md:pb-10 xl:px-[5%] xl:pb-12 2xl:px-[10%] 2xl:pb-16">
-            <div className="flex xl:hidden items-center justify-center gap-2">
+          <div className="relative z-10 shrink-0 px-[5%] pb-6 pt-2 max-md:pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1rem))] md:pb-10 xl:px-[5%] xl:pb-12 2xl:px-[10%] 2xl:pb-16">
+            <div className="flex -translate-y-16 xl:hidden items-center justify-center gap-2">
               {heroImages.map((_, index) => (
                 <button
                   key={index}

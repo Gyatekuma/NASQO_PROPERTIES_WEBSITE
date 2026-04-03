@@ -191,6 +191,36 @@ body {
   }
 }
 
+/* Homepage property cards — arrow badge bounces when hovering the card */
+@keyframes property-card-arrow-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  28% {
+    transform: translateY(-7px);
+  }
+  45% {
+    transform: translateY(0);
+  }
+  62% {
+    transform: translateY(-4px);
+  }
+  78% {
+    transform: translateY(0);
+  }
+}
+
+.group:hover .property-card-arrow-bounce-target {
+  animation: property-card-arrow-bounce 0.65s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .property-card-arrow-bounce-target {
+    animation: none;
+  }
+}
+
 /* Desktop nav dropdown animation */
 @keyframes dropdown-fade-in {
   from {

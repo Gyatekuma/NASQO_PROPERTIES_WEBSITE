@@ -134,7 +134,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
   return (
     <div>
       {/* Hero Section - auto-sliding with crossfade + scale transition */}
-      <div className="relative w-full max-w-[100vw] h-screen min-h-[500px] overflow-hidden">
+      <div className="relative h-[100dvh] max-h-[100dvh] min-h-0 w-full max-w-[100vw] overflow-hidden">
         {/* Stacked hero images with crossfade + subtle zoom - Next/Image for optimization */}
         {heroImages.map((src, index) => (
           <div
@@ -164,7 +164,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
         <div className="absolute inset-0 z-[2] pointer-events-none bg-black/20" aria-hidden />
         <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/70" aria-hidden />
 
-        <div className="relative z-10 flex flex-col h-full min-h-[500px]">
+        <div className="relative z-10 flex h-full min-h-0 flex-col">
           <div className="flex flex-1 flex-col justify-center text-white">
             <div className="hero-texts flex flex-col items-center text-center px-[5%] md:px-[8%] xl:px-0 xl:items-start xl:text-left xl:ml-[5%] 2xl:ml-[10%] font-bricolage">
               <h1 className="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl xl:mt-[15%] 2xl:mt-[15%] font-semibold tracking-tight">
@@ -180,8 +180,8 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
             </div>
           </div>
 
-          <div className="relative z-10 px-[5%] pb-8 md:pb-10 xl:px-[5%] xl:pb-12 2xl:px-[10%] 2xl:pb-16">
-            <div className="flex xl:hidden items-center justify-center gap-2">
+          <div className="relative z-10 shrink-0 px-[5%] pb-6 pt-2 max-md:pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1rem))] md:pb-10 xl:px-[5%] xl:pb-12 2xl:px-[10%] 2xl:pb-16">
+            <div className="flex -translate-y-16 xl:hidden items-center justify-center gap-2">
               {heroImages.map((_, index) => (
                 <button
                   key={index}
@@ -745,7 +745,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
         <div className="w-full min-w-0">
           <div className="section_tag_container scroll-reveal 2xl:w-[50%]">
             <SectionTags
-              name="Service"
+              name="properties"
               imageSrc="/Main_Assets/Tag_Icon_blue.svg"
               header="Discover more Properties like this"
               subtext="We began with a vision to help you discover premium properties that perfectly match your lifestyle and aspirations."
@@ -774,7 +774,7 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="overlay inset-0 absolute bg-black/50 z-10" />
-                    <div className="title absolute bottom-[10%] capitalize font-bricolage font-semibold text-white text-3xl xl:text-2xl z-20">
+                    <div className="title absolute bottom-[10%] left-0 right-0 px-4 text-center capitalize font-bricolage font-semibold text-white text-lg sm:text-xl md:text-2xl xl:text-2xl z-20 leading-tight">
                       {name}
                     </div>
                   </div>

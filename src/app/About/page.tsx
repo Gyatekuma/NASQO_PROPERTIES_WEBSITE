@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Button from "../components/button";
 import SectionTags from "../components/SectionTags";
 import Metrics from "../components/Metrics";
 import Image from "../components/OptimizedImage";
@@ -16,10 +15,10 @@ import Testimonial from "../components/Testimonial";
 import { testimonialData } from "../Data/AppData";
 
 const ABOUT_DESCRIPTION_FULL =
-  "At Homely, we are committed to helping individuals, families, and investors discover properties that truly match their dreams and long-term goals. With a strong focus on transparency, professionalism, and client satisfaction, we simplify the entire real estate journey—from property search and acquisition to documentation and ownership support—ensuring every transaction is smooth and stress-free. Our team combines deep market expertise, trusted partnerships, and personalized service to deliver carefully verified properties in prime and fast-growing locations, giving our clients confidence in every decision they make. We also believe that finding the right property should be an empowering experience, which is why we provide clear guidance, honest recommendations, and ongoing support even after the purchase is completed. Whether you are purchasing your first home, investing in land, or expanding your property portfolio, we are dedicated to providing reliable guidance, secure opportunities, and lasting value. At the heart of everything we do is a simple promise: to build lasting relationships through trust, deliver quality properties that meet modern standards, and help our clients secure a future they can proudly and confidently call their own.";
+  "At Nasqo Properties, we are committed to helping individuals, families, and investors discover properties that truly match their dreams and long-term goals. With a strong focus on transparency, professionalism, and client satisfaction, we simplify the entire real estate journey—from property search and acquisition to documentation and ownership support—ensuring every transaction is smooth and stress-free. Our team combines deep market expertise, trusted partnerships, and personalized service to deliver carefully verified properties in prime and fast-growing locations, giving our clients confidence in every decision they make. We also believe that finding the right property should be an empowering experience, which is why we provide clear guidance, honest recommendations, and ongoing support even after the purchase is completed. Whether you are purchasing your first home, investing in land, or expanding your property portfolio, we are dedicated to providing reliable guidance, secure opportunities, and lasting value. At the heart of everything we do is a simple promise: to build lasting relationships through trust, deliver quality properties that meet modern standards, and help our clients secure a future they can proudly and confidently call their own.";
 
 const ABOUT_DESCRIPTION_SHORT =
-  "At Homely, we are committed to helping individuals, families, and investors discover properties that truly match their dreams and long-term goals. With a strong focus on transparency, professionalism, and client satisfaction, we simplify the entire real estate journey—from property search and acquisition to documentation and ownership support—ensuring every transaction is smooth and stress-free.";
+  "At Nasqo Properties, we are committed to helping individuals, families, and investors discover properties that truly match their dreams and long-term goals. With a strong focus on transparency, professionalism, and client satisfaction, we simplify the entire real estate journey—from property search and acquisition to documentation and ownership support—ensuring every transaction is smooth and stress-free.";
 
 const ABOUT_DESCRIPTION_SENTENCES =
   ABOUT_DESCRIPTION_FULL.split(/(?<=\.)\s+/).filter(Boolean);
@@ -43,10 +42,6 @@ function page() {
               <p className="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl font-semibold tracking-tight">
                 We are Nasqo Properties
               </p>
-
-              <div className="button w-full flex justify-center xl:block xl:w-[25%] 2xl:w-[35%] mt-[8%] 2xl:mt-[2%]">
-                <Button text="learn more" variants="secondary" href="/about" />
-              </div>
             </div>
           </div>
         </div>
@@ -91,7 +86,7 @@ function page() {
               </p>
             </div>
 
-            <div className="metrics_container flex flex-col gap-5 my-[10%] w-[48%] md:grid md:grid-cols-2 md:w-full lg:flex-row lg:gap-4 xl:gap-6 2xl:gap-8 xl:grid-cols-4 xl:mt-[5%] xl:mb-0 2xl:mb-[1%]">
+            <div className="metrics_container grid grid-cols-2 gap-4 w-full my-[10%] xl:grid-cols-4 xl:gap-6 2xl:gap-8 xl:mt-[5%] xl:mb-0 2xl:mb-[1%]">
               <div className="about-page-metric-reveal">
                 <Metrics title="120+" subtext="Projects Completed" />
               </div>

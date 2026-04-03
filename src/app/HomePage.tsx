@@ -25,6 +25,19 @@ import ScrollRevealSection, {
   FAQ_SECTION_SCROLL_REVEAL,
 } from "./components/ScrollRevealSection";
 
+/** Short line for PropertyCards hover overlay (avoids long cardSummary filling the card). */
+const PROPERTY_CARD_HOVER_TEASER_MAX = 100;
+
+function shortPropertyCardTeaser(raw: string): string {
+  const t = raw.trim().replace(/\s+/g, " ");
+  if (t.length <= PROPERTY_CARD_HOVER_TEASER_MAX) return t;
+  const cut = t.slice(0, PROPERTY_CARD_HOVER_TEASER_MAX);
+  const lastSpace = cut.lastIndexOf(" ");
+  const base =
+    lastSpace > PROPERTY_CARD_HOVER_TEASER_MAX * 0.52 ? cut.slice(0, lastSpace) : cut;
+  return `${base.trim()}…`;
+}
+
 /** Homepage carousel uses `propertiesPageData`; `cardSummary` is the short blurb (full `description` stays on detail pages). */
 function propertiesPageItemToHomeCarousel(p: PropertiesPageItem): propertiesProps {
   return {
@@ -92,7 +105,7 @@ function HomePage() {
                 name="about us"
                 imageSrc="/Main_Assets/Tag_Icon_blue.svg"
                 header="Assisting individuals in locating the appropriate real estate."
-                subtext="Helping you find the perfect property that matches your lifestyle and goals.We make your real estate journey simple, stress-free, and rewarding."
+                subtext="Helping you find the perfect property that matches your lifestyle and goals. We make your real estate journey simple, stress-free, and rewarding."
               />
             </div>
             <div className="core_values xl:flex-1 xl:flex xl:flex-col xl:justify-evenly xl:gap-3">
@@ -180,14 +193,14 @@ function HomePage() {
         </div>
       </div>
 
-      {/* Categories section */}
+      {/* Properties section */}
       <div className="categories_container">
         <div className="categories_content mt-[20%] md:mt-[10%] 2xl:mt-[10%] mx-[5%] 2xl:mx-[10%] ">
           <div className="initial_section_container flex flex-col gap-0  xl:flex-row 2xl:gap-20 2xl:justify-center ">
             <div className="tag-button-container 2xl:mt-[1.4%]">
               <div className="tag_container md:w-[80%] 2xl:w-full xl:mt-[10%]">
                 <SectionTags
-                  name="categories"
+                  name="properties"
                   imageSrc="/Main_Assets/Tag_Icon_blue.svg"
                   header="Explore best properties with expert services."
                   subtext="We offer a wide range of properties to choose from, including residential, commercial, and industrial properties."
@@ -203,11 +216,14 @@ function HomePage() {
             </div>
             {propertiesPageData.slice(0, 1).map((property) => {
               const teaser = property.cardSummary ?? property.description;
+              const locationLine =
+                property.location ?? property.locationDetails.locationName;
               return (
               <PropertyCards
                 key={property.id}
                 title={property.heroTitle ?? property.title ?? "Property"}
-                subtext={teaser.slice(0, 140).trim() + (teaser.length > 140 ? "…" : "")}
+                subtext={shortPropertyCardTeaser(teaser)}
+                location={locationLine}
                 imageSrc={property.heroImages?.[0] ?? property.imageSrc ?? "/HomeAssets/Img111.webp"}
                 href={`/Properties/${property.slug}`}
                 cardSize="small"
@@ -221,14 +237,14 @@ function HomePage() {
           <div className="final_section_container mt-[-11%] md:mt-[-5%] xl:mt-[-8%] xl:flex xl:gap-6 ">
             {propertiesPageData.slice(1, 4).map((property) => {
               const teaser = property.cardSummary ?? property.description;
-              const cardSubtext = property.cardSummary
-                ? teaser.trim()
-                : `${teaser.slice(0, 140).trim()}${teaser.length > 140 ? "…" : ""}`;
+              const locationLine =
+                property.location ?? property.locationDetails.locationName;
               return (
               <PropertyCards
                 key={property.id}
                 title={property.heroTitle ?? property.title ?? "Property"}
-                subtext={cardSubtext}
+                subtext={shortPropertyCardTeaser(teaser)}
+                location={locationLine}
                 imageSrc={property.heroImages?.[1] ?? property.imageSrc ?? "/HomeAssets/Img222.webp"}
                 href={`/Properties/${property.slug}`}
                 className="lg:h-[24vh] xl:h-[24vh] 2xl:h-[26vh]"
@@ -256,8 +272,8 @@ function HomePage() {
         </div>
       </div> */}
 
-      {/* Properties Section */}
-      <div className="properties-container xl:my-[10%]">
+      {/* Properties Section — desktop / large tablet only */}
+      <div className="properties-container xl:my-[10%] hidden lg:block">
         <div
           className="main_content mx-[5%] 2xl:mx-[10%] xl:w-full flex flex-col xl:flex-row xl:items-stretch gap-20 md:gap-0 xl:gap-20"
         >

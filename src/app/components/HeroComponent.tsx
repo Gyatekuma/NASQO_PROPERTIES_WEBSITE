@@ -46,7 +46,7 @@ function HeroComponent() {
   }
 
   return (
-    <div className="Main_Hero_Container relative w-screen h-screen overflow-hidden">
+    <div className="Main_Hero_Container relative w-screen h-[100dvh] min-h-[100dvh] max-h-[100dvh] overflow-hidden">
       {/* Stacked hero images with crossfade + subtle zoom - Next/Image for optimization */}
       {HOME_HERO_IMAGES.map((src, index) => (
         <div
@@ -92,7 +92,7 @@ function HeroComponent() {
 
       {/* Dot indicators */}
       <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center gap-2"
+        className="absolute left-1/2 z-10 flex -translate-x-1/2 items-center justify-center gap-2 max-md:bottom-[max(5rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))] md:bottom-8"
         role="tablist"
         aria-label="Hero image slides"
       >

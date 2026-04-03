@@ -85,7 +85,7 @@ function Navbar() {
       { id: 2, path: '/About', name: 'About' },
       { id: 3, path: '/Services', name: 'Services' },
       { id: 4, path: '/Properties', name: 'Properties' },
-      { id: 5, path: '/Contact', name: 'Contact' },
+      { id: 5, path: '/Contact', name: 'Contact Us' },
     ];
 
     const isLinkActive = (link: { path: string; name: string }) => {
@@ -120,6 +120,7 @@ function Navbar() {
           <div className="main_navbar_nav relative flex justify-between items-center px-[5%] md:px-[8%] xl:px-[10%] py-5 md:py-6 border-b border-white/5 bg-black/40 backdrop-blur-md">
               <Link
                 href="/"
+                aria-label="NASQO Properties — Home"
                 className={`nav_logo flex items-center gap-2.5 shrink-0 cursor-pointer
                   ${isOpen ? 'hidden md:flex md:static' : ''}`}
               >
@@ -201,12 +202,12 @@ function Navbar() {
                           </div>
                         )}
                       </>
-                    ) : link.name === 'Contact' ? (
+                    ) : link.name === 'Contact Us' ? (
                       <Link
                         href={link.path}
                         className={`rounded-full px-4 py-2 text-sm shadow-sm cursor-pointer transition-all duration-200 ${isLinkActive(link) ? 'bg-blue-50 text-blue-700 font-semibold ring-2 ring-blue-200/80' : 'bg-white text-neutral-800 font-medium hover:shadow-md hover:bg-white/95'}`}
                       >
-                        Contact Us
+                        {link.name}
                       </Link>
                     ) : (
                       <Link
@@ -229,29 +230,34 @@ function Navbar() {
               ${isOpen ? 'rounded-b-2xl w-screen h-[95vh] max-h-[95dvh] flex flex-col overflow-hidden' : 'rounded-full w-[120px] h-12 flex items-center'}`}>
                 {isOpen ? (
                   <>
-                  <button
-                    type="button"
-                    aria-label="Close menu"
-                    aria-expanded={true}
-                    className="w-full shrink-0 cursor-pointer border-b border-neutral-100 pt-7 pb-5 text-left"
-                    onClick={() => setIsOpen(false)}
-                  >
+                  <div className="w-full shrink-0 border-b border-neutral-100 pt-7 pb-5">
                     <div className="mx-auto flex w-[90%] max-w-full flex-row items-center justify-between px-2">
-                      <div className="nav_logo relative h-[22px] w-[52px] shrink-0 opacity-95 pointer-events-none">
+                      <Link
+                        href="/"
+                        onClick={() => setIsOpen(false)}
+                        className="nav_logo relative block h-[22px] w-[52px] shrink-0 opacity-95"
+                        aria-label="NASQO Properties — Home"
+                      >
                         <Image
                           src="/Main_Assets/Main_Logo_black.svg"
-                          alt=""
+                          alt="NASQO Properties"
                           width={100}
                           height={100}
                           className="h-full w-full object-contain object-left"
                         />
-                      </div>
-                      <div className="humburger_menu_content flex flex-row items-center gap-2.5 text-neutral-700">
+                      </Link>
+                      <button
+                        type="button"
+                        aria-label="Close menu"
+                        aria-expanded={true}
+                        onClick={() => setIsOpen(false)}
+                        className="humburger_menu_content flex flex-row items-center gap-2.5 text-neutral-700 cursor-pointer rounded-lg py-1 -mr-1 pr-1 hover:opacity-80"
+                      >
                         <X className="humburger_menu_icon h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden />
                         <p className="text-[11px] font-medium uppercase tracking-[0.22em]">close</p>
-                      </div>
+                      </button>
                     </div>
-                  </button>
+                  </div>
                   <div
                     className={`mobile_navItems flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain pb-[max(1.25rem,env(safe-area-inset-bottom))] transition-opacity duration-300 ease-out [scrollbar-width:thin] [-webkit-overflow-scrolling:touch] [scrollbar-color:rgba(115,115,115,0.25)_transparent] ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                     onClick={(e) => e.stopPropagation()}
@@ -298,15 +304,17 @@ function Navbar() {
                             </span>
                           </div>
                         ) : (
-                          <div
-                            className={`mobile-nav-link-enter items flex items-center justify-between text-xl leading-snug ${rowPad} ${rowText} ${link.name === 'Contact' ? 'border-b-0' : divider}`}
+                          <Link
+                            href={link.path}
+                            onClick={() => setIsOpen(false)}
+                            className={`mobile-nav-link-enter items flex w-full min-w-0 items-center justify-between gap-3 text-left text-xl leading-snug ${rowPad} ${rowText} ${link.name === 'Contact Us' ? 'border-b-0' : divider} outline-none focus-visible:ring-2 focus-visible:ring-blue-300/80 focus-visible:ring-inset focus-visible:rounded-lg`}
                             style={{ animationDelay: `${rowDelay}ms` }}
                           >
-                            <Link href={link.path} onClick={() => setIsOpen(false)} className={`outline-none focus-visible:ring-2 focus-visible:ring-blue-300/80 focus-visible:ring-offset-2 focus-visible:rounded-sm ${rowActive ? 'text-blue-700' : ''}`}>{link.name}</Link>
-                            <span className="nav-icon-wiggle inline-flex shrink-0">
+                            <span className="min-w-0">{link.name}</span>
+                            <span className="nav-icon-wiggle inline-flex shrink-0 text-current" aria-hidden>
                               <MoveRight className={`size-4.5 ${rowActive ? 'text-blue-600' : 'text-neutral-600'}`} strokeWidth={rowActive ? 2.5 : 2} />
                             </span>
-                          </div>
+                          </Link>
                         )}
                         {link.name === 'Services' && servicesExpanded && (
                           <div className="pl-[6%] pt-1 pb-4 flex flex-col gap-1 border-b border-neutral-100">
