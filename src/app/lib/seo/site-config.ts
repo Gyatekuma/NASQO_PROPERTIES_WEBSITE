@@ -10,6 +10,8 @@ export const SITE = {
     "NASQO Properties helps you buy, rent, and invest in verified residential and commercial property in Ghana—with transparent guidance from search to ownership.",
   /** Relative path used for default Open Graph / Twitter image */
   defaultOgImagePath: "/PropertiesAssets/ImgSC1.webp",
+  /** Organization logo for structured data (Google Search / rich results) */
+  organizationLogoPath: "/Nasqo_Search_Logo.svg",
   locale: "en_GH",
   twitterSite: process.env.NEXT_PUBLIC_TWITTER_SITE ?? undefined,
 } as const;

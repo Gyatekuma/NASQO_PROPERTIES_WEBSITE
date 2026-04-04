@@ -6,12 +6,18 @@ import type { ServicesPageItem } from "../../Types/types";
 
 export function organizationSchema(): Record<string, unknown> {
   const url = getSiteOrigin();
+  const logoUrl = absoluteUrl(SITE.organizationLogoPath);
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE.legalName,
     url,
-    logo: absoluteUrl("/Main_Assets/Main_Logo.svg"),
+    logo: {
+      "@type": "ImageObject",
+      url: logoUrl,
+      width: 453,
+      height: 180,
+    },
     contactPoint: {
       "@type": "ContactPoint",
       telephone: `+233${contactConfig.phone.replace(/^0/, "")}`,

@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     keywords: propertyKeywords(title),
     alternates: { canonical: path },
     openGraph: {
-      title: `${title} | ${SITE.name}`,
+      title: `${SITE.name} | ${title}`,
       description,
       url: path,
       type: "website",
@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${SITE.name}`,
+      title: `${SITE.name} | ${title}`,
       description,
       images: [absoluteUrl(ogImage)],
     },

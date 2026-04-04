@@ -13,14 +13,14 @@ export const metadata: Metadata = {
   keywords: [...homeKeywords, "real estate services Ghana"],
   alternates: { canonical: "/Services" },
   openGraph: {
-    title: `Services | ${SITE.name}`,
+    title: `${SITE.name} | Services`,
     description: desc,
     url: "/Services",
     images: [{ url: absoluteUrl(SITE.defaultOgImagePath), width: 1200, height: 630, alt: SITE.name }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `Services | ${SITE.name}`,
+    title: `${SITE.name} | Services`,
     description: desc,
     images: [absoluteUrl(SITE.defaultOgImagePath)],
   },

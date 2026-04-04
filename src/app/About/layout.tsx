@@ -13,14 +13,14 @@ export const metadata: Metadata = {
   keywords: [...aboutKeywords],
   alternates: { canonical: "/About" },
   openGraph: {
-    title: `About us | ${SITE.name}`,
+    title: `${SITE.name} | About us`,
     description: desc,
     url: "/About",
     images: [{ url: absoluteUrl("/PropertiesAssets/ImgSC3.webp"), width: 1200, height: 630, alt: "About NASQO Properties" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `About us | ${SITE.name}`,
+    title: `${SITE.name} | About us`,
     description: desc,
     images: [absoluteUrl("/PropertiesAssets/ImgSC3.webp")],
   },

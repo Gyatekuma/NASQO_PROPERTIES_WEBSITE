@@ -35,9 +35,14 @@ const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.tri
 
 export const metadata: Metadata = {
   metadataBase: getMetadataBase(),
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml", sizes: "any" }],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   title: {
     default: SITE.defaultTitle,
-    template: `%s | ${SITE.name}`,
+    template: `${SITE.name} | %s`,
   },
   description: SITE.defaultDescription,
   keywords: [...homeKeywords],
