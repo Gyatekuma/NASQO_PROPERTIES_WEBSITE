@@ -6,7 +6,11 @@ import JsonLd from "../../components/seo/JsonLd";
 import { SITE, absoluteUrl } from "../../lib/seo/site-config";
 import { metaDescription } from "../../lib/seo/meta-description";
 import { propertyKeywords } from "../../lib/seo/page-keywords";
-import { breadcrumbSchema, realEstateListingSchema } from "../../lib/seo/jsonld";
+import {
+  breadcrumbSchema,
+  propertyPromoVideoSchema,
+  realEstateListingSchema,
+} from "../../lib/seo/jsonld";
 
 interface PageProps {
   params: Promise<{ slug: string | string[] }>;
@@ -39,32 +43,62 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = property.heroTitle ?? property.title ?? "Property";
   const description = metaDescription(property.cardSummary ?? property.description);
   const path = `/Properties/${property.slug}`;
+  const promo = property.promoVideo;
   const ogImage =
-    property.heroImages?.[0] ?? property.imageSrc ?? SITE.defaultOgImagePath;
+    promo?.thumbnailPath ??
+    property.heroImages?.[0] ??
+    property.imageSrc ??
+    SITE.defaultOgImagePath;
+
+  const ogTitle = `${SITE.name} | ${title}`;
+  const ogImages = [
+    {
+      url: absoluteUrl(ogImage),
+      width: 1200,
+      height: 630,
+      alt: title,
+    },
+  ];
+
+  const openGraph = promo?.contentPath
+    ? {
+        title: ogTitle,
+        description,
+        url: path,
+        siteName: SITE.name,
+        locale: SITE.locale,
+        type: "video.other" as const,
+        images: ogImages,
+        videos: [
+          {
+            url: absoluteUrl(promo.contentPath),
+            secureUrl: absoluteUrl(promo.contentPath),
+            type: "video/mp4",
+            width: promo.width ?? 1280,
+            height: promo.height ?? 720,
+          },
+        ],
+      }
+    : {
+        title: ogTitle,
+        description,
+        url: path,
+        siteName: SITE.name,
+        locale: SITE.locale,
+        type: "website" as const,
+        images: ogImages,
+      };
 
   return {
     title,
     description,
     keywords: propertyKeywords(title),
     alternates: { canonical: path },
-    openGraph: {
-      title: `${SITE.name} | ${title}`,
-      description,
-      url: path,
-      type: "website",
-      images: [
-        {
-          url: absoluteUrl(ogImage),
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-    },
+    openGraph,
     twitter: {
       card: "summary_large_image",
-      title: `${SITE.name} | ${title}`,
-      description,
+      title: ogTitle,
+      description: promo?.contentPath ? `${description} Includes a video tour.` : description,
       images: [absoluteUrl(ogImage)],
     },
   };
@@ -85,6 +119,7 @@ export default async function PropertySlugPage({ params }: PageProps) {
   }
 
   const title = property.heroTitle ?? property.title ?? "Property";
+  const promoVideoLd = propertyPromoVideoSchema(property);
 
   return (
     <>
@@ -96,6 +131,7 @@ export default async function PropertySlugPage({ params }: PageProps) {
             { name: "Properties", path: "/Properties" },
             { name: title, path: `/Properties/${property.slug}` },
           ]),
+          ...(promoVideoLd ? [promoVideoLd] : []),
         ]}
       />
       <PropertyDetailTemplate slug={slugStr} />

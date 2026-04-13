@@ -91,6 +91,49 @@ export function realEstateListingSchema(property: PropertiesPageItem): Record<st
   return schema;
 }
 
+/** schema.org VideoObject for property promo clips (Google video rich results). */
+export function propertyPromoVideoSchema(
+  property: PropertiesPageItem,
+): Record<string, unknown> | null {
+  const v = property.promoVideo;
+  if (!v?.contentPath) return null;
+
+  const title = property.heroTitle ?? property.title ?? "Property";
+  const name = v.name ?? `${title} — video`;
+  const description =
+    v.description ?? metaDescription(property.cardSummary ?? property.description);
+  const pagePath = `/Properties/${property.slug}`;
+  const thumbRel =
+    v.thumbnailPath ?? property.heroImages?.[0] ?? property.imageSrc ?? undefined;
+
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name,
+    description,
+    contentUrl: absoluteUrl(v.contentPath),
+    embedUrl: absoluteUrl(pagePath),
+  };
+
+  if (thumbRel) {
+    schema.thumbnailUrl = absoluteUrl(thumbRel);
+  }
+  if (v.duration) {
+    schema.duration = v.duration;
+  }
+  if (v.uploadDate) {
+    schema.uploadDate = v.uploadDate;
+  }
+  if (typeof v.width === "number") {
+    schema.width = v.width;
+  }
+  if (typeof v.height === "number") {
+    schema.height = v.height;
+  }
+
+  return schema;
+}
+
 export function serviceSchema(service: ServicesPageItem): Record<string, unknown> {
   const title = service.heroTitle ?? "Service";
   const path = `/Services/${service.slug}`;

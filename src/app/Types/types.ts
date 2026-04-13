@@ -46,6 +46,24 @@ export interface PaymentDeposit {
     amount: string;
 }
 
+/** On-page promo clip; drives VideoObject JSON-LD and Open Graph video tags. */
+export interface PropertyPromoVideo {
+    /** Public path, e.g. /PropertiesAssets/nasqo_video.mp4 */
+    contentPath: string;
+    /** ISO 8601 duration, e.g. PT2M42S (recommended for video rich results). */
+    duration?: string;
+    /** Schema / social title */
+    name?: string;
+    /** Short description for schema and previews */
+    description?: string;
+    /** Poster frame, relative path */
+    thumbnailPath?: string;
+    /** First published date, ISO 8601 date (YYYY-MM-DD) */
+    uploadDate?: string;
+    width?: number;
+    height?: number;
+}
+
 /** Single item in properties page data (hero variant has heroTitle/priceRange; card variant has title/location/imageSrc) */
 export interface PropertiesPageItem {
     id: string;
@@ -81,6 +99,8 @@ export interface PropertiesPageItem {
     propertyFeatures?: string[];
     /** Optional: show a Lucide icon before single-card additionalInfo (e.g. home for rentals) */
     additionalInfoLeadingIcon?: "home";
+    /** Optional: embedded promo video on the detail page + SEO (VideoObject, og:video) */
+    promoVideo?: PropertyPromoVideo;
 }
 
 /** Single item in services page data */

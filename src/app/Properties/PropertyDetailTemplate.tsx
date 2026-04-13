@@ -10,7 +10,17 @@ import ScrollRevealSection, {
   FAQ_SECTION_SCROLL_REVEAL,
 } from "../components/ScrollRevealSection";
 import MobileExpandableLineReveal from "../components/MobileExpandableLineReveal";
-import { CheckCircle2, Sparkles, Home } from "lucide-react";
+import {
+  CheckCircle2,
+  Home,
+  Maximize2,
+  Minimize2,
+  Pause,
+  Play,
+  Sparkles,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
 import { faqData, propertiesPageData, testimonialData } from "../Data/AppData";
 import { getPropertyCardSummary } from "../lib/getPropertyCardSummary";
 
@@ -45,6 +55,273 @@ function renderPaymentTermWithDiscountHover(term: string) {
       <span className="transition-all duration-200 group-hover:font-bold">{discount}</span>
       {after}
     </>
+  );
+}
+
+function formatVideoTime(seconds: number) {
+  if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+function PropertyPromoVideoPlayer({
+  title,
+  src,
+  schemaName,
+  poster,
+}: {
+  title: string;
+  src: string;
+  /** Shorter label for accessibility (matches promoVideo.name when set). */
+  schemaName?: string;
+  /** Poster frame (matches SEO thumbnail). */
+  poster?: string;
+}) {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const progressRef = useRef<HTMLDivElement | null>(null);
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [muted, setMuted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const onTime = () => setCurrentTime(v.currentTime);
+    const onDur = () => {
+      if (Number.isFinite(v.duration)) setDuration(v.duration);
+    };
+    v.addEventListener("timeupdate", onTime);
+    v.addEventListener("loadedmetadata", onDur);
+    v.addEventListener("durationchange", onDur);
+    return () => {
+      v.removeEventListener("timeupdate", onTime);
+      v.removeEventListener("loadedmetadata", onDur);
+      v.removeEventListener("durationchange", onDur);
+    };
+  }, []);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.volume = volume;
+    v.muted = muted;
+  }, [volume, muted]);
+
+  useEffect(() => {
+    const onFs = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", onFs);
+    return () => document.removeEventListener("fullscreenchange", onFs);
+  }, []);
+
+  const progressPct = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
+
+  const seekToClientX = (clientX: number) => {
+    const bar = progressRef.current;
+    const v = videoRef.current;
+    if (!bar || !v || !duration) return;
+    const rect = bar.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    v.currentTime = ratio * duration;
+  };
+
+  const togglePlay = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) void v.play();
+    else v.pause();
+  };
+
+  const toggleMute = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (muted) {
+      setMuted(false);
+      if (volume === 0) setVolume(0.85);
+    } else {
+      setMuted(true);
+    }
+  };
+
+  const toggleFullscreen = () => {
+    const el = wrapRef.current;
+    if (!el) return;
+    if (!document.fullscreenElement) void el.requestFullscreen();
+    else void document.exitFullscreen();
+  };
+
+  return (
+    <div
+      ref={wrapRef}
+      className="group/video relative aspect-video w-full overflow-hidden rounded-2xl border border-neutral-200 bg-black shadow-sm [&:fullscreen]:aspect-auto [&:fullscreen]:min-h-[100dvh] [&:fullscreen]:rounded-none"
+    >
+      <video
+        ref={videoRef}
+        className={`absolute inset-0 h-full w-full ${isFullscreen ? "object-contain" : "object-cover"}`}
+        playsInline
+        preload="metadata"
+        poster={poster}
+        aria-label={schemaName ?? `${title} video`}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEnded={() => setIsPlaying(false)}
+        onClick={togglePlay}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+
+      {!isPlaying && (
+        <>
+          <div
+            className="pointer-events-none absolute inset-0 z-[9] bg-black/25"
+            aria-hidden
+          />
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+            <button
+              type="button"
+              className="pointer-events-auto flex h-[4.5rem] w-[4.5rem] shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#4361EE] text-white shadow-xl ring-4 ring-white/30 transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black/40 md:h-[5.25rem] md:w-[5.25rem]"
+              onClick={(e) => {
+                e.stopPropagation();
+                void videoRef.current?.play();
+              }}
+              aria-label="Play video"
+            >
+              <Play
+                className="ml-1 h-11 w-11 md:h-12 md:w-12"
+                fill="currentColor"
+                strokeWidth={0}
+                aria-hidden
+              />
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* Custom controls — gradient bar, matches site accent */}
+      <div
+        className={`absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-black/95 via-black/55 to-transparent px-3 pb-3 pt-10 transition-opacity duration-300 md:px-4 md:pb-4 ${
+          isPlaying
+            ? "pointer-events-none opacity-0 group-hover/video:pointer-events-auto group-hover/video:opacity-100"
+            : "pointer-events-auto opacity-100"
+        }`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex flex-col gap-2.5">
+          <div
+            ref={progressRef}
+            role="slider"
+            tabIndex={0}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(progressPct)}
+            aria-label="Seek video"
+            className="relative h-2 w-full cursor-pointer rounded-full bg-white/20 outline-none ring-white/0 transition-[height] hover:h-2.5 focus-visible:ring-2 focus-visible:ring-[#4361EE] focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
+            onClick={(e) => seekToClientX(e.clientX)}
+            onKeyDown={(e) => {
+              const v = videoRef.current;
+              if (!v || !duration) return;
+              if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                v.currentTime = Math.max(0, v.currentTime - 5);
+              }
+              if (e.key === "ArrowRight") {
+                e.preventDefault();
+                v.currentTime = Math.min(duration, v.currentTime + 5);
+              }
+            }}
+          >
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 rounded-full bg-[#4361EE] shadow-[0_0_12px_rgba(67,97,238,0.45)]"
+              style={{ width: `${progressPct}%` }}
+            />
+            <div
+              className="pointer-events-none absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-[#4361EE] shadow-md opacity-0 transition-opacity group-hover/video:opacity-100"
+              style={{ left: `${progressPct}%` }}
+            />
+          </div>
+
+          <div className="flex items-center gap-2 sm:gap-3 text-white">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                togglePlay();
+              }}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4361EE]"
+              aria-label={isPlaying ? "Pause" : "Play"}
+            >
+              {isPlaying ? (
+                <Pause className="h-5 w-5" strokeWidth={2.25} />
+              ) : (
+                <Play className="ml-0.5 h-5 w-5" fill="currentColor" strokeWidth={0} />
+              )}
+            </button>
+
+            <span className="min-w-0 font-mona text-xs tabular-nums text-white/90 sm:text-sm">
+              <span className="text-white">{formatVideoTime(currentTime)}</span>
+              <span className="text-white/50"> / </span>
+              <span className="text-white/70">{formatVideoTime(duration)}</span>
+            </span>
+
+            <div className="min-w-0 flex-1" />
+
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleMute();
+                }}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4361EE]"
+                aria-label={muted ? "Unmute" : "Mute"}
+              >
+                {muted || volume === 0 ? (
+                  <VolumeX className="h-5 w-5" strokeWidth={2} />
+                ) : (
+                  <Volume2 className="h-5 w-5" strokeWidth={2} />
+                )}
+              </button>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.05}
+                value={muted ? 0 : volume}
+                onChange={(e) => {
+                  const next = Number(e.target.value);
+                  setVolume(next);
+                  setMuted(next === 0);
+                }}
+                onClick={(e) => e.stopPropagation()}
+                className="hidden h-2 w-[4.5rem] cursor-pointer accent-[#4361EE] sm:block md:w-24"
+                aria-label="Volume"
+              />
+            </div>
+
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleFullscreen();
+              }}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4361EE]"
+              aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+            >
+              {isFullscreen ? (
+                <Minimize2 className="h-5 w-5" strokeWidth={2} />
+              ) : (
+                <Maximize2 className="h-5 w-5" strokeWidth={2} />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -252,6 +529,20 @@ export default function PropertyDetailTemplate({ slug }: PropertyDetailTemplateP
                   : "description_content font-bricolage text-base max-lg:mt-2 max-lg:mb-[10%] lg:my-[10%] xl:my-[4%] xl:text-xl"
               }
             />
+
+            {property.promoVideo && (
+              <div
+                className="scroll-reveal mt-8 md:mt-10 xl:mt-10 w-full"
+                data-scroll-reveal
+              >
+                <PropertyPromoVideoPlayer
+                  title={displayTitle}
+                  src={property.promoVideo.contentPath}
+                  schemaName={property.promoVideo.name}
+                  poster={property.promoVideo.thumbnailPath}
+                />
+              </div>
+            )}
 
             {property.propertyFeatures && property.propertyFeatures.length > 0 && (
               <div

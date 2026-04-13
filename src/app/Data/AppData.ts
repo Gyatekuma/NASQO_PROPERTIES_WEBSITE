@@ -231,6 +231,17 @@ export const propertiesPageData: PropertiesPageItem[] = [
       "/PropertiesAssets/ImgN7.webp",
       "/PropertiesAssets/ImgN8.webp",
     ],
+    promoVideo: {
+      contentPath: "/PropertiesAssets/nasqo_video.mp4",
+      duration: "PT2M42S",
+      name: "Nhyira City Estate — community video tour",
+      description:
+        "Video tour of Nhyira City Estate, a 385-acre eco-friendly community in Winneba – Gomoa Apre/Mprumen with serviced plots, infrastructure, and amenities by Nasqo Properties.",
+      thumbnailPath: "/PropertiesAssets/ImgN1.webp",
+      uploadDate: "2026-04-01",
+      width: 1920,
+      height: 1080,
+    },
     ctoHref: "/Contact",
     SectionTag: "Properties",
     priceRange: "GHC 12,000 - GHC 20,000",
