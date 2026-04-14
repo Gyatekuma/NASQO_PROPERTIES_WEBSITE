@@ -1,6 +1,9 @@
 import { SITE } from "./site-config";
 
 const base = [
+  "Nasqo",
+  "NASQO",
+  "nasqo properties",
   "NASQO Properties",
   "Ghana real estate",
   "property Ghana",

@@ -11,6 +11,7 @@ export function organizationSchema(): Record<string, unknown> {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE.legalName,
+    alternateName: ["Nasqo", "NASQO", "nasqoproperties.com"],
     url,
     logo: {
       "@type": "ImageObject",
@@ -33,6 +34,7 @@ export function websiteSchema(): Record<string, unknown> {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE.name,
+    alternateName: ["Nasqo", "NASQO", "nasqo properties ghana"],
     url: getSiteOrigin(),
     description: SITE.defaultDescription,
     publisher: { "@type": "Organization", name: SITE.legalName },

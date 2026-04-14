@@ -36,9 +36,14 @@ const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.tri
 export const metadata: Metadata = {
   metadataBase: getMetadataBase(),
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml", sizes: "any" }],
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    // Google Search favicons favor crawlable PNG (often ignores SVG); list PNG first.
+    icon: [
+      { url: "/favicon.png", type: "image/png", sizes: "48x48" },
+      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon.svg", type: "image/svg+xml", sizes: "any" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
   title: {
     default: SITE.defaultTitle,

@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: false,
+  async redirects() {
+    return [{ source: "/favicon.ico", destination: "/favicon.png", permanent: true }];
+  },
   experimental: {
     optimizePackageImports: ["lucide-react", "gsap"],
   },
